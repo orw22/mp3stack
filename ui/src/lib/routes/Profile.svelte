@@ -2,6 +2,7 @@
   import axios from "axios";
   import { Wave } from "svelte-loading-spinners";
   import { navigate } from "svelte-routing";
+  import toasts from "../../toasts";
   import Layout from "../components/Layout.svelte";
 
   let profile = getProfile();
@@ -40,6 +41,7 @@
       .then(() => {
         editing = false;
         resettingPassword = false;
+        toasts.success(password ? "Password changed" : "Profile updated");
         refreshProfile();
       });
   }

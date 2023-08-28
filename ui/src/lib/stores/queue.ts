@@ -9,10 +9,17 @@ function createQueue() {
     historyValue = value;
   });
 
+  let restartCallback: (() => void) | undefined;
+
   return {
     subscribe,
     play: (track: TrackWithUrl) => {
-      set([track]);
+      update((v) => {
+        if (v.at(0)?._id === track._id) {
+          if (restartCallback) restartCallback();
+        }
+        return [track];
+      });
       history.reset();
     },
     add: (track: TrackWithUrl) => {
@@ -37,6 +44,9 @@ function createQueue() {
         });
     },
     reset: () => set([]),
+    setRestartCallback: (callback: () => void) => {
+      restartCallback = callback;
+    },
     unsubscribefromHistory,
   };
 }

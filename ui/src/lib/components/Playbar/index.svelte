@@ -3,11 +3,14 @@
   import AudioControls from "./AudioControls.svelte";
 
   $: currentTrack = $queue.at(0);
+  let restart: () => void = () => null;
+
+  queue.setRestartCallback(() => restart());
 </script>
 
 <div class="playbar">
   <h4>Now playing: {currentTrack?.name}</h4>
-  <AudioControls {currentTrack} />
+  <AudioControls {currentTrack} bind:restart />
 </div>
 
 <style>

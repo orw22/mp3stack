@@ -17,7 +17,7 @@ export default class TrackController {
     this.storage = multer.memoryStorage();
     this.upload = multer({
       storage: this.storage,
-      limits: { fileSize: 10000000, files: 1 },
+      limits: { fileSize: 15000000, files: 1 },
     });
   }
 

@@ -9,14 +9,15 @@ function createQueue() {
     historyValue = value;
   });
 
-  let restartCallback: (() => void) | undefined;
+  let restartCallback: () => void = () => null;
 
   return {
     subscribe,
     play: (track: TrackWithUrl) => {
       update((v) => {
         if (v.at(0)?._id === track._id) {
-          if (restartCallback) restartCallback();
+          // if same song again
+          restartCallback();
         }
         return [track];
       });
@@ -30,6 +31,10 @@ function createQueue() {
     },
     next: () =>
       update((v) => {
+        if (v.at(0)?._id === v.at(1)?._id) {
+          // if same song again
+          restartCallback();
+        }
         const track = v.shift();
         if (track) history.push(track);
         return v;

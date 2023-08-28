@@ -18,11 +18,14 @@
 
 <style>
   .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
-    width: 100%;
+    width: 100vw;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     background-color: #f9f9f9;
-    padding: 1.5em 0;
+    height: 5em;
     left: 0;
     top: 0;
     z-index: 10;
@@ -31,6 +34,7 @@
   .header nav {
     display: flex;
     justify-content: space-between;
-    padding: 0 4em;
+    width: 80vw;
+    padding: 0 2em;
   }
 </style>

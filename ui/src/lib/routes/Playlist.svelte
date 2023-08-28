@@ -4,6 +4,7 @@
   import toasts from "../../toasts";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
+  import TrackRow from "../components/TrackRow.svelte";
   import blobUrls from "../stores/blobUrls";
   import queue from "../stores/queue";
   import type { Track } from "../types";
@@ -96,15 +97,15 @@
     <Loader />
   {:then { data }}
     <h3>{data.name}</h3>
-    <div class="tracks">
-      {#each data.tracks as track}
-        <div>
-          <button on:click={() => onClickTrack(track)}>
-            {track.name}
-          </button>
-          <button on:click={() => onAddToQueue(track)}>Add to queue</button>
-          <button on:click={() => onRemoveTrack(track._id)}>Remove</button>
-        </div>
+    <div class="tracklist">
+      {#each data.tracks as track, index}
+        <TrackRow
+          {track}
+          {index}
+          onClick={() => onClickTrack(track)}
+          onAddToQueue={() => onAddToQueue(track)}
+          onRemove={() => onRemoveTrack(track._id)}
+        />
       {/each}
     </div>
   {:catch error}
@@ -155,7 +156,7 @@
 </Layout>
 
 <style>
-  .tracks {
+  .tracklist {
     display: flex;
     flex-direction: column;
   }

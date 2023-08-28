@@ -13,4 +13,12 @@
   });
 </script>
 
-<slot />
+<div class="layout">
+  <slot />
+</div>
+
+<style>
+  .layout {
+    width: min(1280px, 80vw);
+  }
+</style>

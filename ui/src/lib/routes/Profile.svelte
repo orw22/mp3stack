@@ -65,22 +65,22 @@
     <h3>Profile</h3>
     <h4>Name: {data.name}</h4>
     <h4>Email: {data.email}</h4>
-    <button
-      on:click={() => {
-        editing = true;
-        resettingPassword = false;
-      }}
-    >
-      Edit
-    </button>
-    <button
-      on:click={() => {
-        resettingPassword = true;
-        editing = false;
-      }}
-    >
-      Reset password
-    </button>
+    {#if !(editing || resettingPassword)}
+      <button
+        on:click={() => {
+          editing = true;
+        }}
+      >
+        Edit
+      </button>
+      <button
+        on:click={() => {
+          resettingPassword = true;
+        }}
+      >
+        Reset password
+      </button>
+    {/if}
 
     {#if editing}
       <form on:submit={(e) => updateProfile(e)}>

@@ -2,9 +2,6 @@
   import axios, { type AxiosResponse } from "axios";
   import { onMount } from "svelte";
   import { navigate } from "svelte-routing";
-  import blobUrls from "../stores/blobUrls";
-  import history from "../stores/history";
-  import queue from "../stores/queue";
   import token from "../stores/token";
 
   let name: string;
@@ -16,10 +13,6 @@
   onMount(() => {
     if ($token) {
       navigate("/");
-    } else {
-      queue.reset();
-      history.reset();
-      blobUrls.reset();
     }
   });
 

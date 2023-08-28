@@ -6,7 +6,6 @@
   import Footer from "./lib/components/Footer.svelte";
   import Header from "./lib/components/Header.svelte";
   import Playbar from "./lib/components/Playbar.svelte";
-  import TokenStatus from "./lib/components/TokenStatus.svelte";
   import { API_URL } from "./lib/constants";
   import Home from "./lib/routes/Home.svelte";
   import Login from "./lib/routes/Login.svelte";
@@ -45,12 +44,10 @@
 <Router {url}>
   <Header loggedIn={$token ? $token.length > 0 : false} />
   <main>
-    <TokenStatus>
-      <Route component={Home} />
-      <Route path="/login" component={Login} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/playlist/:id" let:params><Playlist id={params.id} /></Route>
-    </TokenStatus>
+    <Route component={Home} />
+    <Route path="/login" component={Login} />
+    <Route path="/profile" component={Profile} />
+    <Route path="/playlist/:id" let:params><Playlist id={params.id} /></Route>
   </main>
 </Router>
 {#if $token}

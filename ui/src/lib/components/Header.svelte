@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Link } from "svelte-routing";
-  import token from "../stores/token";
+  import { resetStores } from "../utils/store";
 
   export let loggedIn: boolean;
 </script>
@@ -9,7 +9,7 @@
   <nav>
     <Link to="/">mp3stack</Link>
     {#if loggedIn}
-      <Link to="/login" on:click={() => token.set(undefined)}>Log out</Link>
+      <Link to="/login" on:click={resetStores}>Log out</Link>
     {:else}
       <Link to="/login">Log in</Link>
     {/if}

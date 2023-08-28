@@ -2,6 +2,7 @@
   import axios from "axios";
   import { Wave } from "svelte-loading-spinners";
   import { navigate } from "svelte-routing";
+  import Layout from "../components/Layout.svelte";
 
   let creating = false;
   let newPlaylistName: string;
@@ -35,43 +36,45 @@
   }
 </script>
 
-{#await playlists}
-  <Wave size="60" color="#FF3E00" unit="px" duration="1s" />
-{:then { data }}
-  <h3>Playlists</h3>
-  {#each data as playlist}
-    <button on:click={() => onPlaylistClick(playlist._id)}>
-      {playlist.name}
+<Layout>
+  {#await playlists}
+    <Wave size="60" color="#FF3E00" unit="px" duration="1s" />
+  {:then { data }}
+    <h3>Playlists</h3>
+    {#each data as playlist}
+      <button on:click={() => onPlaylistClick(playlist._id)}>
+        {playlist.name}
+      </button>
+    {/each}
+  {/await}
+
+  <hr />
+
+  {#if creating}
+    <form on:submit={onCreatePlaylist}>
+      <input
+        type="text"
+        placeholder="Playlist name"
+        bind:value={newPlaylistName}
+      />
+      <button type="submit">Create</button>
+    </form>
+    <button
+      on:click={() => {
+        creating = false;
+      }}
+    >
+      Cancel
     </button>
-  {/each}
-{/await}
+  {:else}
+    <button
+      on:click={() => {
+        creating = true;
+      }}
+    >
+      Create new playlist
+    </button>
+  {/if}
 
-<hr />
-
-{#if creating}
-  <form on:submit={onCreatePlaylist}>
-    <input
-      type="text"
-      placeholder="Playlist name"
-      bind:value={newPlaylistName}
-    />
-    <button type="submit">Create</button>
-  </form>
-  <button
-    on:click={() => {
-      creating = false;
-    }}
-  >
-    Cancel
-  </button>
-{:else}
-  <button
-    on:click={() => {
-      creating = true;
-    }}
-  >
-    Create new playlist
-  </button>
-{/if}
-
-<button on:click={onProfileClick}> My profile </button>
+  <button on:click={onProfileClick}> My profile </button>
+</Layout>

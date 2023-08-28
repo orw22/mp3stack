@@ -5,7 +5,7 @@
   import { Route, Router } from "svelte-routing";
   import Footer from "./lib/components/Footer.svelte";
   import Header from "./lib/components/Header.svelte";
-  import Playbar from "./lib/components/Playbar.svelte";
+  import Playbar from "./lib/components/Playbar/index.svelte";
   import { API_URL } from "./lib/constants";
   import Home from "./lib/routes/Home.svelte";
   import Login from "./lib/routes/Login.svelte";

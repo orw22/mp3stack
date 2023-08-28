@@ -1,5 +1,5 @@
 <script lang="ts">
-  import queue from "../stores/queue";
+  import queue from "../../stores/queue";
   import AudioControls from "./AudioControls.svelte";
 
   $: currentTrack = $queue.at(0);

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import history from "../stores/history";
-  import queue from "../stores/queue";
-  import type { TrackWithUrl } from "../types";
+  import history from "../../stores/history";
+  import queue from "../../stores/queue";
+  import type { TrackWithUrl } from "../../types";
 
   export let currentTrack: TrackWithUrl | undefined;
 </script>

@@ -11,14 +11,19 @@ function createQueue() {
 
   return {
     subscribe,
-    play: (track: TrackWithUrl) => set([track]),
+    play: (track: TrackWithUrl) => {
+      update((v) => {
+        v = v.filter((t) => t._id !== track._id);
+        v.unshift(track);
+        return v;
+      });
+      history.reset();
+    },
     add: (track: TrackWithUrl) => {
-      if (track) {
-        update((v) => {
-          v.push(track);
-          return v;
-        });
-      }
+      update((v) => {
+        v.push(track);
+        return v;
+      });
     },
     next: () =>
       update((v) => {

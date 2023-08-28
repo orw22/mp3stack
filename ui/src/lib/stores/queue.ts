@@ -23,7 +23,8 @@ function createQueue() {
     next: () =>
       update((v) => {
         const track = v.shift();
-        if (track) history.push(track);
+        if (track && !historyValue.some((t) => t._id === track._id))
+          history.push(track);
         return v;
       }),
     prev: () => {

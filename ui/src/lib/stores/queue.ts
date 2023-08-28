@@ -16,7 +16,7 @@ function createQueue() {
     play: (track: TrackWithUrl) => {
       update((v) => {
         if (v.at(0)?._id === track._id) {
-          // if same song again
+          // same track
           restartCallback();
         }
         return [track];
@@ -32,7 +32,7 @@ function createQueue() {
     next: () =>
       update((v) => {
         if (v.at(0)?._id === v.at(1)?._id) {
-          // if same song again
+          // same track
           restartCallback();
         }
         const track = v.shift();
@@ -43,6 +43,10 @@ function createQueue() {
       const previousTrack = historyValue.at(-1);
       if (previousTrack)
         update((v) => {
+          if (previousTrack._id === v.at(0)?._id) {
+            // same track
+            restartCallback();
+          }
           v.unshift(previousTrack);
           history.pop();
           return v;

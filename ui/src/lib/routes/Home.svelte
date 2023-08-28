@@ -46,6 +46,8 @@
         {playlist.name}
       </button>
     {/each}
+  {:catch error}
+    <p>{error.response.data.message}</p>
   {/await}
 
   <hr />

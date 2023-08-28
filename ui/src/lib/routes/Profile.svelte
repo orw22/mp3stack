@@ -117,6 +117,8 @@
         Cancel
       </button>
     {/if}
+  {:catch error}
+    <p>{error.response.data.message}</p>
   {/await}
 
   <button on:click={() => navigate("/")}>Back</button>

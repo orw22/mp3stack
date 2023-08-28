@@ -12,11 +12,7 @@ function createQueue() {
   return {
     subscribe,
     play: (track: TrackWithUrl) => {
-      update((v) => {
-        v = v.filter((t) => t._id !== track._id);
-        v.unshift(track);
-        return v;
-      });
+      set([track]);
       history.reset();
     },
     add: (track: TrackWithUrl) => {

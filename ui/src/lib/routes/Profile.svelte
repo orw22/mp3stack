@@ -1,9 +1,9 @@
 <script lang="ts">
   import axios from "axios";
-  import { Wave } from "svelte-loading-spinners";
   import { navigate } from "svelte-routing";
   import toasts from "../../toasts";
   import Layout from "../components/Layout.svelte";
+  import Loader from "../components/Loader.svelte";
 
   let profile = getProfile();
 
@@ -60,7 +60,7 @@
 
 <Layout>
   {#await profile}
-    <Wave size="60" color="#FF3E00" unit="px" duration="1s" />
+    <Loader />
   {:then { data }}
     <h3>Profile</h3>
     <h4>Name: {data.name}</h4>

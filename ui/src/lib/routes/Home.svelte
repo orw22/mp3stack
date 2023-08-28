@@ -1,8 +1,8 @@
 <script lang="ts">
   import axios from "axios";
-  import { Wave } from "svelte-loading-spinners";
   import { navigate } from "svelte-routing";
   import Layout from "../components/Layout.svelte";
+  import Loader from "../components/Loader.svelte";
 
   let creating = false;
   let newPlaylistName: string;
@@ -38,7 +38,7 @@
 
 <Layout>
   {#await playlists}
-    <Wave size="60" color="#FF3E00" unit="px" duration="1s" />
+    <Loader />
   {:then { data }}
     <h3>Playlists</h3>
     {#each data as playlist}

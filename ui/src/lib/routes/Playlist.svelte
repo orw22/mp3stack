@@ -1,9 +1,9 @@
 <script lang="ts">
   import axios from "axios";
-  import { Wave } from "svelte-loading-spinners";
   import { navigate } from "svelte-routing";
   import toasts from "../../toasts";
   import Layout from "../components/Layout.svelte";
+  import Loader from "../components/Loader.svelte";
   import blobUrls from "../stores/blobUrls";
   import queue from "../stores/queue";
   import type { Track } from "../types";
@@ -93,7 +93,7 @@
 
 <Layout>
   {#await playlist}
-    <Wave size="60" color="#FF3E00" unit="px" duration="1s" />
+    <Loader />
   {:then { data }}
     <h3>{data.name}</h3>
     <div class="tracks">

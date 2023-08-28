@@ -17,5 +17,6 @@
     border-top: 1px solid grey;
     bottom: 0;
     left: 0;
+    z-index: 10;
   }
 </style>

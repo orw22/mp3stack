@@ -8,6 +8,7 @@ function createHistory() {
     subscribe,
     push: (track: TrackWithUrl) =>
       update((v) => {
+        if (v.some((t) => t._id === track._id)) return v;
         v.push(track);
         return v;
       }),

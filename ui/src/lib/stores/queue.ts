@@ -15,6 +15,7 @@ function createQueue() {
     add: (track: TrackWithUrl) => {
       if (track) {
         update((v) => {
+          if (v.some((t) => t._id === track._id)) return v;
           v.push(track);
           return v;
         });
@@ -23,8 +24,7 @@ function createQueue() {
     next: () =>
       update((v) => {
         const track = v.shift();
-        if (track && !historyValue.some((t) => t._id === track._id))
-          history.push(track);
+        if (track) history.push(track);
         return v;
       }),
     prev: () => {

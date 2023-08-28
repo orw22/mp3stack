@@ -3,7 +3,6 @@ import createError from "http-errors";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import validator from "validator";
-import trackBucket from "../trackBucket";
 import { IUser, IUserFuncs } from "../types";
 import { Playlist } from "./Playlist";
 
@@ -94,14 +93,15 @@ userSchema.pre("updateOne", function (next) {
 userSchema.post("deleteOne", async function () {
   const userId = this.getFilter()["_id"];
   const playlists = await Playlist.find({ userId }).exec();
+  const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+    bucketName: "tracks",
+  });
 
   if (!playlists || playlists.length === 0) {
     return;
   } else {
     playlists.forEach((playlist) => {
-      playlist.tracks.forEach(
-        async (track) => await trackBucket.delete(track._id)
-      );
+      playlist.tracks.forEach(async (track) => await bucket.delete(track._id));
     });
 
     await Playlist.deleteMany({ userId }).exec();

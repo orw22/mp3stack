@@ -67,7 +67,8 @@ export default class TrackController {
     this.upload.single("track")(req, res, (error) => {
       logger.info(JSON.stringify(req.body));
       if (error) {
-        return next(createError(400, "Invalid upload request"));
+        logger.error(error.message);
+        return next(createError(400, error.message));
       } else if (!req.body.name) {
         return next(createError(400, "No track name in request body"));
       }

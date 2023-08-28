@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import trackBucket from "../trackBucket";
 import { IPlaylist } from "../types";
 
 const trackSchema = new mongoose.Schema({
@@ -22,19 +21,22 @@ export const playlistSchema = new mongoose.Schema<IPlaylist>({
 // post remove track, delete from GridFS bucket
 playlistSchema.post("updateOne", async function () {
   const data = this.getUpdate() as { $pull?: { tracks: { _id: string } } };
+  const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+    bucketName: "tracks",
+  });
   if (data?.$pull)
-    await trackBucket.delete(
-      new mongoose.mongo.ObjectId(data.$pull.tracks._id)
-    );
+    await bucket.delete(new mongoose.mongo.ObjectId(data.$pull.tracks._id));
 });
 
 // pre delete playlist, delete all tracks from GridFS bucket
 playlistSchema.pre("deleteOne", async function (next) {
   const _id = this.getFilter()["_id"];
-
+  const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+    bucketName: "tracks",
+  });
   const playlist = await Playlist.findOne({ _id }).exec().catch(next);
   playlist?.tracks.forEach(
-    async (track) => await trackBucket.delete(track._id).catch(next)
+    async (track) => await bucket.delete(track._id).catch(next)
   );
 
   return next();

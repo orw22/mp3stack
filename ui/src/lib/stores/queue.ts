@@ -15,7 +15,7 @@ function createQueue() {
     subscribe,
     play: (track: TrackWithUrl) => {
       update((v) => {
-        if (v.at(0)?._id === track._id) {
+        if (v.at(0) && v.at(0)?._id === track._id) {
           // same track
           restartCallback();
         }
@@ -31,7 +31,8 @@ function createQueue() {
     },
     next: () =>
       update((v) => {
-        if (v.at(0)?._id === v.at(1)?._id) {
+        console.log(v);
+        if (v.at(0) && v.at(1) && v.at(0)?._id === v.at(1)?._id) {
           // same track
           restartCallback();
         }
@@ -43,7 +44,7 @@ function createQueue() {
       const previousTrack = historyValue.at(-1);
       if (previousTrack)
         update((v) => {
-          if (previousTrack._id === v.at(0)?._id) {
+          if (v.at(0) && previousTrack._id === v.at(0)?._id) {
             // same track
             restartCallback();
           }

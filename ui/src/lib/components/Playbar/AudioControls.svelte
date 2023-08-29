@@ -79,7 +79,7 @@
 
 <div>
   <input
-    name="volume"
+    id="volume"
     type="range"
     min={0}
     max={1}

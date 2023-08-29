@@ -1,8 +1,8 @@
 <script lang="ts">
   import queue from "../stores/queue";
+  import Icon from "./Icon.svelte";
   import IconButton from "./IconButton.svelte";
   import TrackRow from "./TrackRow.svelte";
-  import XMark from "./icons/XMark.svelte";
 
   export let open = false;
   export let onClose: () => void;
@@ -12,7 +12,7 @@
   <div class="queue">
     <h3>Queue</h3>
     <IconButton onClick={onClose}>
-      <XMark size={24} colour="#000" />
+      <Icon name="xMark" />
     </IconButton>
     {#if $queue.length > 1}
       <div class="tracklist">

@@ -2,10 +2,10 @@
   import axios from "axios";
   import { navigate } from "svelte-routing";
   import toasts from "../../toasts";
+  import Icon from "../components/Icon.svelte";
   import IconButton from "../components/IconButton.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
-  import Pencil from "../components/icons/Pencil.svelte";
 
   let profile = getProfile();
 
@@ -73,7 +73,7 @@
           editing = true;
         }}
       >
-        <Pencil size={16} colour="#000" />
+        <Icon size={16} name="pencil" />
       </IconButton>
       <button
         on:click={() => {

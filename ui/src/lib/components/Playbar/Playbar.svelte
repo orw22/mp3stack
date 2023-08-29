@@ -1,7 +1,7 @@
 <script lang="ts">
   import queue from "../../stores/queue";
+  import Icon from "../Icon.svelte";
   import IconButton from "../IconButton.svelte";
-  import Queue from "../icons/Queue.svelte";
   import AudioControls from "./AudioControls.svelte";
 
   $: currentTrack = $queue.at(0);
@@ -15,9 +15,7 @@
 <div class="playbar">
   <h4>Now playing: {currentTrack ? currentTrack.name : ""}</h4>
   <AudioControls {currentTrack} bind:restart />
-  <IconButton onClick={onQueueClick}
-    ><Queue size={24} colour="#000" /></IconButton
-  >
+  <IconButton onClick={onQueueClick}><Icon name="queue" /></IconButton>
 </div>
 
 <style>

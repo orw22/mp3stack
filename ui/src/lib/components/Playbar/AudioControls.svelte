@@ -3,13 +3,8 @@
   import queue from "../../stores/queue";
   import type { TrackWithUrl } from "../../types";
   import { secondsToMMSS } from "../../utils/time";
+  import Icon from "../Icon.svelte";
   import IconButton from "../IconButton.svelte";
-  import Back from "../icons/Back.svelte";
-  import Forward from "../icons/Forward.svelte";
-  import Pause from "../icons/Pause.svelte";
-  import Play from "../icons/Play.svelte";
-  import Speaker from "../icons/Speaker.svelte";
-  import SpeakerMuted from "../icons/SpeakerMuted.svelte";
 
   let audioEl: HTMLAudioElement;
   let paused: boolean;
@@ -77,17 +72,17 @@
 </audio>
 
 <IconButton onClick={queue.prev} disabled={$history.length === 0}>
-  <Back size={24} colour="#000" />
+  <Icon name="back" />
 </IconButton>
 <IconButton onClick={onPlayPause} disabled={!currentTrack}>
   {#if paused}
-    <Play size={24} colour="#000" />
+    <Icon name="play" />
   {:else}
-    <Pause size={24} colour="#000" />
+    <Icon name="pause" />
   {/if}
 </IconButton>
 <IconButton onClick={queue.next} disabled={$queue.length < 2}>
-  <Forward size={24} colour="#000" />
+  <Icon name="forward" />
 </IconButton>
 <span>{secondsToMMSS(progressTime)}</span>
 <input
@@ -114,10 +109,6 @@
     }}
   />
   <label for="volume">
-    {#if audioEl && audioEl.volume === 0}
-      <SpeakerMuted size={24} colour="#000" />
-    {:else}
-      <Speaker size={24} colour="#000" />
-    {/if}
+    <Icon name={audioEl && audioEl.volume === 0 ? "speakerMuted" : "speaker"} />
   </label>
 </div>

@@ -19,7 +19,11 @@
       <button on:click={() => onAddToQueue(track)}>Add to queue</button>
     {/if}
     <IconButton onClick={() => onRemove(track._id)}>
-      <Icon name={isQueue ? "xMark" : "trash"} size={20} />
+      {#if isQueue}
+        Remove <Icon name="xMark" />
+      {:else}
+        Delete <Icon name="trash" />
+      {/if}
     </IconButton>
   </span>
 </div>

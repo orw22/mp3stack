@@ -73,7 +73,7 @@
           editing = true;
         }}
       >
-        <Icon size={16} name="pencil" />
+        Edit <Icon size={16} name="pencil" />
       </IconButton>
       <button
         on:click={() => {

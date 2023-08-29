@@ -2,6 +2,8 @@
   import axios from "axios";
   import { navigate } from "svelte-routing";
   import toasts from "../../toasts";
+  import Icon from "../components/Icon.svelte";
+  import IconButton from "../components/IconButton.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
   import TrackRow from "../components/TrackRow.svelte";
@@ -118,7 +120,7 @@
     <form on:submit={onAddTrack}>
       <input type="file" bind:files={newTrackFiles} />
       <input type="text" placeholder="Track name" bind:value={newTrackName} />
-      <button type="submit">Upload</button>
+      <IconButton type="submit">Upload <Icon name="upload" /></IconButton>
     </form>
     <button
       on:click={() => {

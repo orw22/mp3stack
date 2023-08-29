@@ -8,7 +8,9 @@
   let currentTime = 0;
   let progressTime = 0;
   let duration = 0;
+
   let prevTimeInputEvent: number;
+  let prevUpdated: number;
 
   export let currentTrack: TrackWithUrl | undefined;
 
@@ -23,15 +25,25 @@
   }
 
   function onTimeInput(event: Event) {
-    if (prevTimeInputEvent > event.timeStamp - 10) {
+    if (prevTimeInputEvent > event.timeStamp - 25) {
       // if seeking/dragging slider
-      if (!paused) audioEl.pause();
+      audioEl.pause();
     } else {
       audioEl.currentTime = parseFloat(
         (event.target as HTMLInputElement).value
       );
+      prevUpdated = event.timeStamp;
     }
     prevTimeInputEvent = event.timeStamp;
+  }
+
+  function onTimeChange(event: Event) {
+    if (prevUpdated < event.timeStamp - 100) {
+      audioEl.currentTime = parseFloat(
+        (event.target as HTMLInputElement).value
+      );
+    }
+    audioEl.play();
   }
 
   $: currentTime, (progressTime = currentTime);
@@ -59,7 +71,7 @@
   name="current-time"
   bind:value={progressTime}
   on:input={onTimeInput}
-  on:change={() => audioEl.play()}
+  on:change={onTimeChange}
   min={0}
   step={1}
   max={duration}

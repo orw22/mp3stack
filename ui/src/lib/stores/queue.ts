@@ -23,12 +23,11 @@ function createQueue() {
       });
       history.reset();
     },
-    add: (track: TrackWithUrl) => {
+    add: (track: TrackWithUrl) =>
       update((v) => {
         v.push(track);
         return v;
-      });
-    },
+      }),
     next: () =>
       update((v) => {
         console.log(v);
@@ -53,6 +52,11 @@ function createQueue() {
           return v;
         });
     },
+    remove: (id: string) =>
+      update((v) => {
+        v = v.filter((t) => t._id !== id);
+        return v;
+      }),
     reset: () => set([]),
     setRestartCallback: (callback: () => void) => {
       restartCallback = callback;

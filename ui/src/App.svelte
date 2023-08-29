@@ -6,6 +6,7 @@
   import Footer from "./lib/components/Footer.svelte";
   import Header from "./lib/components/Header.svelte";
   import Playbar from "./lib/components/Playbar/index.svelte";
+  import Queue from "./lib/components/Queue.svelte";
   import { API_URL } from "./lib/constants";
   import Home from "./lib/routes/Home.svelte";
   import Login from "./lib/routes/Login.svelte";
@@ -14,6 +15,8 @@
   import queue from "./lib/stores/queue";
   import token, { unsubscribeFromToken } from "./lib/stores/token";
   import toasts from "./toasts";
+
+  let queueOpen = false;
 
   // set axios base url
   axios.defaults.baseURL = API_URL;
@@ -51,6 +54,7 @@
   </main>
 </Router>
 {#if $token}
-  <Playbar />
+  <Playbar openQueue={() => (queueOpen = true)} />
+  <Queue open={queueOpen} />
 {/if}
 <Footer />

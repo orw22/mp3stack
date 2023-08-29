@@ -6,11 +6,14 @@
   let restart: () => void = () => null;
 
   queue.setRestartCallback(() => restart());
+
+  export let openQueue: () => void;
 </script>
 
 <div class="playbar">
   <h4>Now playing: {currentTrack?.name}</h4>
   <AudioControls {currentTrack} bind:restart />
+  <button on:click={openQueue}>Queue</button>
 </div>
 
 <style>

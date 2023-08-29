@@ -112,20 +112,6 @@
     <p>{error.response.data.message}</p>
   {/await}
 
-  {#if $queue.length > 1}
-    <hr />
-    <h4>Queue</h4>
-    <div class="queue">
-      {#each $queue.slice(1) as track}
-        <div>
-          <button on:click={() => onClickTrack(track)}>
-            {track.name}
-          </button>
-        </div>
-      {/each}
-    </div>
-  {/if}
-
   <hr />
 
   {#if adding}

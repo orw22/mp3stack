@@ -3,6 +3,13 @@
   import queue from "../../stores/queue";
   import type { TrackWithUrl } from "../../types";
   import { secondsToMMSS } from "../../utils/time";
+  import IconButton from "../IconButton.svelte";
+  import Back from "../icons/Back.svelte";
+  import Forward from "../icons/Forward.svelte";
+  import Pause from "../icons/Pause.svelte";
+  import Play from "../icons/Play.svelte";
+  import Speaker from "../icons/Speaker.svelte";
+  import SpeakerMuted from "../icons/SpeakerMuted.svelte";
 
   let audioEl: HTMLAudioElement;
   let paused: boolean;
@@ -12,7 +19,7 @@
 
   let prevTimeInputEvent: number;
   let prevUpdated: number;
-  let wasPaused: [boolean, boolean]; // [value, has been set flag]
+  let wasPaused: [boolean, boolean] = [false, false]; // [value, has been set flag]
 
   export let currentTrack: TrackWithUrl | undefined;
 
@@ -69,15 +76,23 @@
   Your browser does not support the audio element.
 </audio>
 
-<button on:click={queue.prev} disabled={$history.length === 0}>Previous</button>
-<button on:click={onPlayPause} disabled={!currentTrack}>
-  {paused ? "Play" : "Pause"}
-</button>
-<button on:click={queue.next} disabled={$queue.length < 2}>Next</button>
+<IconButton onClick={queue.prev} disabled={$history.length === 0}>
+  <Back size={24} colour="#000" />
+</IconButton>
+<IconButton onClick={onPlayPause} disabled={!currentTrack}>
+  {#if paused}
+    <Play size={24} colour="#000" />
+  {:else}
+    <Pause size={24} colour="#000" />
+  {/if}
+</IconButton>
+<IconButton onClick={queue.next} disabled={$queue.length < 2}>
+  <Forward size={24} colour="#000" />
+</IconButton>
 <span>{secondsToMMSS(progressTime)}</span>
 <input
+  id="current-time"
   type="range"
-  name="current-time"
   bind:value={progressTime}
   on:input={onTimeInput}
   on:change={onTimeChange}
@@ -98,5 +113,11 @@
       audioEl.volume = parseFloat(e.currentTarget.value);
     }}
   />
-  <label for="volume">Volume</label>
+  <label for="volume">
+    {#if audioEl && audioEl.volume === 0}
+      <SpeakerMuted size={24} colour="#000" />
+    {:else}
+      <Speaker size={24} colour="#000" />
+    {/if}
+  </label>
 </div>

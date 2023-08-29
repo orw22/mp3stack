@@ -1,13 +1,9 @@
 <script lang="ts">
-  export let disabled: boolean;
   export let onClick: () => void;
+  export let disabled: boolean = false;
   export let type: "button" | "submit" | "reset" = "button";
 </script>
 
-<button class="icon-button" {disabled} on:click={onClick} {type}>
+<button class="icon-button" on:click={onClick} {disabled} {type}>
   <slot />
 </button>
-
-<style>
-  /* TODO */
-</style>

@@ -54,7 +54,12 @@
   </main>
 </Router>
 {#if $token}
-  <Playbar openQueue={() => (queueOpen = true)} />
-  <Queue open={queueOpen} />
+  <Playbar onQueueClick={() => (queueOpen = !queueOpen)} />
+  <Queue
+    open={queueOpen}
+    onClose={() => {
+      queueOpen = false;
+    }}
+  />
 {/if}
 <Footer />

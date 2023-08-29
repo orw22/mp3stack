@@ -2,8 +2,10 @@
   import axios from "axios";
   import { navigate } from "svelte-routing";
   import toasts from "../../toasts";
+  import IconButton from "../components/IconButton.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
+  import Pencil from "../components/icons/Pencil.svelte";
 
   let profile = getProfile();
 
@@ -66,13 +68,13 @@
     <h4>Name: {data.name}</h4>
     <h4>Email: {data.email}</h4>
     {#if !(editing || resettingPassword)}
-      <button
-        on:click={() => {
+      <IconButton
+        onClick={() => {
           editing = true;
         }}
       >
-        Edit
-      </button>
+        <Pencil size={16} colour="#000" />
+      </IconButton>
       <button
         on:click={() => {
           resettingPassword = true;

@@ -1,5 +1,8 @@
 <script lang="ts">
   import type { Track } from "../types";
+  import IconButton from "./IconButton.svelte";
+  import Trash from "./icons/Trash.svelte";
+  import XMark from "./icons/XMark.svelte";
 
   export let track: Track;
   export let index: number;
@@ -16,9 +19,13 @@
     {#if !isQueue}
       <button on:click={() => onAddToQueue(track)}>Add to queue</button>
     {/if}
-    <button on:click={() => onRemove(track._id)}>
-      {isQueue ? "Remove" : "Delete"}
-    </button>
+    <IconButton onClick={() => onRemove(track._id)}>
+      {#if isQueue}
+        <XMark size={20} colour="#000" />
+      {:else}
+        <Trash size={20} colour="#000" />
+      {/if}
+    </IconButton>
   </span>
 </div>
 

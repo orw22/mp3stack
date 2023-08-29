@@ -26,7 +26,7 @@
     profile = getProfile();
   }
 
-  async function updateProfile(event: any, password: boolean = false) {
+  async function updateProfile(event: Event, password: boolean = false) {
     event.preventDefault();
     if (!(password ? validPassword : validNameEmail)) {
       return;

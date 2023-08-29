@@ -3,25 +3,78 @@
   import queue from "../../stores/queue";
   import type { TrackWithUrl } from "../../types";
 
-  let audioElement: HTMLAudioElement;
+  let audioEl: HTMLAudioElement;
+  let paused: boolean;
+  let currentTime = 0;
+  let progressTime = 0;
+  let duration = 0;
+  let prevTimeInputEvent: number;
 
   export let currentTrack: TrackWithUrl | undefined;
 
   export function restart() {
-    audioElement.currentTime = 0;
-    audioElement.play();
+    audioEl.currentTime = 0;
+    audioEl.play();
   }
+
+  function onPlayPause() {
+    if (audioEl.paused) audioEl.play();
+    else audioEl.pause();
+  }
+
+  function onTimeInput(event: Event) {
+    if (prevTimeInputEvent > event.timeStamp - 10) {
+      // if seeking/dragging slider
+      audioEl.pause();
+    } else {
+      audioEl.currentTime = parseFloat(
+        (event.target as HTMLInputElement).value
+      );
+    }
+    prevTimeInputEvent = event.timeStamp;
+  }
+
+  $: currentTime, (progressTime = currentTime);
 </script>
 
-<button on:click={queue.prev} disabled={$history.length === 0}>Previous</button>
 <audio
-  controls
   src={currentTrack?.url}
   autoplay
   on:ended={queue.next}
-  bind:this={audioElement}
+  bind:paused
+  bind:duration
+  bind:currentTime
+  bind:this={audioEl}
 >
-  <!-- TODO: Hide controls, use custom elements -->
   Your browser does not support the audio element.
 </audio>
+
+<button on:click={queue.prev} disabled={$history.length === 0}>Previous</button>
+<button on:click={onPlayPause} disabled={!currentTrack}>
+  {paused ? "Play" : "Pause"}
+</button>
 <button on:click={queue.next} disabled={$queue.length < 2}>Next</button>
+<input
+  type="range"
+  name="current-time"
+  bind:value={progressTime}
+  on:input={onTimeInput}
+  on:change={() => audioEl.play()}
+  min={0}
+  step={1}
+  max={duration}
+/>
+
+<div>
+  <input
+    name="volume"
+    type="range"
+    min={0}
+    max={1}
+    step={0.01}
+    on:input={(e) => {
+      audioEl.volume = parseFloat(e.currentTarget.value);
+    }}
+  />
+  <label for="volume">Volume</label>
+</div>

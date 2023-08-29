@@ -25,7 +25,7 @@
     navigate("/profile");
   }
 
-  async function onCreatePlaylist(event: any) {
+  async function onCreatePlaylist(event: Event) {
     event.preventDefault();
 
     await axios.post("/playlists", { name: newPlaylistName }).then(() => {

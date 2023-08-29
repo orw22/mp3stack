@@ -66,7 +66,7 @@
     });
   }
 
-  async function onAddTrack(event: any) {
+  async function onAddTrack(event: Event) {
     event.preventDefault();
 
     const formData = new FormData();

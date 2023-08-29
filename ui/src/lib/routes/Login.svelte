@@ -21,7 +21,7 @@
     navigate("/");
   }
 
-  async function onLogin(event: any) {
+  async function onLogin(event: Event) {
     event.preventDefault();
 
     await axios
@@ -29,7 +29,7 @@
       .then((response) => processTokenResponse(response));
   }
 
-  async function onRegister(event: any) {
+  async function onRegister(event: Event) {
     event.preventDefault();
 
     await axios

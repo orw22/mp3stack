@@ -13,6 +13,7 @@
   let prevTimeInputEvent: number;
   let prevUpdated: number;
   let wasPaused: boolean;
+  let wasPausedSet: boolean;
 
   export let currentTrack: TrackWithUrl | undefined;
 
@@ -27,7 +28,11 @@
   }
 
   function onTimeInput(event: Event) {
-    wasPaused = paused;
+    if (!wasPausedSet) {
+      wasPaused = paused;
+      wasPausedSet = true;
+    }
+
     if (prevTimeInputEvent > event.timeStamp - 25) {
       // if seeking/dragging slider
       audioEl.pause();
@@ -47,6 +52,7 @@
       );
     }
     if (!wasPaused) audioEl.play();
+    wasPausedSet = false;
   }
 
   $: currentTime, (progressTime = currentTime);

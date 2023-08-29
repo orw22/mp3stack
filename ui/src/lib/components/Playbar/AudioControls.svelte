@@ -25,7 +25,7 @@
   function onTimeInput(event: Event) {
     if (prevTimeInputEvent > event.timeStamp - 10) {
       // if seeking/dragging slider
-      audioEl.pause();
+      if (!paused) audioEl.pause();
     } else {
       audioEl.currentTime = parseFloat(
         (event.target as HTMLInputElement).value

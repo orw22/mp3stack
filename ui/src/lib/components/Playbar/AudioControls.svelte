@@ -12,8 +12,7 @@
 
   let prevTimeInputEvent: number;
   let prevUpdated: number;
-  let wasPaused: boolean;
-  let wasPausedSet: boolean;
+  let wasPaused: [boolean, boolean]; // value, has been set flag
 
   export let currentTrack: TrackWithUrl | undefined;
 
@@ -28,9 +27,9 @@
   }
 
   function onTimeInput(event: Event) {
-    if (!wasPausedSet) {
-      wasPaused = paused;
-      wasPausedSet = true;
+    if (!wasPaused[1]) {
+      wasPaused[0] = paused;
+      wasPaused[1] = true;
     }
 
     if (prevTimeInputEvent > event.timeStamp - 25) {
@@ -51,8 +50,8 @@
         (event.target as HTMLInputElement).value
       );
     }
-    if (!wasPaused) audioEl.play();
-    wasPausedSet = false;
+    if (!wasPaused[0]) audioEl.play();
+    wasPaused[1] = false;
   }
 
   $: currentTime, (progressTime = currentTime);

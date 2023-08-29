@@ -12,7 +12,7 @@
 
   let prevTimeInputEvent: number;
   let prevUpdated: number;
-  let wasPaused: [boolean, boolean]; // value, has been set flag
+  let wasPaused: [boolean, boolean]; // [value, has been set flag]
 
   export let currentTrack: TrackWithUrl | undefined;
 

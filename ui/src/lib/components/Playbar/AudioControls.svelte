@@ -2,6 +2,7 @@
   import history from "../../stores/history";
   import queue from "../../stores/queue";
   import type { TrackWithUrl } from "../../types";
+  import { secondsToMMSS } from "../../utils/time";
 
   let audioEl: HTMLAudioElement;
   let paused: boolean;
@@ -66,6 +67,7 @@
   {paused ? "Play" : "Pause"}
 </button>
 <button on:click={queue.next} disabled={$queue.length < 2}>Next</button>
+<span>{secondsToMMSS(progressTime)}</span>
 <input
   type="range"
   name="current-time"
@@ -76,6 +78,7 @@
   step={1}
   max={duration}
 />
+<span>{secondsToMMSS(duration)}</span>
 
 <div>
   <input

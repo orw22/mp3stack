@@ -15,9 +15,12 @@
   export let id: string;
 
   let adding = false;
+  let renaming = false;
 
   let newTrackName: string;
   let newTrackFiles: FileList;
+
+  let newPlaylistName: string;
 
   let playlist = getPlaylist();
 
@@ -101,6 +104,19 @@
       });
   }
 
+  async function onRenamePlaylist(event: Event) {
+    event.preventDefault();
+
+    await axios
+      .put(`/playlists/${id}`, { newName: newPlaylistName })
+      .then(() => {
+        toasts.success("Playlist updated");
+        newPlaylistName = "";
+        renaming = false;
+        refreshPlaylist();
+      });
+  }
+
   async function onDeletePlaylist() {
     await axios.delete(`/playlists/${id}`).then(() => {
       toasts.success("Playlist deleted");
@@ -146,16 +162,42 @@
     >
       Cancel
     </button>
-  {:else}
+  {/if}
+
+  {#if renaming}
+    <form on:submit={onRenamePlaylist}>
+      <input
+        type="text"
+        placeholder="Playlist name"
+        bind:value={newPlaylistName}
+      />
+      <button type="submit">Confirm</button>
+    </form>
     <button
       on:click={() => {
-        adding = true;
+        renaming = false;
       }}
     >
-      Add track
+      Cancel
     </button>
   {/if}
 
+  <button
+    on:click={() => {
+      adding = true;
+      renaming = false;
+    }}
+  >
+    Add track
+  </button>
+  <button
+    on:click={() => {
+      renaming = true;
+      adding = false;
+    }}
+  >
+    Rename playlist
+  </button>
   <button on:click={onDeletePlaylist}>Delete playlist</button>
   <button on:click={() => navigate("/")}>Back</button>
 </Layout>

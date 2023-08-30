@@ -76,6 +76,21 @@ export default class PlaylistController {
       .catch(next);
   }
 
+  async renamePlaylist(
+    playlistId: string,
+    userId: string,
+    newName: string,
+    res: Response,
+    next: NextFunction
+  ) {
+    await Playlist.updateOne(
+      { _id: playlistId, userId: userId },
+      { $set: { name: newName } }
+    )
+      .then(() => res.status(204).send())
+      .catch(next);
+  }
+
   async deletePlaylist(
     playlistId: string,
     userId: string,

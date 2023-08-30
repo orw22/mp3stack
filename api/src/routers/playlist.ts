@@ -31,9 +31,21 @@ router.get("/:playlistId", authenticate, async (req, res, next) => {
   );
 });
 
-// Add track
-router.put("/:playlistId", authenticate, (req, res, next) => {
-  playlistController.addTrackToPlaylist(req, res, next);
+// Update playlist (rename or add track)
+router.put("/:playlistId", authenticate, async (req, res, next) => {
+  if (req.body.newName) {
+    // rename
+    await playlistController.renamePlaylist(
+      req.params.playlistId,
+      req.userId,
+      req.body.newName,
+      res,
+      next
+    );
+  } else {
+    // add track
+    playlistController.addTrackToPlaylist(req, res, next);
+  }
 });
 
 // Remove track

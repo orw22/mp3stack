@@ -38,6 +38,7 @@
     right: 0;
     top: 5em;
     width: 50vw;
+    height: calc(100vh - 5em);
     background: white;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }

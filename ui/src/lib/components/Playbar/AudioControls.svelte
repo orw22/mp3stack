@@ -73,33 +73,38 @@
   Your browser does not support the audio element.
 </audio>
 
-<IconButton onClick={queue.prev} disabled={$history.length === 0}>
-  <Icon name="back" />
-</IconButton>
-<IconButton onClick={onPlayPause} disabled={!currentTrack}>
-  {#if paused}
-    <Icon name="play" />
-  {:else}
-    <Icon name="pause" />
-  {/if}
-</IconButton>
-<IconButton onClick={queue.next} disabled={$queue.length < 2}>
-  <Icon name="forward" />
-</IconButton>
-<span>{secondsToMMSS(progressTime)}</span>
-<input
-  id="current-time"
-  type="range"
-  bind:value={progressTime}
-  on:input={onTimeInput}
-  on:change={onTimeChange}
-  min={0}
-  step={1}
-  max={duration}
-/>
-<span>{secondsToMMSS(duration)}</span>
+<div id="controls-wrapper">
+  <IconButton onClick={queue.prev} disabled={$history.length === 0}>
+    <Icon name="back" />
+  </IconButton>
+  <IconButton onClick={onPlayPause} disabled={!currentTrack}>
+    {#if paused}
+      <Icon name="play" />
+    {:else}
+      <Icon name="pause" />
+    {/if}
+  </IconButton>
+  <IconButton onClick={queue.next} disabled={$queue.length < 2}>
+    <Icon name="forward" />
+  </IconButton>
+</div>
 
-<div>
+<div id="current-time-wrapper">
+  <span>{secondsToMMSS(progressTime)}</span>
+  <input
+    id="current-time"
+    type="range"
+    bind:value={progressTime}
+    on:input={onTimeInput}
+    on:change={onTimeChange}
+    min={0}
+    step={1}
+    max={duration}
+  />
+  <span>{secondsToMMSS(duration)}</span>
+</div>
+
+<div id="volume-wrapper">
   <input
     id="volume"
     type="range"

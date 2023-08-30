@@ -50,16 +50,17 @@
       });
   }
 
-  (async () => {
-    try {
-      const response = await profile;
-      // set initial editing values
-      newName = response.data.name;
-      newEmail = response.data.email;
-    } catch (error) {
-      return;
-    }
-  })();
+  $: profile,
+    (async () => {
+      try {
+        const response = await profile;
+        // set initial editing values
+        newName = response.data.name;
+        newEmail = response.data.email;
+      } catch (error) {
+        return;
+      }
+    })();
 </script>
 
 <Layout>

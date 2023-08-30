@@ -28,14 +28,15 @@
 
   let playlist = getPlaylist();
 
-  (async () => {
-    try {
-      const response = await playlist;
-      isPrivate = response.data.private;
-    } catch (error) {
-      return;
-    }
-  })();
+  $: playlist,
+    (async () => {
+      try {
+        const response = await playlist;
+        isPrivate = response.data.private;
+      } catch (error) {
+        return;
+      }
+    })();
 
   function updateNewTrackNameFromFilename() {
     try {

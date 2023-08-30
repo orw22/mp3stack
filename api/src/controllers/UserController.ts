@@ -38,6 +38,26 @@ export default class UserController {
       .catch(next);
   }
 
+  async getOtherUserAndPlaylists(
+    userId: string,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const [user, playlists] = await Promise.all([
+        User.findById(userId, {
+          email: 0,
+          password: 0,
+        }),
+        Playlist.find({ userId: userId }), // TODO: filter by private: false
+      ]);
+
+      res.status(200).send({ ...user, playlists });
+    } catch (error) {
+      return next(error);
+    }
+  }
+
   async getUserPlaylists(userId: string, res: Response, next: NextFunction) {
     await Playlist.find({ userId: userId })
       .then((playlists: IPlaylist[]) => res.status(200).send(playlists))

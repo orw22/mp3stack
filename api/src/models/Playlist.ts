@@ -18,7 +18,7 @@ export const playlistSchema = new mongoose.Schema<IPlaylist>({
   tracks: [trackSchema],
 });
 
-// TODO: Add followers[], public status
+// TODO: Add list of followers, public/private status
 
 // post remove track, delete from GridFS bucket
 playlistSchema.post("updateOne", async function () {

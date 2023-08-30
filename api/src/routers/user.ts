@@ -22,6 +22,11 @@ router.get("/me", authenticate, async (req, res, next) => {
   await userController.getUser(req.userId, res, next);
 });
 
+// Get other user and their public playlists
+router.get("/:userId", authenticate, async (req, res, next) => {
+  await userController.getOtherUserAndPlaylists(req.params.userId, res, next);
+});
+
 // Get playlists
 router.get("/me/playlists", authenticate, async (req, res, next) => {
   await userController.getUserPlaylists(req.userId, res, next);

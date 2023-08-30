@@ -12,6 +12,7 @@
   import Login from "./lib/routes/Login.svelte";
   import Playlist from "./lib/routes/Playlist.svelte";
   import Profile from "./lib/routes/Profile.svelte";
+  import User from "./lib/routes/User.svelte";
   import authToken, { unsubscribeFromAuthToken } from "./lib/stores/authToken";
   import queue from "./lib/stores/queue";
   import toasts from "./toasts";
@@ -51,6 +52,7 @@
     <Route path="/login" component={Login} />
     <Route path="/profile" component={Profile} />
     <Route path="/playlist/:id" let:params><Playlist id={params.id} /></Route>
+    <Route path="/user/:id" let:params><User id={params.id} /></Route>
   </main>
 </Router>
 {#if $authToken}

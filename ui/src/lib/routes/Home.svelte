@@ -3,9 +3,12 @@
   import { navigate } from "svelte-routing";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
+  import type { User } from "../types";
 
   let creating = false;
   let newPlaylistName: string;
+  let searchQuery: string;
+  let searchResult: User[] = [];
 
   let playlists = getPlaylists();
 
@@ -25,8 +28,8 @@
     navigate("/profile");
   }
 
-  function onOtherUserClick() {
-    navigate("/user/64ea025fa813cf9b075c7db8");
+  function onOtherUserClick(id: string) {
+    navigate(`/user/${id}`);
   }
 
   async function onCreatePlaylist(event: Event) {
@@ -37,6 +40,16 @@
       creating = false;
       refreshPlaylists();
     });
+  }
+
+  async function onSearchUsers(event: Event) {
+    event.preventDefault();
+
+    await axios
+      .get("/users", { params: { name: searchQuery } })
+      .then((response) => {
+        searchResult = response.data as User[];
+      });
   }
 </script>
 
@@ -84,6 +97,16 @@
 
   <button on:click={onProfileClick}>My profile</button>
 
-  <!-- temp -->
-  <button on:click={onOtherUserClick}>Other user</button>
+  <div>
+    <form on:submit={onSearchUsers}>
+      <input type="text" bind:value={searchQuery} placeholder="Search users" />
+      <button type="submit">Search</button>
+    </form>
+  </div>
+
+  <div>
+    {#each searchResult as user}
+      <button on:click={() => onOtherUserClick(user._id)}>{user.name}</button>
+    {/each}
+  </div>
 </Layout>

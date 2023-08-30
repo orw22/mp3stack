@@ -18,8 +18,13 @@ router.post("/", async (req, res, next) => {
 });
 
 // Search users
-router.get("/", async (req, res, next) => {
-  await userController.findByName(req.query.name as string, res, next);
+router.get("/", authenticate, async (req, res, next) => {
+  await userController.findByName(
+    req.query.name as string,
+    req.userId,
+    res,
+    next
+  );
 });
 
 // Get user

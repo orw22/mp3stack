@@ -21,13 +21,24 @@ export default class UserController {
   async register(user: IUser, res: Response, next: NextFunction) {
     await User.create(user)
       .then((user) => {
-        res.status(201).send({ token: user.generateToken(), user });
+        res.status(201).send({ token: user.generateToken() });
       })
       .catch(next);
   }
 
-  async findByName(name: string, res: Response, next: NextFunction) {
-    await User.find({ name })
+  async findByName(
+    name: string,
+    userId: string,
+    res: Response,
+    next: NextFunction
+  ) {
+    await User.find(
+      { name: { $regex: `^${name}`, $options: "i" }, _id: { $ne: userId } },
+      {
+        email: 0,
+        password: 0,
+      }
+    )
       .then((users) => {
         res.status(200).send(users);
       })

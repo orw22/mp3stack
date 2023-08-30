@@ -52,7 +52,7 @@ export default class UserController {
         Playlist.find({ userId: userId }), // TODO: filter by private: false
       ]);
 
-      res.status(200).send({ ...user, playlists });
+      res.status(200).send({ ...user?.toObject(), playlists });
     } catch (error) {
       return next(error);
     }

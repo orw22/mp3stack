@@ -25,6 +25,10 @@
     navigate("/profile");
   }
 
+  function onOtherUserClick() {
+    navigate("/user/64ea025fa813cf9b075c7db8");
+  }
+
   async function onCreatePlaylist(event: Event) {
     event.preventDefault();
 
@@ -40,7 +44,7 @@
   {#await playlists}
     <Loader />
   {:then { data }}
-    <h3>Playlists</h3>
+    <h3>My Playlists</h3>
     {#each data as playlist}
       <button on:click={() => onPlaylistClick(playlist._id)}>
         {playlist.name}
@@ -78,5 +82,8 @@
     </button>
   {/if}
 
-  <button on:click={onProfileClick}> My profile </button>
+  <button on:click={onProfileClick}>My profile</button>
+
+  <!-- temp -->
+  <button on:click={onOtherUserClick}>Other user</button>
 </Layout>

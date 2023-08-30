@@ -25,6 +25,7 @@
   export let onRemove: (id: string) => void;
   export let onAddToQueue: (track: Track) => void = () => null;
   export let isQueue: boolean = false;
+  export let canEdit: boolean = true;
 </script>
 
 <div role="row" tabindex={index}>
@@ -36,13 +37,15 @@
     {#if !isQueue}
       <button on:click={() => onAddToQueue(track)}>Add to queue</button>
     {/if}
-    <IconButton onClick={() => onRemove(track._id)}>
-      {#if isQueue}
-        Remove <Icon name="xMark" size={20} />
-      {:else}
-        Delete <Icon name="trash" size={20} />
-      {/if}
-    </IconButton>
+    {#if canEdit}
+      <IconButton onClick={() => onRemove(track._id)}>
+        {#if isQueue}
+          Remove <Icon name="xMark" size={20} />
+        {:else}
+          Delete <Icon name="trash" size={20} />
+        {/if}
+      </IconButton>
+    {/if}
   </span>
 </div>
 

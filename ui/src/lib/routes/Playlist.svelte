@@ -22,6 +22,8 @@
 
   let newPlaylistName: string;
 
+  const canEdit = history.state.canEdit;
+
   let playlist = getPlaylist();
 
   function updateNewTrackNameFromFilename() {
@@ -138,6 +140,7 @@
           onClick={() => onClickTrack(track)}
           onAddToQueue={() => onAddToQueue(track)}
           onRemove={() => onRemoveTrack(track._id)}
+          {canEdit}
         />
       {/each}
     </div>
@@ -182,23 +185,25 @@
     </button>
   {/if}
 
-  <button
-    on:click={() => {
-      adding = true;
-      renaming = false;
-    }}
-  >
-    Add track
-  </button>
-  <button
-    on:click={() => {
-      renaming = true;
-      adding = false;
-    }}
-  >
-    Rename playlist
-  </button>
-  <button on:click={onDeletePlaylist}>Delete playlist</button>
+  {#if canEdit}
+    <button
+      on:click={() => {
+        adding = true;
+        renaming = false;
+      }}
+    >
+      Add track
+    </button>
+    <button
+      on:click={() => {
+        renaming = true;
+        adding = false;
+      }}
+    >
+      Rename playlist
+    </button>
+    <button on:click={onDeletePlaylist}>Delete playlist</button>
+  {/if}
   <button on:click={() => navigate("/")}>Back</button>
 </Layout>
 

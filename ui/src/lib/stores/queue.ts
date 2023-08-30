@@ -30,7 +30,6 @@ function createQueue() {
       }),
     next: () =>
       update((v) => {
-        console.log(v);
         if (v.at(0) && v.at(1) && v.at(0)?._id === v.at(1)?._id) {
           // same track
           restartCallback();

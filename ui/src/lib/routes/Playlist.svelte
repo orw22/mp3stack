@@ -21,6 +21,16 @@
 
   let playlist = getPlaylist();
 
+  function updateNewTrackNameFromFilename() {
+    try {
+      newTrackName = newTrackFiles[0]?.name.replace(".mp3", "");
+    } catch (error) {
+      newTrackName = "";
+    }
+  }
+
+  $: newTrackFiles, updateNewTrackNameFromFilename();
+
   function getPlaylist() {
     return axios.get(`/playlists/${id}`);
   }
@@ -73,7 +83,12 @@
 
     const formData = new FormData();
     formData.append("name", newTrackName);
-    formData.append("track", newTrackFiles[0]);
+    try {
+      formData.append("track", newTrackFiles[0]);
+    } catch (error) {
+      toasts.error("No file selected");
+      return;
+    }
 
     await axios
       .put(`/playlists/${id}`, formData, {

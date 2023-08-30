@@ -49,7 +49,7 @@ export default class UserController {
           email: 0,
           password: 0,
         }),
-        Playlist.find({ userId: userId }), // TODO: filter by private: false
+        Playlist.find({ userId: userId, private: false }),
       ]);
 
       res.status(200).send({ ...user?.toObject(), playlists });

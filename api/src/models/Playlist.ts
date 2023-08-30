@@ -15,10 +15,11 @@ export const playlistSchema = new mongoose.Schema<IPlaylist>({
       message: "Invalid user ID",
     },
   },
+  private: { type: Boolean, required: true, default: true },
   tracks: [trackSchema],
 });
 
-// TODO: Add list of followers, public/private status
+// TODO: Add follower list and endpoints
 
 // post remove track, delete from GridFS bucket
 playlistSchema.post("updateOne", async function () {

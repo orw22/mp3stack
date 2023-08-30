@@ -77,7 +77,7 @@
   }
 
   async function onRemoveTrack(trackId: string) {
-    await axios.put(`/playlists/${id}/${trackId}`).then(() => {
+    await axios.delete(`/playlists/${id}/tracks/${trackId}`).then(() => {
       toasts.success("Track removed");
       refreshPlaylist();
     });
@@ -96,7 +96,7 @@
     }
 
     await axios
-      .put(`/playlists/${id}`, formData, {
+      .post(`/playlists/${id}/tracks`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {
@@ -109,14 +109,12 @@
   async function onRenamePlaylist(event: Event) {
     event.preventDefault();
 
-    await axios
-      .put(`/playlists/${id}`, { newName: newPlaylistName })
-      .then(() => {
-        toasts.success("Playlist updated");
-        newPlaylistName = "";
-        renaming = false;
-        refreshPlaylist();
-      });
+    await axios.put(`/playlists/${id}`, { name: newPlaylistName }).then(() => {
+      toasts.success("Playlist updated");
+      newPlaylistName = "";
+      renaming = false;
+      refreshPlaylist();
+    });
   }
 
   async function onDeletePlaylist() {

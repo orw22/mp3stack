@@ -22,6 +22,7 @@ export interface ITrack {
 export interface IPlaylist {
   name: string;
   userId: string;
+  private: boolean;
   tracks: ITrack[];
 }
 

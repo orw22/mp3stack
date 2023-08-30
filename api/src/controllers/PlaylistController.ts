@@ -12,6 +12,26 @@ export default class PlaylistController {
     this.trackController = new TrackController();
   }
 
+  private async updatePlaylistCallback(
+    playlistId: string,
+    trackId: mongoose.mongo.ObjectId,
+    trackName: string,
+    userId: string,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> {
+    await Playlist.updateOne(
+      { _id: playlistId, userId: userId },
+      { $push: { tracks: { _id: trackId.toString(), name: trackName } } }
+    )
+      .then(() => {
+        res.status(201).send({
+          message: "Track added to playlist",
+        });
+      })
+      .catch(next);
+  }
+
   async createPlaylist(playlist: IPlaylist, res: Response, next: NextFunction) {
     await Playlist.create(playlist)
       .then((playlist: IPlaylist) => {
@@ -30,26 +50,6 @@ export default class PlaylistController {
       .then((playlist: IPlaylist | null) => {
         if (!playlist) return next(createError(404, "Playlist not found"));
         res.status(200).send(playlist);
-      })
-      .catch(next);
-  }
-
-  async updatePlaylistCallback(
-    playlistId: string,
-    trackId: mongoose.mongo.ObjectId,
-    trackName: string,
-    userId: string,
-    res: Response,
-    next: NextFunction
-  ): Promise<void> {
-    await Playlist.updateOne(
-      { _id: playlistId, userId: userId },
-      { $push: { tracks: { _id: trackId.toString(), name: trackName } } }
-    )
-      .then(() => {
-        res.status(201).send({
-          message: "Track added to playlist",
-        });
       })
       .catch(next);
   }
@@ -76,16 +76,16 @@ export default class PlaylistController {
       .catch(next);
   }
 
-  async renamePlaylist(
+  async updatePlaylist(
     playlistId: string,
     userId: string,
-    newName: string,
+    playlist: IPlaylist,
     res: Response,
     next: NextFunction
   ) {
     await Playlist.updateOne(
       { _id: playlistId, userId: userId },
-      { $set: { name: newName } }
+      { $set: playlist }
     )
       .then(() => res.status(204).send())
       .catch(next);

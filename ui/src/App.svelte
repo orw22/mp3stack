@@ -12,7 +12,7 @@
   import Login from "./lib/routes/Login.svelte";
   import Playlist from "./lib/routes/Playlist.svelte";
   import Profile from "./lib/routes/Profile.svelte";
-  import authToken, { unsubscribeFromToken } from "./lib/stores/authToken";
+  import authToken, { unsubscribeFromAuthToken } from "./lib/stores/authToken";
   import queue from "./lib/stores/queue";
   import toasts from "./toasts";
 
@@ -36,7 +36,7 @@
   );
 
   onDestroy(() => {
-    unsubscribeFromToken();
+    unsubscribeFromAuthToken();
     queue.unsubscribefromHistory();
   });
 

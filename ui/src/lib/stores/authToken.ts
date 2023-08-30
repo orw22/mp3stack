@@ -5,7 +5,7 @@ import { AUTH_COOKIE_KEY } from "../constants";
 
 const authToken = writable<string | undefined>(getCookie(AUTH_COOKIE_KEY));
 
-const unsubscribeFromToken = authToken.subscribe((value) => {
+const unsubscribeFromAuthToken = authToken.subscribe((value) => {
   if (value) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${value}`;
     setCookie(AUTH_COOKIE_KEY, value, { expires: 0.125 });
@@ -16,4 +16,4 @@ const unsubscribeFromToken = authToken.subscribe((value) => {
 });
 
 export default authToken;
-export { unsubscribeFromToken };
+export { unsubscribeFromAuthToken };

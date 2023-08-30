@@ -14,6 +14,15 @@
   -webkit-text-size-adjust: 100%;
 }
 
+/* typography */
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* components */
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -21,17 +30,6 @@ a {
 }
 a:hover {
   color: #747bff;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
@@ -56,10 +54,33 @@ button:disabled {
   pointer-events: none;
 }
 
-#app {
+input {
+  border-radius: 8px;
+  border: 1px solid #213547;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-family: inherit;
+  background-color: #fff;
+  transition: border-color 0.25s;
+}
+input:hover {
+  border-color: #646cff;
+}
+input:focus,
+input:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+input:disabled {
+  pointer-events: none;
+  background-color: #e2e2e2;
+}
+
+/* layout */
+
+body {
   margin: 0;
-  padding: 0;
-  text-align: center;
+  min-width: 320px;
+  min-height: 100vh;
 }
 
 main {
@@ -67,4 +88,10 @@ main {
   justify-content: center;
   align-items: flex-start;
   margin-top: 5em;
+}
+
+#app {
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }

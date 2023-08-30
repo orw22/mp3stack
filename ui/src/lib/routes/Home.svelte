@@ -18,7 +18,7 @@
   }
 
   function onPlaylistClick(id: string) {
-    navigate(`/playlist/${id}`);
+    navigate(`/playlist/${id}`, { state: { canEdit: true } });
   }
 
   function onProfileClick() {

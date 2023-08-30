@@ -1,3 +1,13 @@
+<!--
+  @component
+  Playbar
+  
+  - Renders name of track currently playing and audio controls component
+
+  Props: 
+    - {() => void} onQueueClick
+-->
+
 <script lang="ts">
   import queue from "../../stores/queue";
   import Icon from "../Icon.svelte";

@@ -1,3 +1,15 @@
+<!--
+  @component
+  Queue
+  
+  - Displays list of tracks currently in the queue, each with option to play now or remove from the queue
+  - (TODO) Animate in to view
+
+  Props:
+    - {boolean} open - whether the queue is showing or not
+    - {() => void} onClose - callback triggered when close button clicked
+-->
+
 <script lang="ts">
   import queue from "../stores/queue";
   import Icon from "./Icon.svelte";

@@ -1,3 +1,15 @@
+<!--
+  @component
+  LoginForm
+  
+  - Login and register forms
+  - Used in {Login.svelte}
+
+  Props: 
+    - {(event: Event) => void} onSubmit
+    - {boolean} register
+-->
+
 <script lang="ts">
   export let onSubmit: (event: Event) => void;
   export let register = false;

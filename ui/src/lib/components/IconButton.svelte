@@ -1,3 +1,16 @@
+<!--
+  @component
+  IconButton
+  
+  - Specialised button component for displaying icons optionally with text
+
+  Props:
+    - {string} class (via $$props.class)
+    - {() => void} onClick
+    - {boolean} disabled
+    - {"button" | "submit" | "reset"} type
+-->
+
 <script lang="ts">
   export let onClick: (() => void) | undefined = undefined;
   export let disabled: boolean = false;

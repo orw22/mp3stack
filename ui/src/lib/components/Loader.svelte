@@ -1,3 +1,12 @@
+<!--
+  @component
+  Loader
+  
+  - Features sound wave loader and div wrapper
+  - Covers full page, loader is centered
+
+-->
+
 <script lang="ts">
   import { Wave } from "svelte-loading-spinners";
 </script>

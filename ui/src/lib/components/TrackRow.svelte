@@ -1,3 +1,19 @@
+<!--
+  @component
+  TrackRow
+  
+  - Renders a single track inside a playlist's tracklist or in the queue
+  - Shows track name and buttons to play now, add to queue and remove/delete from playlist
+
+  Props:
+    - {Track} track
+    - {number} index - position of track in the tracklist
+    - {(track: Track) => void} onClick
+    - {(id: string) => void} onRemove
+    - {(track: Track) => void} onAddToQueue
+    - {boolean} isQueue - indicates whether the component is rendering as part of the Queue
+-->
+
 <script lang="ts">
   import type { Track } from "../types";
   import Icon from "./Icon.svelte";

@@ -1,3 +1,16 @@
+<!--
+  @component
+  Icon
+  
+  - Used to render an SVG icon
+  - "name" prop controls which SVG path(s) is rendered
+
+  Props: 
+    - {string} name
+    - {number} size
+    - {string} colour
+-->
+
 <script lang="ts">
   export let name:
     | "back"

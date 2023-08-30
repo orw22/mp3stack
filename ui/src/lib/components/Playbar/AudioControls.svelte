@@ -1,3 +1,14 @@
+<!--
+  @component
+  AudioControls
+  
+  - Features time, volume, play/pause and skip back/forward controls
+  - Part of {Playbar.svelte}
+
+  Props: 
+    - {TrackWithUrl | undefined} currentTrack
+-->
+
 <script lang="ts">
   import history from "../../stores/history";
   import queue from "../../stores/queue";

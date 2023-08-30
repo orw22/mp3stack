@@ -1,3 +1,13 @@
+<!--
+  @component
+  Header
+  
+  - Contains links to home page and log in/log out functionality
+
+  Props: 
+    - {boolean} loggedIn
+-->
+
 <script lang="ts">
   import { Link } from "svelte-routing";
   import { resetStores } from "../utils/store";

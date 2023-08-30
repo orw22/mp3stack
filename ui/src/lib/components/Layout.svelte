@@ -1,3 +1,13 @@
+<!--
+  @component
+  Layout
+  
+  - Defines main layout div and CSS
+  - When mounted (new page mounted), If no auth token present, resets stores and navigates back to login page
+  - Used on all routes that require user to be logged in
+
+-->
+
 <script lang="ts">
   import { onMount } from "svelte";
   import { navigate } from "svelte-routing";

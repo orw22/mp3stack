@@ -1,3 +1,7 @@
+<!--
+  @component Footer
+-->
+
 <footer class="footer">&copy; Oliver Wortley 2023</footer>
 
 <style>

@@ -14,6 +14,8 @@
 
   export let id: string;
 
+  let isPrivate: boolean;
+
   let adding = false;
   let renaming = false;
 
@@ -25,6 +27,15 @@
   const canEdit = history.state.canEdit;
 
   let playlist = getPlaylist();
+
+  (async () => {
+    try {
+      const response = await playlist;
+      isPrivate = response.data.private;
+    } catch (error) {
+      return;
+    }
+  })();
 
   function updateNewTrackNameFromFilename() {
     try {
@@ -117,6 +128,13 @@
     });
   }
 
+  async function onChangeVisibility() {
+    await axios.put(`/playlists/${id}`, { private: !isPrivate }).then(() => {
+      toasts.success("Playlist updated");
+      refreshPlaylist();
+    });
+  }
+
   async function onDeletePlaylist() {
     await axios.delete(`/playlists/${id}`).then(() => {
       toasts.success("Playlist deleted");
@@ -199,6 +217,9 @@
       }}
     >
       Rename playlist
+    </button>
+    <button on:click={onChangeVisibility}>
+      Make {isPrivate ? "public" : "private"}
     </button>
     <button on:click={onDeletePlaylist}>Delete playlist</button>
   {/if}

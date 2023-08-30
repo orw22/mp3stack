@@ -12,6 +12,7 @@ export interface Track {
 export interface Playlist {
   _id: string;
   name: string;
+  private: boolean;
   tracks: Track[];
 }
 

@@ -22,6 +22,7 @@
   .playbar {
     position: fixed;
     width: 100%;
+    background-color: #fff;
     border-top: 1px solid grey;
     bottom: 0;
     left: 0;

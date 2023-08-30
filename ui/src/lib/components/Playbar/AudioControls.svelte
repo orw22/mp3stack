@@ -11,6 +11,7 @@
   let currentTime = 0;
   let progressTime = 0;
   let duration = 0;
+  let volume = 1;
 
   let prevTimeInputEvent: number;
   let prevUpdated: number;
@@ -66,6 +67,7 @@
   bind:paused
   bind:duration
   bind:currentTime
+  bind:volume
   bind:this={audioEl}
 >
   Your browser does not support the audio element.
@@ -104,9 +106,7 @@
     min={0}
     max={1}
     step={0.01}
-    on:input={(e) => {
-      audioEl.volume = parseFloat(e.currentTarget.value);
-    }}
+    bind:value={volume}
   />
   <label for="volume">
     <Icon name={audioEl && audioEl.volume === 0 ? "speakerMuted" : "speaker"} />

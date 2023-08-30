@@ -97,10 +97,10 @@
 
   <button on:click={onProfileClick}>My profile</button>
 
-  <div>
+  <div class="search">
     <form on:submit={onSearchUsers}>
       <input type="text" bind:value={searchQuery} placeholder="Search users" />
-      <button type="submit">Search</button>
+      <button type="submit" disabled={!searchQuery}>Search</button>
     </form>
   </div>
 
@@ -110,3 +110,9 @@
     {/each}
   </div>
 </Layout>
+
+<style>
+  .search {
+    margin-top: 1em;
+  }
+</style>

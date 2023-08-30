@@ -3,7 +3,7 @@
   export let register = false;
 </script>
 
-<form class="login-form" on:submit={onSubmit}>
+<form on:submit={onSubmit}>
   <input name="email" type="text" placeholder="Email" />
   {#if register}
     <input name="name" type="text" placeholder="Full name" />
@@ -13,7 +13,7 @@
 </form>
 
 <style>
-  .login-form {
+  form {
     display: flex;
     flex-direction: column;
     align-items: center;

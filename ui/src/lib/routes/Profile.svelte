@@ -28,22 +28,24 @@
     profile = getProfile();
   }
 
-  async function updateProfile(event: Event, password: boolean = false) {
+  async function updateProfile(event: Event, isPasswordReset: boolean = false) {
     event.preventDefault();
-    if (!(password ? validPassword : validNameEmail)) {
+    if (!(isPasswordReset ? validPassword : validNameEmail)) {
       return;
     }
     await axios
       .put(
         "/users/me",
-        password
+        isPasswordReset
           ? { password: newPassword }
           : { name: newName, email: newEmail }
       )
       .then(() => {
         editing = false;
         resettingPassword = false;
-        toasts.success(password ? "Password changed" : "Profile updated");
+        toasts.success(
+          isPasswordReset ? "Password changed" : "Profile updated"
+        );
         refreshProfile();
       });
   }

@@ -109,6 +109,10 @@
     bind:value={volume}
   />
   <label for="volume">
-    <Icon name={audioEl && audioEl.volume === 0 ? "speakerMuted" : "speaker"} />
+    {#if audioEl && audioEl.volume === 0}
+      <Icon name="speakerMuted" />
+    {:else}
+      <Icon name="speaker" />
+    {/if}
   </label>
 </div>

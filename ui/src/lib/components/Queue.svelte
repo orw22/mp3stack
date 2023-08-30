@@ -37,7 +37,7 @@
     position: fixed;
     right: 0;
     top: 5em;
-    width: 40vw;
+    width: 50vw;
     background: white;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }

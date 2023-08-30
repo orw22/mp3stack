@@ -120,7 +120,9 @@
     <form on:submit={onAddTrack}>
       <input type="file" bind:files={newTrackFiles} />
       <input type="text" placeholder="Track name" bind:value={newTrackName} />
-      <IconButton type="submit">Upload <Icon name="upload" /></IconButton>
+      <IconButton type="submit"
+        >Upload <Icon name="upload" size={20} /></IconButton
+      >
     </form>
     <button
       on:click={() => {

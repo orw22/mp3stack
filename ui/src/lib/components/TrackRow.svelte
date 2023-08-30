@@ -14,15 +14,17 @@
 <div role="row" tabindex={index}>
   <span>{track.name}</span>
   <span>
-    <button on:click={() => onClick(track)}>Play now</button>
+    <IconButton onClick={() => onClick(track)}
+      ><Icon name="play" size={20} /></IconButton
+    >
     {#if !isQueue}
       <button on:click={() => onAddToQueue(track)}>Add to queue</button>
     {/if}
     <IconButton onClick={() => onRemove(track._id)}>
       {#if isQueue}
-        Remove <Icon name="xMark" />
+        Remove <Icon name="xMark" size={20} />
       {:else}
-        Delete <Icon name="trash" />
+        Delete <Icon name="trash" size={20} />
       {/if}
     </IconButton>
   </span>

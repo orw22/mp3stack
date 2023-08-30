@@ -2,7 +2,7 @@
   import axios, { type AxiosResponse } from "axios";
   import { onMount } from "svelte";
   import { navigate } from "svelte-routing";
-  import token from "../stores/token";
+  import authToken from "../stores/authToken";
 
   let name: string;
   let lEmail: string;
@@ -11,13 +11,13 @@
   let rPassword: string;
 
   onMount(() => {
-    if ($token) {
+    if ($authToken) {
       navigate("/");
     }
   });
 
   function processTokenResponse(response: AxiosResponse) {
-    token.set(response.data.token);
+    authToken.set(response.data.token);
     navigate("/");
   }
 

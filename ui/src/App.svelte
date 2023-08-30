@@ -12,8 +12,8 @@
   import Login from "./lib/routes/Login.svelte";
   import Playlist from "./lib/routes/Playlist.svelte";
   import Profile from "./lib/routes/Profile.svelte";
+  import authToken, { unsubscribeFromToken } from "./lib/stores/authToken";
   import queue from "./lib/stores/queue";
-  import token, { unsubscribeFromToken } from "./lib/stores/token";
   import toasts from "./toasts";
 
   let queueOpen = false;
@@ -45,7 +45,7 @@
 
 <SvelteToast options={{ duration: 2500, intro: { x: 300 } }} />
 <Router {url}>
-  <Header loggedIn={$token ? $token.length > 0 : false} />
+  <Header loggedIn={$authToken ? $authToken.length > 0 : false} />
   <main>
     <Route component={Home} />
     <Route path="/login" component={Login} />
@@ -53,7 +53,7 @@
     <Route path="/playlist/:id" let:params><Playlist id={params.id} /></Route>
   </main>
 </Router>
-{#if $token}
+{#if $authToken}
   <Playbar onQueueClick={() => (queueOpen = !queueOpen)} />
   <Queue
     open={queueOpen}

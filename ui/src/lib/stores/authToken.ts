@@ -3,8 +3,16 @@ import { writable } from "svelte/store";
 import { getCookie, removeCookie, setCookie } from "typescript-cookie";
 import { AUTH_COOKIE_KEY } from "../constants";
 
+/**
+ * Authentication JWT store
+ * @name authToken
+ * @type {Writable<string | undefined>}
+ */
 const authToken = writable<string | undefined>(getCookie(AUTH_COOKIE_KEY));
 
+/**
+ * Subscribes to changes in authToken and updates the axios global Authorization header and browser cookie accordingly.
+ */
 const unsubscribeFromAuthToken = authToken.subscribe((value) => {
   if (value) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${value}`;

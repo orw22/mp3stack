@@ -10,7 +10,7 @@
   import blobUrls from "../stores/blobUrls";
   import queue from "../stores/queue";
   import type { Track } from "../types";
-  import { FetchMode } from "../types/enums";
+  import { TrackAction } from "../types/enums";
 
   export let id: string;
 
@@ -42,11 +42,11 @@
     playlist = getPlaylist();
   }
 
-  async function fetchTrack(track: Track, mode: FetchMode) {
+  async function fetchTrack(track: Track, action: TrackAction) {
     const existingUrl = $blobUrls.get(track._id);
-    let action = mode === FetchMode.Play ? queue.play : queue.add;
+    let func = action === TrackAction.Play ? queue.play : queue.add;
 
-    if (existingUrl) action({ ...track, url: existingUrl });
+    if (existingUrl) func({ ...track, url: existingUrl });
     else
       await axios
         .get(`/tracks/${track._id}`, {
@@ -62,16 +62,16 @@
             })
           );
           blobUrls.setUrl(track._id, url);
-          action({ ...track, url });
+          func({ ...track, url });
         });
   }
 
   async function onClickTrack(track: Track) {
-    await fetchTrack(track, FetchMode.Play);
+    await fetchTrack(track, TrackAction.Play);
   }
 
   async function onAddToQueue(track: Track) {
-    await fetchTrack(track, FetchMode.Queue);
+    await fetchTrack(track, TrackAction.Queue);
   }
 
   async function onRemoveTrack(trackId: string) {

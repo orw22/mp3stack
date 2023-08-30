@@ -17,6 +17,11 @@ router.post("/", async (req, res, next) => {
   await userController.register(req.body as IUser, res, next);
 });
 
+// Search users
+router.get("/", async (req, res, next) => {
+  await userController.findByName(req.query.name as string, res, next);
+});
+
 // Get user
 router.get("/me", authenticate, async (req, res, next) => {
   await userController.getUser(req.userId, res, next);

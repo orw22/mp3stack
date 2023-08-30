@@ -26,6 +26,14 @@ export default class UserController {
       .catch(next);
   }
 
+  async findByName(name: string, res: Response, next: NextFunction) {
+    await User.find({ name })
+      .then((users) => {
+        res.status(200).send(users);
+      })
+      .catch(next);
+  }
+
   async getUser(userId: string, res: Response, next: NextFunction) {
     await User.findById(userId, {
       password: 0,

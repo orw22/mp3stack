@@ -4,6 +4,6 @@
   export let type: "button" | "submit" | "reset" = "button";
 </script>
 
-<button class="icon-button" on:click={onClick} {disabled} {type}>
+<button class={$$props.class} on:click={onClick} {disabled} {type}>
   <slot />
 </button>

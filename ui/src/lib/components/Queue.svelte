@@ -11,7 +11,7 @@
 {#if open}
   <div class="queue">
     <h3>Queue</h3>
-    <IconButton onClick={onClose}>
+    <IconButton onClick={onClose} class="queue-close-btn">
       <Icon name="xMark" />
     </IconButton>
     {#if $queue.length > 1}
@@ -46,5 +46,11 @@
   .tracklist {
     display: flex;
     flex-direction: column;
+  }
+
+  :global(.queue-close-btn) {
+    position: absolute;
+    top: 1em;
+    right: 1em;
   }
 </style>

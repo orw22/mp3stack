@@ -46,9 +46,10 @@ export default class PlaylistController {
     res: Response,
     next: NextFunction
   ) {
-    await Playlist.findOne({ _id: playlistId, userId: userId })
+    await Playlist.findOne({ _id: playlistId })
       .then((playlist: IPlaylist | null) => {
-        if (!playlist) return next(createError(404, "Playlist not found"));
+        if (!playlist || (playlist.private && userId !== playlist.userId))
+          return next(createError(404, "Playlist not found"));
         res.status(200).send(playlist);
       })
       .catch(next);

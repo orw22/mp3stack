@@ -52,6 +52,10 @@ export default class UserController {
         Playlist.find({ userId: userId, private: false }),
       ]);
 
+      if (!user) {
+        return next(createError(404, "User not found"));
+      }
+
       res.status(200).send({ ...user?.toObject(), playlists });
     } catch (error) {
       return next(error);

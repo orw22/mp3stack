@@ -2,13 +2,8 @@
   import axios, { type AxiosResponse } from "axios";
   import { onMount } from "svelte";
   import { navigate } from "svelte-routing";
+  import LoginForm from "../components/LoginForm.svelte";
   import authToken from "../stores/authToken";
-
-  let name: string;
-  let lEmail: string;
-  let lPassword: string;
-  let rEmail: string;
-  let rPassword: string;
 
   onMount(() => {
     if ($authToken) {
@@ -23,32 +18,50 @@
 
   async function onLogin(event: Event) {
     event.preventDefault();
+    const form = event.target as HTMLFormElement;
 
     await axios
-      .post("/users/login", { email: lEmail, password: lPassword })
+      .post("/users/login", {
+        email: (form.elements.email as HTMLInputElement).value,
+        password: (form.elements.password as HTMLInputElement).value,
+      })
       .then((response) => processTokenResponse(response));
   }
 
   async function onRegister(event: Event) {
     event.preventDefault();
+    const form = event.target as HTMLFormElement;
 
     await axios
-      .post("/users", { name, email: rEmail, password: rPassword })
+      .post("/users", {
+        name: (form.elements.name as HTMLInputElement).value,
+        email: (form.elements.email as HTMLInputElement).value,
+        password: (form.elements.password as HTMLInputElement).value,
+      })
       .then((response) => processTokenResponse(response));
   }
 </script>
 
-<h2>Log in</h2>
-<form on:submit={onLogin}>
-  <input type="text" placeholder="Email" bind:value={lEmail} />
-  <input type="password" placeholder="Password" bind:value={lPassword} />
-  <button type="submit">Log in</button>
-</form>
+<div id="wrapper">
+  <div class="side">
+    <h2>Log in</h2>
+    <LoginForm onSubmit={onLogin} />
+  </div>
 
-<h2>Register</h2>
-<form on:submit={onRegister}>
-  <input type="text" placeholder="Email" bind:value={rEmail} />
-  <input type="text" placeholder="Full name" bind:value={name} />
-  <input type="password" placeholder="Password" bind:value={rPassword} />
-  <button type="submit">Register</button>
-</form>
+  <div class="side">
+    <h2>Register</h2>
+    <LoginForm onSubmit={onRegister} register />
+  </div>
+</div>
+
+<style>
+  #wrapper {
+    display: flex;
+    flex-direction: row;
+    width: min(1280px, 80vw);
+  }
+
+  .side {
+    width: 50%;
+  }
+</style>

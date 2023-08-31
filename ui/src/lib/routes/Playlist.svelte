@@ -154,7 +154,7 @@
   {:then { data }}
     <h3>{data.name}</h3>
     {#if !data.private}
-      <h5>Followers: {data.followers.length}</h5>
+      <h5>Followers: {data.followers?.length ?? 0}</h5>
     {/if}
     <div class="tracklist">
       {#each data.tracks as track, index}

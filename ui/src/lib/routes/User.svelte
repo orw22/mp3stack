@@ -1,6 +1,7 @@
 <script lang="ts">
   import axios from "axios";
   import { navigate } from "svelte-routing";
+  import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
 
@@ -20,14 +21,14 @@
     <h4>{data.name}</h4>
     <h6>Playlists</h6>
     {#each data.playlists as playlist}
-      <button
-        on:click={() =>
+      <Card
+        onClick={() =>
           navigate(`/playlist/${playlist._id}`, {
             state: { canEdit: false },
           })}
       >
         {playlist.name}
-      </button>
+      </Card>
     {/each}
   {:catch error}
     <p>{error.response.data.message}</p>

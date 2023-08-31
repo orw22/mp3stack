@@ -1,6 +1,7 @@
 <script lang="ts">
   import axios from "axios";
   import { navigate } from "svelte-routing";
+  import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
   import type { User } from "../types";
@@ -59,16 +60,16 @@
   {:then { data }}
     <h4>My Playlists</h4>
     {#each data.playlists as playlist}
-      <button on:click={() => onPlaylistClick(playlist._id, true)}>
+      <Card onClick={() => onPlaylistClick(playlist._id, true)}>
         {playlist.name}
-      </button>
+      </Card>
     {/each}
     {#if data.following.length > 0}
       <h4>Following</h4>
       {#each data.following as playlist}
-        <button on:click={() => onPlaylistClick(playlist._id, false)}>
+        <Card onClick={() => onPlaylistClick(playlist._id, false)}>
           {playlist.name}
-        </button>
+        </Card>
       {/each}
     {/if}
   {:catch error}

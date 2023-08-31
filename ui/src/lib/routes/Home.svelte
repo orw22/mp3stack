@@ -58,7 +58,7 @@
   {#await playlists}
     <Loader />
   {:then { data }}
-    <h4>My Playlists</h4>
+    <h4>Playlists</h4>
     {#each data.playlists as playlist}
       <Card
         onClick={() => onPlaylistClick(playlist._id, true)}

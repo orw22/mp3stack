@@ -9,7 +9,7 @@
 -->
 
 <script lang="ts">
-  import { link } from "svelte-routing";
+  import { Link } from "svelte-routing";
   import { resetStores } from "../utils/store";
 
   export let loggedIn: boolean;
@@ -17,11 +17,11 @@
 
 <header>
   <nav>
-    <a href="/" use:link>mp3stack</a>
+    <Link to="/">mp3stack</Link>
     {#if loggedIn}
-      <a href="/login" on:click={() => resetStores()} use:link>Log out</a>
+      <Link to="/login" on:click={() => resetStores()}>Log out</Link>
     {:else}
-      <a href="/login" use:link>Log in</a>
+      <Link to="/login">Log in</Link>
     {/if}
   </nav>
 </header>
@@ -48,13 +48,13 @@
     padding: 0 2em;
   }
 
-  a {
+  :global(header nav a) {
     font-size: 1.1em;
     font-weight: 500;
     color: var(--color-white);
     text-decoration: none;
   }
-  a:hover {
+  :global(header nav a:hover) {
     color: var(--color-white);
   }
 </style>

@@ -18,7 +18,7 @@
 </script>
 
 <button
-  class={`icon-button ${$$props.class}`}
+  class="icon-button {$$props.class}"
   on:click={onClick}
   {disabled}
   {type}

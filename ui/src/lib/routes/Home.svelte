@@ -60,14 +60,20 @@
   {:then { data }}
     <h4>My Playlists</h4>
     {#each data.playlists as playlist}
-      <Card onClick={() => onPlaylistClick(playlist._id, true)}>
+      <Card
+        onClick={() => onPlaylistClick(playlist._id, true)}
+        textSize="large"
+      >
         {playlist.name}
       </Card>
     {/each}
     {#if data.following.length > 0}
       <h4>Following</h4>
       {#each data.following as playlist}
-        <Card onClick={() => onPlaylistClick(playlist._id, false)}>
+        <Card
+          onClick={() => onPlaylistClick(playlist._id, false)}
+          textSize="large"
+        >
           {playlist.name}
         </Card>
       {/each}
@@ -115,13 +121,13 @@
 
   <div>
     {#each searchResult as user}
-      <button on:click={() => onOtherUserClick(user._id)}>{user.name}</button>
+      <Card onClick={() => onOtherUserClick(user._id)}>{user.name}</Card>
     {/each}
   </div>
 </Layout>
 
 <style>
   .search {
-    margin-top: 1em;
+    margin: 1em 0;
   }
 </style>

@@ -1,9 +1,17 @@
 <script lang="ts">
   export let onClick: () => void;
+  export let textSize: "small" | "medium" | "large" = "medium";
   export let disabled = false;
+
+  let fontSize = textSize === "small" ? 0.8 : textSize === "medium" ? 1 : 1.2;
 </script>
 
-<button class="card" on:click={onClick} {disabled}>
+<button
+  class="card"
+  style="font-size: {fontSize}em"
+  on:click={onClick}
+  {disabled}
+>
   <slot />
 </button>
 
@@ -14,9 +22,9 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 7px 0px;
     padding: 1em 2em;
     min-width: 240px;
-    font-size: 1.1em;
     font-weight: 600;
   }
+
   button:hover {
     background-color: var(--color-light-grey);
     border: 1px solid var(--color-primary);

@@ -67,31 +67,15 @@ router.delete(
   }
 );
 
-// Follow playlist
-router.post("/:playlistId/followers", authenticate, async (req, res, next) => {
+// Follow/unfollow playlist
+router.put("/:playlistId/follow", authenticate, async (req, res, next) => {
   await playlistController.changeFollowStatus(
     req.params.playlistId,
     req.userId,
-    true,
     res,
     next
   );
 });
-
-// Unfollow playlist
-router.delete(
-  "/:playlistId/followers",
-  authenticate,
-  async (req, res, next) => {
-    await playlistController.changeFollowStatus(
-      req.params.playlistId,
-      req.userId,
-      false,
-      res,
-      next
-    );
-  }
-);
 
 // Delete playlist
 router.delete("/:playlistId", authenticate, async (req, res, next) => {

@@ -15,6 +15,7 @@ export interface Playlist {
   private: boolean;
   tracks: Track[];
   followers: string[];
+  following?: boolean;
 }
 
 /**

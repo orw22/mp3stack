@@ -47,10 +47,14 @@ export default class PlaylistController {
     next: NextFunction
   ) {
     await Playlist.findOne({ _id: playlistId })
-      .then((playlist: IPlaylist | null) => {
+      .then((document) => {
+        const playlist = document?.toObject();
         if (!playlist || (playlist.private && userId !== playlist.userId))
           return next(createError(404, "Playlist not found"));
-        res.status(200).send(playlist);
+        res.status(200).send({
+          ...playlist,
+          following: playlist.followers?.includes(userId),
+        });
       })
       .catch(next);
   }
@@ -99,27 +103,27 @@ export default class PlaylistController {
   async changeFollowStatus(
     playlistId: string,
     userId: string,
-    follow: boolean,
     res: Response,
     next: NextFunction
   ) {
-    await Playlist.updateOne(
-      { _id: playlistId },
-      follow
-        ? { $addToSet: { followers: userId } }
-        : { $pull: { followers: userId } }
-    )
-      .then((update) => {
-        if (follow) {
-          if (update.modifiedCount === 0) {
-            return res
-              .status(200)
-              .send({ message: "You are already following this playlist" });
-          }
-          res.status(201).send({ message: "Followed playlist" });
-        } else {
-          res.status(200).send({ message: "Unfollowed playlist" });
-        }
+    await Playlist.findOne({ _id: playlistId })
+      .then(async (playlist: IPlaylist | null) => {
+        if (!playlist || (playlist.private && userId !== playlist.userId))
+          return next(createError(404, "Playlist not found"));
+        const wasFollowing = playlist.followers?.includes(userId);
+
+        await Playlist.updateOne(
+          { _id: playlistId },
+          wasFollowing
+            ? { $pull: { followers: userId } }
+            : { $addToSet: { followers: userId } }
+        )
+          .then(() => {
+            if (!wasFollowing)
+              res.status(200).send({ message: "Followed playlist" });
+            else res.status(200).send({ message: "Unfollowed playlist" });
+          })
+          .catch(next);
       })
       .catch(next);
   }

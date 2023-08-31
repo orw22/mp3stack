@@ -15,6 +15,7 @@
   export let id: string;
 
   let isPrivate: boolean;
+  let following: boolean;
 
   let adding = false;
   let renaming = false;
@@ -33,6 +34,7 @@
       try {
         const response = await playlist;
         isPrivate = response.data.private;
+        following = response.data.following;
       } catch (error) {
         return;
       }
@@ -143,10 +145,8 @@
     });
   }
 
-  async function onFollow() {
-    await axios
-      .post(`/playlists/${id}/followers`)
-      .then(() => refreshPlaylist());
+  async function onChangeFollow() {
+    await axios.put(`/playlists/${id}/follow`).then(() => refreshPlaylist());
   }
 </script>
 
@@ -233,7 +233,9 @@
     </button>
     <button on:click={onDeletePlaylist}>Delete playlist</button>
   {:else}
-    <button on:click={onFollow}>Follow</button>
+    <button on:click={() => onChangeFollow()}>
+      {following ? "Unfollow" : "Follow"}
+    </button>
   {/if}
   <button on:click={() => navigate("/")}>Back</button>
 </Layout>

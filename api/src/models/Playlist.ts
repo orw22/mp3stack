@@ -26,7 +26,7 @@ playlistSchema.post("updateOne", async function () {
   const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
     bucketName: "tracks",
   });
-  if (data?.$pull)
+  if (data?.$pull && data.$pull.tracks)
     await bucket.delete(new mongoose.mongo.ObjectId(data.$pull.tracks._id));
 });
 

@@ -12,8 +12,8 @@ function createToast(color: string) {
 }
 
 const toasts = {
-  success: createToast("green"),
-  error: createToast("red"),
+  success: createToast("#339966"),
+  error: createToast("#cc3333"),
 };
 
 export default toasts;

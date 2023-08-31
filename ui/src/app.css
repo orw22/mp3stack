@@ -1,11 +1,24 @@
 :root {
+  /* color vars */
+  --color-primary: #00b0b9;
+  --color-secondary: #00c2d2;
+  --color-primary-text: #213547;
+  --color-secondary-text: #6b7d8a;
+  --color-white: #ffffff;
+  --color-light-grey: #f5f5f5;
+  --color-medium-grey: #dcdcdc;
+  --color-dark-grey: #808080;
+  --color-black: #000000;
+  --color-error: #cc3333;
+  --color-success: #339966;
+
   font-family: Rubik, Tahoma, Verdana, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: normal;
-  color: #213547;
-  background-color: #ffffff;
+  color: var(--color-primary-text);
+  background-color: var(--color-white);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,21 +28,49 @@
 }
 
 /* typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.1;
+  color: var(--color-primary-text);
+}
 
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
+}
+
+h2 {
+  font-size: 2.4em;
+}
+
+h3 {
+  font-size: 1.8em;
+}
+
+h4 {
+  font-size: 1.6em;
+}
+
+h5 {
+  font-size: 1.4em;
+}
+
+h6 {
+  font-size: 1.2em;
 }
 
 /* components */
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-primary-text);
   text-decoration: inherit;
 }
 a:hover {
-  color: #747bff;
+  color: var(--color-secondary-text);
 }
 
 button {
@@ -39,16 +80,16 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #f9f9f9;
+  background-color: var(--color-light-grey);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-primary);
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto var(--color-primary);
 }
 button:disabled {
   pointer-events: none;
@@ -57,27 +98,27 @@ button:disabled {
 input[type="text"],
 input[type="password"] {
   border-radius: 8px;
-  border: 1px solid #213547;
+  border: 1px solid var(--color-medium-grey);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-family: inherit;
-  background-color: #fff;
+  background-color: var(--color-white);
   transition: border-color 0.25s;
 }
 input[type="text"]:hover,
 input[type="password"]:hover {
-  border-color: #646cff;
+  border-color: var(--color-primary);
 }
 input[type="text"]:focus,
 input[type="text"]:focus-visible,
 input[type="password"]:focus,
 input[type="password"]:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto var(--color-primary);
 }
 input[type="text"]:disabled,
 input[type="password"]:disabled {
   pointer-events: none;
-  background-color: #e2e2e2;
+  background-color: var(--color-light-grey);
 }
 
 /* layout */

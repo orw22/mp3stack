@@ -142,6 +142,10 @@
       navigate("/");
     });
   }
+
+  async function onFollow() {
+    await axios.post(`/playlists/${id}/follow`);
+  }
 </script>
 
 <Layout>
@@ -223,6 +227,8 @@
       Make {isPrivate ? "public" : "private"}
     </button>
     <button on:click={onDeletePlaylist}>Delete playlist</button>
+  {:else}
+    <button on:click={onFollow}>Follow</button>
   {/if}
   <button on:click={() => navigate("/")}>Back</button>
 </Layout>

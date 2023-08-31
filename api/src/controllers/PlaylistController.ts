@@ -106,7 +106,9 @@ export default class PlaylistController {
       { _id: playlistId },
       { $push: { followers: userId } }
     )
-      .then(() => res.status(204).send())
+      .then(() =>
+        res.status(201).send({ message: "Now following this playlist" })
+      )
       .catch(next);
   }
 

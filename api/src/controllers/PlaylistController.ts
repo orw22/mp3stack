@@ -118,11 +118,13 @@ export default class PlaylistController {
             ? { $pull: { followers: userId } }
             : { $addToSet: { followers: userId } }
         )
-          .then(() => {
-            if (!wasFollowing)
-              res.status(200).send({ message: "Followed playlist" });
-            else res.status(200).send({ message: "Unfollowed playlist" });
-          })
+          .then(() =>
+            res.status(200).send({
+              message: wasFollowing
+                ? "Unfollowed playlist"
+                : "Followed playlist",
+            })
+          )
           .catch(next);
       })
       .catch(next);

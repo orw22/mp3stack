@@ -37,6 +37,9 @@
     bottom: 0;
     left: 0;
     z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   h6 {

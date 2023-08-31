@@ -22,7 +22,7 @@
 
 {#if open}
   <div class="queue">
-    <h3>Queue</h3>
+    <h4>Queue</h4>
     <IconButton onClick={onClose} class="queue-close-btn">
       <Icon name="xMark" />
     </IconButton>
@@ -39,7 +39,7 @@
         {/each}
       </div>
     {:else}
-      <h6>There's nothing in the queue right now</h6>
+      <p>There's nothing in the queue right now</p>
     {/if}
   </div>
 {/if}

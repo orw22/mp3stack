@@ -69,6 +69,9 @@
   }
 
   $: currentTime, (progressTime = currentTime);
+
+  $: currentTimePercentage = (progressTime / duration) * 100;
+  $: volumePercentage = volume * 100;
 </script>
 
 <audio
@@ -109,8 +112,9 @@
     on:input={onTimeInput}
     on:change={onTimeChange}
     min={0}
-    step={1}
+    step={0.1}
     max={duration}
+    style="background: linear-gradient(to right, #00b0b9 0%, #00b0b9 {currentTimePercentage}%, #f5f5f5 {currentTimePercentage}%, #f5f5f5 100%)"
   />
   <span>{secondsToMMSS(duration)}</span>
 </div>
@@ -123,6 +127,7 @@
     max={1}
     step={0.01}
     bind:value={volume}
+    style="background: linear-gradient(to right, #00b0b9 0%, #00b0b9 {volumePercentage}%, #f5f5f5 {volumePercentage}%, #f5f5f5 100%)"
   />
   <label for="volume">
     {#if audioEl && audioEl.volume === 0}
@@ -141,10 +146,14 @@
     width: 100%;
   }
 
+  input[type="range"] {
+    -webkit-appearance: none;
+  }
+
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
+    width: 13px;
+    height: 13px;
     background-color: var(--color-primary);
     border-radius: 50%;
     border: none;
@@ -152,15 +161,17 @@
   }
 
   input[type="range"]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
     height: 6px;
-    background-color: var(--color-light-grey);
   }
 
   input[type="range"]::-moz-range-progress {
+    height: 6px;
     background-color: var(--color-primary);
   }
 
   input[type="range"]::-moz-range-track {
+    height: 6px;
     background-color: var(--color-light-grey);
   }
 
@@ -172,15 +183,15 @@
     background-color: var(--color-light-grey);
   }
 
-  input[type="range"] {
-    -webkit-appearance: none;
-  }
-
   #current-time {
-    width: min(500px, 80%);
+    width: min(480px, 80%);
   }
 
   #volume {
     width: 160px;
+  }
+
+  #current-time-wrapper span {
+    margin: 0 0.5em;
   }
 </style>

@@ -56,6 +56,5 @@
   }
   a:hover {
     color: var(--color-white);
-    text-decoration: underline;
   }
 </style>

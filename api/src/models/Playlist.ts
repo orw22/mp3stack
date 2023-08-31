@@ -17,9 +17,8 @@ export const playlistSchema = new mongoose.Schema<IPlaylist>({
   },
   private: { type: Boolean, required: true, default: true },
   tracks: [trackSchema],
+  followers: [String],
 });
-
-// TODO: Add follower list and endpoints
 
 // post remove track, delete from GridFS bucket
 playlistSchema.post("updateOne", async function () {
@@ -38,7 +37,7 @@ playlistSchema.pre("deleteOne", async function (next) {
     bucketName: "tracks",
   });
   const playlist = await Playlist.findOne({ _id }).exec().catch(next);
-  playlist?.tracks.forEach(
+  playlist?.tracks?.forEach(
     async (track) => await bucket.delete(track._id).catch(next)
   );
 

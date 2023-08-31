@@ -23,7 +23,8 @@ export interface IPlaylist {
   name: string;
   userId: string;
   private: boolean;
-  tracks: ITrack[];
+  tracks?: ITrack[];
+  followers?: string[];
 }
 
 export interface Login {

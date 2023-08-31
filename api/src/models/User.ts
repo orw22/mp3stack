@@ -101,7 +101,7 @@ userSchema.post("deleteOne", async function () {
     return;
   } else {
     playlists.forEach((playlist) => {
-      playlist.tracks.forEach(async (track) => await bucket.delete(track._id));
+      playlist.tracks?.forEach(async (track) => await bucket.delete(track._id));
     });
 
     await Playlist.deleteMany({ userId }).exec();

@@ -25,7 +25,9 @@
 <div class="playbar">
   <h6>Now playing: {currentTrack ? currentTrack.name : ""}</h6>
   <AudioControls {currentTrack} bind:restart />
-  <IconButton onClick={onQueueClick}><Icon name="queue" /></IconButton>
+  <IconButton onClick={onQueueClick} class="queue-open-button">
+    <Icon name="queue" />
+  </IconButton>
 </div>
 
 <style>
@@ -42,7 +44,14 @@
     align-items: center;
   }
 
+  :global(.queue-open-button) {
+    position: absolute;
+    top: 50%;
+    right: 4em;
+    transform: translateY(-50%);
+  }
+
   h6 {
-    margin: 1.5em 0;
+    margin: 1em 0;
   }
 </style>

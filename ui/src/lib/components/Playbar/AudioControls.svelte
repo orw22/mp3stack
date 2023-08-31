@@ -114,7 +114,9 @@
     min={0}
     step={0.1}
     max={duration}
-    style="background: linear-gradient(to right, #00b0b9 0%, #00b0b9 {currentTimePercentage}%, #f5f5f5 {currentTimePercentage}%, #f5f5f5 100%)"
+    style={progressTime > 0
+      ? `background: linear-gradient(to right, #00b0b9 0%, #00b0b9 ${currentTimePercentage}%, #f5f5f5 ${currentTimePercentage}%, #f5f5f5 100%)`
+      : "background: #f5f5f5"}
   />
   <span>{secondsToMMSS(duration)}</span>
 </div>
@@ -131,9 +133,9 @@
   />
   <label for="volume">
     {#if audioEl && audioEl.volume === 0}
-      <Icon name="speakerMuted" />
+      <Icon name="speakerMuted" class="volume-icon" />
     {:else}
-      <Icon name="speaker" />
+      <Icon name="speaker" class="volume-icon" />
     {/if}
   </label>
 </div>
@@ -186,12 +188,24 @@
   #current-time {
     width: min(480px, 80%);
   }
-
   #volume {
     width: 160px;
   }
 
+  :global(.volume-icon) {
+    margin-bottom: -5px;
+    margin-left: 0.25em;
+  }
+  :global(#controls-wrapper button) {
+    margin: 0 0.3em;
+  }
+  #current-time-wrapper {
+    margin-top: 0.5em;
+  }
   #current-time-wrapper span {
     margin: 0 0.5em;
+  }
+  #volume-wrapper {
+    margin-bottom: 1em;
   }
 </style>

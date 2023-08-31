@@ -62,6 +62,7 @@
   width={size}
   height={size}
   fill={colour}
+  class={$$props.class}
 >
   {@html iconPaths[name]}
 </svg>

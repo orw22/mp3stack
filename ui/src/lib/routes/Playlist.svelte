@@ -144,7 +144,7 @@
   }
 
   async function onFollow() {
-    await axios.post(`/playlists/${id}/follow`);
+    await axios.post(`/playlists/${id}/follow`).then(() => refreshPlaylist());
   }
 </script>
 
@@ -153,6 +153,9 @@
     <Loader />
   {:then { data }}
     <h3>{data.name}</h3>
+    {#if !data.private}
+      <h5>Followers: {data.followers.length}</h5>
+    {/if}
     <div class="tracklist">
       {#each data.tracks as track, index}
         <TrackRow

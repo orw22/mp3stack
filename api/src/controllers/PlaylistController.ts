@@ -104,11 +104,16 @@ export default class PlaylistController {
   ) {
     await Playlist.updateOne(
       { _id: playlistId },
-      { $push: { followers: userId } }
+      { $addToSet: { followers: userId } }
     )
-      .then(() =>
-        res.status(201).send({ message: "Now following this playlist" })
-      )
+      .then((update) => {
+        if (update.modifiedCount === 0) {
+          res
+            .status(200)
+            .send({ message: "You are already following this playlist" });
+        }
+        res.status(201).send({ message: "Now following this playlist" });
+      })
       .catch(next);
   }
 

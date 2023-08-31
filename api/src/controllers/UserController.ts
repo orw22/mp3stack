@@ -2,7 +2,7 @@ import { NextFunction, Response } from "express";
 import createError from "http-errors";
 import { Playlist } from "../models/Playlist";
 import { User } from "../models/User";
-import { IPlaylist, IUser, Login } from "../types";
+import { IUser, Login } from "../types";
 
 export default class UserController {
   async login(login: Login, res: Response, next: NextFunction) {
@@ -82,20 +82,17 @@ export default class UserController {
   }
 
   async getUserPlaylists(userId: string, res: Response, next: NextFunction) {
-    await Playlist.find({ userId: userId })
-      .then((playlists: IPlaylist[]) => res.status(200).send(playlists))
-      .catch(next);
-  }
+    // TODO: Test following
+    try {
+      const [playlists, following] = await Promise.all([
+        Playlist.find({ userId: userId }),
+        Playlist.find({ followers: { $in: [userId] } }),
+      ]);
 
-  async getFollowedPlaylists(
-    userId: string,
-    res: Response,
-    next: NextFunction
-  ) {
-    // TODO: Test this
-    await Playlist.find({ followers: { $in: [userId] } })
-      .then((playlists: IPlaylist[]) => res.status(200).send(playlists))
-      .catch(next);
+      res.status(200).send({ playlists, following });
+    } catch (error) {
+      return next(error);
+    }
   }
 
   async updateUser(

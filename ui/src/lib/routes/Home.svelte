@@ -20,8 +20,8 @@
     playlists = getPlaylists();
   }
 
-  function onPlaylistClick(id: string) {
-    navigate(`/playlist/${id}`, { state: { canEdit: true } });
+  function onPlaylistClick(id: string, canEdit: boolean) {
+    navigate(`/playlist/${id}`, { state: { canEdit } });
   }
 
   function onProfileClick() {
@@ -58,8 +58,14 @@
     <Loader />
   {:then { data }}
     <h3>My Playlists</h3>
-    {#each data as playlist}
-      <button on:click={() => onPlaylistClick(playlist._id)}>
+    {#each data.playlists as playlist}
+      <button on:click={() => onPlaylistClick(playlist._id, true)}>
+        {playlist.name}
+      </button>
+    {/each}
+    <h3>Following</h3>
+    {#each data.following as playlist}
+      <button on:click={() => onPlaylistClick(playlist._id, false)}>
         {playlist.name}
       </button>
     {/each}

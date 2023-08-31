@@ -1,8 +1,8 @@
 <script lang="ts">
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import axios from "axios";
-  import { onDestroy } from "svelte";
-  import { Route, Router } from "svelte-routing";
+  import { onDestroy, onMount } from "svelte";
+  import { Route, Router, navigate } from "svelte-routing";
   import Footer from "./lib/components/Footer.svelte";
   import Header from "./lib/components/Header.svelte";
   import Playbar from "./lib/components/Playbar/Playbar.svelte";
@@ -39,6 +39,11 @@
   onDestroy(() => {
     unsubscribeFromAuthToken();
     queue.unsubscribefromHistory();
+  });
+
+  onMount(() => {
+    // on start or refresh, navigate to home page
+    navigate("/");
   });
 
   export let url = "/";

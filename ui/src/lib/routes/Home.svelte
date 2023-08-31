@@ -63,12 +63,14 @@
         {playlist.name}
       </button>
     {/each}
-    <h3>Following</h3>
-    {#each data.following as playlist}
-      <button on:click={() => onPlaylistClick(playlist._id, false)}>
-        {playlist.name}
-      </button>
-    {/each}
+    {#if data.following.length > 0}
+      <h3>Following</h3>
+      {#each data.following as playlist}
+        <button on:click={() => onPlaylistClick(playlist._id, false)}>
+          {playlist.name}
+        </button>
+      {/each}
+    {/if}
   {:catch error}
     <p>{error.response.data.message}</p>
   {/await}

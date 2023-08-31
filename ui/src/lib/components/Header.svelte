@@ -19,7 +19,7 @@
   <nav>
     <Link to="/">mp3stack</Link>
     {#if loggedIn}
-      <Link to="/login" on:click={resetStores}>Log out</Link>
+      <Link to="/login" on:click={() => resetStores()}>Log out</Link>
     {:else}
       <Link to="/login">Log in</Link>
     {/if}

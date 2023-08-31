@@ -15,8 +15,8 @@ const authToken = writable<string | undefined>(getCookie(AUTH_COOKIE_KEY));
  */
 const unsubscribeFromAuthToken = authToken.subscribe((value) => {
   if (value) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${value}`;
     setCookie(AUTH_COOKIE_KEY, value, { expires: 0.125 });
+    axios.defaults.headers.common["Authorization"] = `Bearer ${value}`;
   } else {
     removeCookie(AUTH_COOKIE_KEY);
     axios.defaults.headers.common["Authorization"] = "";

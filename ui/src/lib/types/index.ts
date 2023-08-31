@@ -1,4 +1,5 @@
 /**
+ * Represents a track
  * @interface
  */
 export interface Track {
@@ -7,6 +8,7 @@ export interface Track {
 }
 
 /**
+ * Represents a playlist
  * @interface
  */
 export interface Playlist {
@@ -19,6 +21,7 @@ export interface Playlist {
 }
 
 /**
+ * Represents a user
  * @interface
  */
 export interface User {

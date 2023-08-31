@@ -84,6 +84,10 @@ export default class PlaylistController {
     res: Response,
     next: NextFunction
   ) {
+    if (playlist.private) {
+      // if making private, remove followers
+      playlist.followers = [];
+    }
     await Playlist.updateOne(
       { _id: playlistId, userId: userId },
       { $set: playlist }

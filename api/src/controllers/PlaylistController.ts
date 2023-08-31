@@ -96,23 +96,30 @@ export default class PlaylistController {
       .catch(next);
   }
 
-  async followPlaylist(
+  async changeFollowStatus(
     playlistId: string,
     userId: string,
+    follow: boolean,
     res: Response,
     next: NextFunction
   ) {
     await Playlist.updateOne(
       { _id: playlistId },
-      { $addToSet: { followers: userId } }
+      follow
+        ? { $addToSet: { followers: userId } }
+        : { $pull: { followers: userId } }
     )
       .then((update) => {
-        if (update.modifiedCount === 0) {
-          res
-            .status(200)
-            .send({ message: "You are already following this playlist" });
+        if (follow) {
+          if (update.modifiedCount === 0) {
+            return res
+              .status(200)
+              .send({ message: "You are already following this playlist" });
+          }
+          res.status(201).send({ message: "Followed playlist" });
+        } else {
+          res.status(200).send({ message: "Unfollowed playlist" });
         }
-        res.status(201).send({ message: "Now following this playlist" });
       })
       .catch(next);
   }

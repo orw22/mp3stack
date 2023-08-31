@@ -144,7 +144,9 @@
   }
 
   async function onFollow() {
-    await axios.post(`/playlists/${id}/follow`).then(() => refreshPlaylist());
+    await axios
+      .post(`/playlists/${id}/followers`)
+      .then(() => refreshPlaylist());
   }
 </script>
 

@@ -154,9 +154,9 @@
   {#await playlist}
     <Loader />
   {:then { data }}
-    <h3>{data.name}</h3>
+    <h4>{data.name}</h4>
     {#if !data.private}
-      <h5>Followers: {data.followers?.length ?? 0}</h5>
+      <p>Followers: {data.followers?.length ?? 0}</p>
     {/if}
     <div class="tracklist">
       {#each data.tracks as track, index}
@@ -183,14 +183,14 @@
       <IconButton type="submit"
         >Upload <Icon name="upload" size={20} /></IconButton
       >
+      <button
+        on:click={() => {
+          adding = false;
+        }}
+      >
+        Cancel
+      </button>
     </form>
-    <button
-      on:click={() => {
-        adding = false;
-      }}
-    >
-      Cancel
-    </button>
   {/if}
 
   {#if renaming}
@@ -201,14 +201,14 @@
         bind:value={newPlaylistName}
       />
       <button type="submit">Confirm</button>
+      <button
+        on:click={() => {
+          renaming = false;
+        }}
+      >
+        Cancel
+      </button>
     </form>
-    <button
-      on:click={() => {
-        renaming = false;
-      }}
-    >
-      Cancel
-    </button>
   {/if}
 
   {#if canEdit}

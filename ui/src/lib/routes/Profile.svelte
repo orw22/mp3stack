@@ -67,9 +67,8 @@
   {#await profile}
     <Loader />
   {:then { data }}
-    <h3>Profile</h3>
-    <h4>Name: {data.name}</h4>
-    <h4>Email: {data.email}</h4>
+    <h4>Profile</h4>
+    <p>Name: {data.name}<br />Email: {data.email}</p>
     {#if !(editing || resettingPassword)}
       <IconButton
         onClick={() => {
@@ -92,14 +91,14 @@
         <input type="text" placeholder="Name" bind:value={newName} />
         <input type="text" placeholder="Email" bind:value={newEmail} />
         <button type="submit" disabled={!validNameEmail}>Save</button>
+        <button
+          on:click={() => {
+            editing = false;
+          }}
+        >
+          Cancel
+        </button>
       </form>
-      <button
-        on:click={() => {
-          editing = false;
-        }}
-      >
-        Cancel
-      </button>
     {:else if resettingPassword}
       <form on:submit={(e) => updateProfile(e, true)}>
         <input
@@ -109,18 +108,18 @@
         />
         <input
           type="password"
-          placeholder="Reenter password"
+          placeholder="Re-enter password"
           bind:value={newPasswordCheck}
         />
         <button type="submit" disabled={!validPassword}>Submit</button>
+        <button
+          on:click={() => {
+            resettingPassword = false;
+          }}
+        >
+          Cancel
+        </button>
       </form>
-      <button
-        on:click={() => {
-          resettingPassword = false;
-        }}
-      >
-        Cancel
-      </button>
     {/if}
   {:catch error}
     <p>{error.response.data.message}</p>

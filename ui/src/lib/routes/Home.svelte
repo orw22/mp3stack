@@ -57,14 +57,14 @@
   {#await playlists}
     <Loader />
   {:then { data }}
-    <h3>My Playlists</h3>
+    <h4>My Playlists</h4>
     {#each data.playlists as playlist}
       <button on:click={() => onPlaylistClick(playlist._id, true)}>
         {playlist.name}
       </button>
     {/each}
     {#if data.following.length > 0}
-      <h3>Following</h3>
+      <h4>Following</h4>
       {#each data.following as playlist}
         <button on:click={() => onPlaylistClick(playlist._id, false)}>
           {playlist.name}
@@ -85,14 +85,14 @@
         bind:value={newPlaylistName}
       />
       <button type="submit">Create</button>
+      <button
+        on:click={() => {
+          creating = false;
+        }}
+      >
+        Cancel
+      </button>
     </form>
-    <button
-      on:click={() => {
-        creating = false;
-      }}
-    >
-      Cancel
-    </button>
   {:else}
     <button
       on:click={() => {

@@ -17,8 +17,8 @@
   {#await user}
     <Loader />
   {:then { data }}
-    <h3>{data.name}</h3>
-    <h4>Playlists</h4>
+    <h4>{data.name}</h4>
+    <h6>Playlists</h6>
     {#each data.playlists as playlist}
       <button
         on:click={() =>

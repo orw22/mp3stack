@@ -9,42 +9,53 @@
 -->
 
 <script lang="ts">
-  import { Link } from "svelte-routing";
+  import { link } from "svelte-routing";
   import { resetStores } from "../utils/store";
 
   export let loggedIn: boolean;
 </script>
 
-<header class="header">
+<header>
   <nav>
-    <Link to="/">mp3stack</Link>
+    <a href="/" use:link>mp3stack</a>
     {#if loggedIn}
-      <Link to="/login" on:click={() => resetStores()}>Log out</Link>
+      <a href="/login" on:click={() => resetStores()} use:link>Log out</a>
     {:else}
-      <Link to="/login">Log in</Link>
+      <a href="/login" use:link>Log in</a>
     {/if}
   </nav>
 </header>
 
 <style>
-  .header {
+  header {
     display: flex;
     align-items: center;
     justify-content: center;
     position: fixed;
     width: 100vw;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    background-color: #f9f9f9;
+    background-color: var(--color-primary);
     height: 5em;
     left: 0;
     top: 0;
     z-index: 10;
   }
 
-  .header nav {
+  nav {
     display: flex;
     justify-content: space-between;
     width: 80vw;
     padding: 0 2em;
+  }
+
+  a {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--color-white);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-white);
+    text-decoration: underline;
   }
 </style>

@@ -132,3 +132,48 @@
     {/if}
   </label>
 </div>
+
+<style>
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    border: none;
+    margin-top: -3px;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    background-color: var(--color-light-grey);
+  }
+
+  input[type="range"]::-moz-range-progress {
+    background-color: var(--color-primary);
+  }
+
+  input[type="range"]::-moz-range-track {
+    background-color: var(--color-light-grey);
+  }
+
+  input[type="range"]::-ms-fill-lower {
+    background-color: var(--color-primary);
+  }
+
+  input[type="range"]::-ms-fill-upper {
+    background-color: var(--color-light-grey);
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+  }
+
+  #current-time {
+    width: min(500px, 80%);
+  }
+
+  #volume {
+    width: 160px;
+  }
+</style>

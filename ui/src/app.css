@@ -35,6 +35,7 @@ h4,
 h5,
 h6 {
   line-height: 1.1;
+  font-weight: 700;
   color: var(--color-primary-text);
 }
 
@@ -59,17 +60,16 @@ h5 {
 }
 
 h6 {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 /* components */
 a {
-  font-weight: 500;
-  color: var(--color-primary-text);
+  color: var(--color-primary);
   text-decoration: inherit;
 }
 a:hover {
-  color: var(--color-secondary-text);
+  color: var(--color-secondary);
 }
 
 button {

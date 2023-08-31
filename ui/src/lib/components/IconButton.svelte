@@ -17,6 +17,14 @@
   export let type: "button" | "submit" | "reset" = "button";
 </script>
 
-<button class={$$props.class} on:click={onClick} {disabled} {type}>
+<button
+  class={`icon-button ${$$props.class}`}
+  on:click={onClick}
+  {disabled}
+  {type}
+>
   <slot />
 </button>
+
+<style>
+</style>

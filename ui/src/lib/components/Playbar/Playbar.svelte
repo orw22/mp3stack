@@ -23,7 +23,7 @@
 </script>
 
 <div class="playbar">
-  <h4>Now playing: {currentTrack ? currentTrack.name : ""}</h4>
+  <h6>Now playing: {currentTrack ? currentTrack.name : ""}</h6>
   <AudioControls {currentTrack} bind:restart />
   <IconButton onClick={onQueueClick}><Icon name="queue" /></IconButton>
 </div>
@@ -32,10 +32,14 @@
   .playbar {
     position: fixed;
     width: 100%;
-    background-color: #fff;
-    border-top: 1px solid grey;
+    background-color: var(--color-white);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     bottom: 0;
     left: 0;
     z-index: 10;
+  }
+
+  h6 {
+    margin: 1.5em 0;
   }
 </style>

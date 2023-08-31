@@ -55,7 +55,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid var(--color-medium-grey);
     padding: 0.25em 1.5em;
   }
 </style>

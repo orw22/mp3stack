@@ -96,6 +96,20 @@ export default class PlaylistController {
       .catch(next);
   }
 
+  async followPlaylist(
+    playlistId: string,
+    userId: string,
+    res: Response,
+    next: NextFunction
+  ) {
+    await Playlist.updateOne(
+      { _id: playlistId },
+      { $push: { followers: userId } }
+    )
+      .then(() => res.status(204).send())
+      .catch(next);
+  }
+
   async deletePlaylist(
     playlistId: string,
     userId: string,

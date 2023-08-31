@@ -87,6 +87,17 @@ export default class UserController {
       .catch(next);
   }
 
+  async getFollowedPlaylists(
+    userId: string,
+    res: Response,
+    next: NextFunction
+  ) {
+    // TODO: Test this
+    await Playlist.find({ followers: { $in: [userId] } })
+      .then((playlists: IPlaylist[]) => res.status(200).send(playlists))
+      .catch(next);
+  }
+
   async updateUser(
     userId: string,
     user: IUser,

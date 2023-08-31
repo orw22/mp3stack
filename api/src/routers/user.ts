@@ -42,6 +42,11 @@ router.get("/me/playlists", authenticate, async (req, res, next) => {
   await userController.getUserPlaylists(req.userId, res, next);
 });
 
+// Get playlists followed by user
+router.get("/me/playlists-followed", authenticate, async (req, res, next) => {
+  await userController.getFollowedPlaylists(req.userId, res, next);
+});
+
 // Update user
 router.put("/me", authenticate, (req, res, next) => {
   userController.updateUser(req.userId, req.body as IUser, res, next);

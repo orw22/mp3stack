@@ -17,6 +17,8 @@
   import Icon from "../Icon.svelte";
   import IconButton from "../IconButton.svelte";
 
+  const TIME_UPDATE_WINDOW = 100;
+
   let audioEl: HTMLAudioElement;
   let paused: boolean;
   let currentTime = 0;
@@ -59,7 +61,7 @@
   }
 
   function onTimeChange(event: Event) {
-    if (prevUpdated < event.timeStamp - 100) {
+    if (prevUpdated < event.timeStamp - TIME_UPDATE_WINDOW) {
       audioEl.currentTime = parseFloat(
         (event.target as HTMLInputElement).value
       );

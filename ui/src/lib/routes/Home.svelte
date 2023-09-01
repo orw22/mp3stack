@@ -6,6 +6,8 @@
   import Loader from "../components/Loader.svelte";
   import type { User } from "../types";
 
+  const API_CALL_WINDOW = 200;
+
   let creating = false;
   let newPlaylistName: string;
   let searchQuery: string;
@@ -47,7 +49,7 @@
   async function onSearchUsers(event: Event) {
     event.preventDefault();
     // throttle API calls
-    if (prevUserInputEvent > event.timeStamp - 200) return;
+    if (prevUserInputEvent > event.timeStamp - API_CALL_WINDOW) return;
 
     prevUserInputEvent = event.timeStamp;
     await axios

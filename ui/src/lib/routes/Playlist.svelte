@@ -146,7 +146,10 @@
   }
 
   async function onChangeFollow() {
-    await axios.put(`/playlists/${id}/follow`).then(() => refreshPlaylist());
+    await axios.put(`/playlists/${id}/follow`).then(() => {
+      toasts.success("Follow status updated");
+      refreshPlaylist();
+    });
   }
 </script>
 

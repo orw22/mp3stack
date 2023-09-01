@@ -27,7 +27,7 @@
             state: { canEdit: false },
           })}
       >
-        {playlist.name}
+        <h6 slot="title">{playlist.name}</h6>
       </Card>
     {/each}
   {:catch error}

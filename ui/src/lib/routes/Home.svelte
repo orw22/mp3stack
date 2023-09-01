@@ -60,21 +60,16 @@
   {:then { data }}
     <h4>Playlists</h4>
     {#each data.playlists as playlist}
-      <Card
-        onClick={() => onPlaylistClick(playlist._id, true)}
-        textSize="large"
-      >
-        {playlist.name}
+      <Card onClick={() => onPlaylistClick(playlist._id, true)}>
+        <h6 slot="title">{playlist.name}</h6>
       </Card>
     {/each}
     {#if data.following.length > 0}
       <h4>Following</h4>
       {#each data.following as playlist}
-        <Card
-          onClick={() => onPlaylistClick(playlist._id, false)}
-          textSize="large"
-        >
-          {playlist.name}
+        <Card onClick={() => onPlaylistClick(playlist._id, false)}>
+          <h6 slot="title">{playlist.name}</h6>
+          <span slot="subtitle">By {playlist.userId}</span>
         </Card>
       {/each}
     {/if}
@@ -121,7 +116,9 @@
 
   <div>
     {#each searchResult as user}
-      <Card onClick={() => onOtherUserClick(user._id)}>{user.name}</Card>
+      <Card onClick={() => onOtherUserClick(user._id)}
+        ><b slot="title">{user.name}</b></Card
+      >
     {/each}
   </div>
 </Layout>

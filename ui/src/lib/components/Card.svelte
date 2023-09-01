@@ -1,18 +1,13 @@
 <script lang="ts">
   export let onClick: () => void;
-  export let textSize: "small" | "medium" | "large" = "medium";
   export let disabled = false;
-
-  let fontSize = textSize === "small" ? 0.8 : textSize === "medium" ? 1 : 1.2;
 </script>
 
-<button
-  class="card"
-  style="font-size: {fontSize}em"
-  on:click={onClick}
-  {disabled}
->
-  <slot />
+<button class="card" on:click={onClick} {disabled}>
+  <div class="card-inner">
+    <slot name="title" />
+    <slot name="subtitle" />
+  </div>
 </button>
 
 <style>
@@ -24,6 +19,13 @@
     min-width: 240px;
     font-weight: 600;
     margin: 0.5em;
+  }
+
+  .card-inner {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   button:hover {

@@ -13,7 +13,7 @@
 
 <style>
   .card {
-    border: 1px solid var(--color-light-grey);
+    border: 2px solid transparent;
     background-color: var(--color-light-grey);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 7px 0px;
     padding: 1em 2em;
@@ -30,11 +30,11 @@
   }
 
   button:hover {
-    border: 1px solid var(--color-primary);
+    border: 2px solid var(--color-primary);
   }
   button:focus,
   button:focus-visible {
-    outline: none;
+    outline: 4px auto var(--color-primary);
     background-color: var(--color-light-grey);
   }
 </style>

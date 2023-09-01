@@ -23,6 +23,7 @@
     padding: 1em 2em;
     min-width: 240px;
     font-weight: 600;
+    margin: 0.5em;
   }
 
   button:hover {

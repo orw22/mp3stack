@@ -9,9 +9,10 @@
   let creating = false;
   let newPlaylistName: string;
   let searchQuery: string;
-  let searchResult: User[] = [];
+  let prevUserInputEvent: number;
 
   let playlists = getPlaylists();
+  let searchResult: User[] = [];
 
   function getPlaylists() {
     return axios.get("/users/me/playlists");
@@ -45,7 +46,9 @@
 
   async function onSearchUsers(event: Event) {
     event.preventDefault();
+    if (prevUserInputEvent > event.timeStamp - 100) return;
 
+    prevUserInputEvent = event.timeStamp;
     await axios
       .get("/users", { params: { name: searchQuery } })
       .then((response) => {
@@ -109,7 +112,12 @@
 
   <div class="search">
     <form on:submit={onSearchUsers}>
-      <input type="text" bind:value={searchQuery} placeholder="Search users" />
+      <input
+        type="text"
+        bind:value={searchQuery}
+        on:input={onSearchUsers}
+        placeholder="Search users"
+      />
       <button type="submit" disabled={!searchQuery}>Search</button>
     </form>
   </div>
@@ -120,6 +128,9 @@
         <span slot="title">{user.name}</span>
       </Card>
     {/each}
+    {#if searchResult.length === 0}
+      <span>No results</span>
+    {/if}
   </div>
 </Layout>
 

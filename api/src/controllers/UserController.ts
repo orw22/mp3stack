@@ -32,6 +32,9 @@ export default class UserController {
     res: Response,
     next: NextFunction
   ) {
+    if (!name) {
+      return res.status(200).send([]);
+    }
     await User.find(
       { name: { $regex: `^${name}`, $options: "i" }, _id: { $ne: userId } },
       {

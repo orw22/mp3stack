@@ -165,6 +165,10 @@ input[type="range"]::-ms-fill-upper {
   background-color: var(--color-light-grey);
 }
 
+small {
+  color: var(--color-primary-text);
+}
+
 /* layout */
 body {
   margin: 0;

@@ -49,7 +49,7 @@
   async function onSearchUsers(event: Event) {
     event.preventDefault();
     // throttle API calls
-    if (prevUserInputEvent > event.timeStamp - API_CALL_WINDOW) return;
+    if (prevUserInputEvent > event.timeStamp - SEARCH_WINDOW) return;
 
     prevUserInputEvent = event.timeStamp;
     await axios

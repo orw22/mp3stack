@@ -149,43 +149,6 @@
     width: 100%;
   }
 
-  input[type="range"] {
-    -webkit-appearance: none;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 13px;
-    height: 13px;
-    background-color: var(--color-primary);
-    border-radius: 50%;
-    border: none;
-    margin-top: -3px;
-  }
-
-  input[type="range"]::-webkit-slider-runnable-track {
-    -webkit-appearance: none;
-    height: 6px;
-  }
-
-  input[type="range"]::-moz-range-progress {
-    height: 6px;
-    background-color: var(--color-primary);
-  }
-
-  input[type="range"]::-moz-range-track {
-    height: 6px;
-    background-color: var(--color-light-grey);
-  }
-
-  input[type="range"]::-ms-fill-lower {
-    background-color: var(--color-primary);
-  }
-
-  input[type="range"]::-ms-fill-upper {
-    background-color: var(--color-light-grey);
-  }
-
   #current-time {
     width: min(480px, 80%);
   }

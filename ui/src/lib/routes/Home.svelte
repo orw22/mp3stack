@@ -28,10 +28,6 @@
     navigate(`/playlist/${id}`, { state: { canEdit } });
   }
 
-  function onOtherUserClick(id: string) {
-    navigate(`/user/${id}`);
-  }
-
   async function onCreatePlaylist(event: Event) {
     event.preventDefault();
 
@@ -40,19 +36,6 @@
       creating = false;
       refreshPlaylists();
     });
-  }
-
-  async function onSearchUsers(event: Event) {
-    event.preventDefault();
-    // throttle API calls
-    if (prevUserInputEvent > event.timeStamp - SEARCH_WINDOW) return;
-
-    prevUserInputEvent = event.timeStamp;
-    await axios
-      .get("/users", { params: { name: searchQuery } })
-      .then((response) => {
-        searchResult = response.data as User[];
-      });
   }
 </script>
 
@@ -106,33 +89,4 @@
       Create new playlist
     </button>
   {/if}
-
-  <div class="search">
-    <form on:submit={onSearchUsers}>
-      <input
-        type="text"
-        bind:value={searchQuery}
-        on:input={onSearchUsers}
-        placeholder="Search users"
-      />
-      <button type="submit" disabled={!searchQuery}>Search</button>
-    </form>
-  </div>
-
-  <div>
-    {#each searchResult as user}
-      <Card onClick={() => onOtherUserClick(user._id)}>
-        <span slot="title">{user.name}</span>
-      </Card>
-    {/each}
-    {#if searchResult.length === 0}
-      <span>No results</span>
-    {/if}
-  </div>
 </Layout>
-
-<style>
-  .search {
-    margin: 1em 0;
-  }
-</style>

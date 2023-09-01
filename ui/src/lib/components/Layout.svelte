@@ -40,11 +40,16 @@
         <Icon name="arrowLeft" size={36} />
       </IconButton>
     {/if}
-    {#if !onProfile}
-      <IconButton onClick={() => navigate("/profile")} blank>
-        <Icon name="user" size={36} />
+    <div>
+      <IconButton onClick={() => navigate("/search")} blank>
+        <Icon name="search" size={32} />
       </IconButton>
-    {/if}
+      {#if !onProfile}
+        <IconButton onClick={() => navigate("/profile")} blank>
+          <Icon name="user" size={36} />
+        </IconButton>
+      {/if}
+    </div>
   </div>
   <slot />
 </div>

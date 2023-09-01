@@ -106,41 +106,34 @@ export default class PlaylistController {
     res: Response,
     next: NextFunction
   ) {
-    await Playlist.updateOne(
-      { _id: playlistId },
-      [
-        {
-          $set: {
-            followers: {
-              $cond: {
-                if: {
-                  $and: [
-                    { $not: { $in: [userId, "$followers"] } },
-                    {
-                      $and: [
-                        { $not: "$private" },
-                        { $ne: [userId, "$userId"] },
-                      ],
-                    },
-                  ],
-                },
-                then: { $concatArrays: ["$followers", [userId]] },
-                else: {
-                  $filter: {
-                    input: "$followers",
-                    as: "id",
-                    cond: {
-                      $ne: ["$$id", userId],
-                    },
+    await Playlist.updateOne({ _id: playlistId }, [
+      {
+        $set: {
+          followers: {
+            $cond: {
+              if: {
+                $and: [
+                  { $not: { $in: [userId, "$followers"] } },
+                  {
+                    $and: [{ $not: "$private" }, { $ne: [userId, "$userId"] }],
+                  },
+                ],
+              },
+              then: { $concatArrays: ["$followers", [userId]] },
+              else: {
+                $filter: {
+                  input: "$followers",
+                  as: "id",
+                  cond: {
+                    $ne: ["$$id", userId],
                   },
                 },
               },
             },
           },
         },
-      ],
-      { new: true }
-    )
+      },
+    ])
       .then((update) => {
         if (update.modifiedCount > 0) res.status(204).send();
         else

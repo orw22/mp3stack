@@ -1,6 +1,6 @@
 <script lang="ts">
   import axios from "axios";
-  import { navigate } from "svelte-routing";
+  import { navigate } from "svelte-navigator";
   import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";

@@ -1,7 +1,7 @@
 <script lang="ts">
   import axios, { type AxiosResponse } from "axios";
   import { onMount } from "svelte";
-  import { navigate } from "svelte-routing";
+  import { navigate } from "svelte-navigator";
   import LoginForm from "../components/LoginForm.svelte";
   import authToken from "../stores/authToken";
 

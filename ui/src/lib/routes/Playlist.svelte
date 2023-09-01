@@ -1,6 +1,6 @@
 <script lang="ts">
   import axios from "axios";
-  import { navigate } from "svelte-routing";
+  import { navigate } from "svelte-navigator";
   import toasts from "../../toasts";
   import Icon from "../components/Icon.svelte";
   import IconButton from "../components/IconButton.svelte";

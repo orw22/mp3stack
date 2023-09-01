@@ -15,16 +15,15 @@
   export let onClick: (() => void) | undefined = undefined;
   export let disabled: boolean = false;
   export let type: "button" | "submit" | "reset" = "button";
+  export let blank: boolean = false;
 </script>
 
 <button
-  class="icon-button {$$props.class}"
+  class="icon-button {$$props.class ?? ''}"
   on:click={onClick}
   {disabled}
   {type}
+  style={blank ? "all: unset; cursor: pointer; margin: 1em;" : ""}
 >
   <slot />
 </button>
-
-<style>
-</style>

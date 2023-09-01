@@ -114,9 +114,9 @@
     min={0}
     step={0.1}
     max={duration}
-    style={progressTime > 0
-      ? `background: linear-gradient(to right, #00b0b9 0%, #00b0b9 ${currentTimePercentage}%, #f5f5f5 ${currentTimePercentage}%, #f5f5f5 100%)`
-      : "background: #f5f5f5"}
+    style:background={progressTime > 0
+      ? `linear-gradient(to right, #00b0b9 0%, #00b0b9 ${currentTimePercentage}%, #f5f5f5 ${currentTimePercentage}%, #f5f5f5 100%)`
+      : "#f5f5f5"}
   />
   <span>{secondsToMMSS(duration)}</span>
 </div>
@@ -129,7 +129,8 @@
     max={1}
     step={0.01}
     bind:value={volume}
-    style="background: linear-gradient(to right, #00b0b9 0%, #00b0b9 {volumePercentage}%, #f5f5f5 {volumePercentage}%, #f5f5f5 100%)"
+    style:background="linear-gradient(to right, #00b0b9 0%, #00b0b9 {volumePercentage}%,
+    #f5f5f5 {volumePercentage}%, #f5f5f5 100%)"
   />
   <label for="volume">
     {#if audioEl && audioEl.volume === 0}
@@ -187,6 +188,9 @@
 
   #current-time {
     width: min(480px, 80%);
+  }
+  #current-time::-webkit-slider-thumb {
+    visibility: hidden;
   }
   #volume {
     width: 160px;

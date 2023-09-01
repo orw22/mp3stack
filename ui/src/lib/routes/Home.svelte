@@ -116,9 +116,9 @@
 
   <div>
     {#each searchResult as user}
-      <Card onClick={() => onOtherUserClick(user._id)}
-        ><b slot="title">{user.name}</b></Card
-      >
+      <Card onClick={() => onOtherUserClick(user._id)}>
+        <span slot="title">{user.name}</span>
+      </Card>
     {/each}
   </div>
 </Layout>

@@ -6,7 +6,7 @@
   import Loader from "../components/Loader.svelte";
   import type { User } from "../types";
 
-  const API_CALL_WINDOW = 200;
+  const SEARCH_WINDOW = 200;
 
   let creating = false;
   let newPlaylistName: string;

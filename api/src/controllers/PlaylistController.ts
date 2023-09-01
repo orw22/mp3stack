@@ -143,7 +143,11 @@ export default class PlaylistController {
     )
       .then((update) => {
         if (update.modifiedCount > 0) res.status(204).send();
-        else res.status(400).send({ message: "Playlist not updated" });
+        else
+          res.status(400).send({
+            message:
+              "Follow/unfollow failed - ensure that the playlist is public and that you are not the owner.",
+          });
       })
       .catch(next);
   }

@@ -58,4 +58,9 @@
     border-bottom: 1px solid var(--color-medium-grey);
     padding: 0.25em 1.5em;
   }
+
+  div[role="row"] span {
+    display: inherit;
+    gap: 0.5em;
+  }
 </style>

@@ -23,8 +23,8 @@
 {#if open}
   <div class="queue">
     <h4>Queue</h4>
-    <IconButton onClick={onClose} class="queue-close-btn">
-      <Icon name="xMark" />
+    <IconButton onClick={onClose} blank class="queue-close-btn">
+      <Icon name="xMark" size={36} />
     </IconButton>
     {#if $queue.length > 1}
       <div class="tracklist">
@@ -63,7 +63,7 @@
 
   :global(.queue-close-btn) {
     position: absolute;
-    top: 1em;
-    right: 1em;
+    top: 0.5em;
+    right: 0.5em;
   }
 </style>

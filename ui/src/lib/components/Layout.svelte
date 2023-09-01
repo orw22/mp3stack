@@ -40,7 +40,7 @@
         <Icon name="arrowLeft" size={36} />
       </IconButton>
     {/if}
-    <div>
+    <div class="layout-top-right">
       <IconButton onClick={() => navigate("/search")} blank>
         <Icon name="search" size={32} />
       </IconButton>
@@ -62,5 +62,10 @@
   .layout-top {
     display: flex;
     width: 100%;
+  }
+
+  .layout-top-right {
+    display: inherit;
+    flex-direction: row;
   }
 </style>

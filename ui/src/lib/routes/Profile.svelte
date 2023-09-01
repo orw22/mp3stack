@@ -1,8 +1,6 @@
 <script lang="ts">
   import axios from "axios";
   import toasts from "../../toasts";
-  import Icon from "../components/Icon.svelte";
-  import IconButton from "../components/IconButton.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
 
@@ -69,13 +67,13 @@
     <h4>Profile</h4>
     <p>Name: {data.name}<br />Email: {data.email}</p>
     {#if !(editing || resettingPassword)}
-      <IconButton
-        onClick={() => {
+      <button
+        on:click={() => {
           editing = true;
         }}
       >
-        Edit <Icon size={16} name="pencil" />
-      </IconButton>
+        Edit
+      </button>
       <button
         on:click={() => {
           resettingPassword = true;

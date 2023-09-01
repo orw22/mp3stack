@@ -19,11 +19,35 @@
 </script>
 
 <button
-  class="icon-button {$$props.class ?? ''}"
+  class="icon-button {$$props.class ?? ''} {blank ? 'blank' : ''}"
   on:click={onClick}
   {disabled}
   {type}
-  style={blank ? "all: unset; cursor: pointer; margin: 0.75em;" : ""}
 >
   <slot />
 </button>
+
+<style>
+  .icon-button {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    padding: 0.8em 1.2em;
+  }
+
+  .icon-button.blank {
+    padding: 0;
+    border: none;
+    background: none;
+    margin: 0.75em;
+  }
+  .icon-button.blank:hover {
+    border: none;
+    background: none;
+  }
+  .icon-button.blank:focus,
+  .icon-button.blank:focus-visible {
+    border: none;
+    background: none;
+  }
+</style>

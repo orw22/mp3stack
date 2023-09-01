@@ -47,6 +47,7 @@
 <style>
   .queue {
     position: fixed;
+    padding: 2em;
     right: 0;
     top: 5em;
     width: 50vw;

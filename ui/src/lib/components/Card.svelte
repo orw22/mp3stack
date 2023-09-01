@@ -14,7 +14,7 @@
 <style>
   .card {
     border: 1px solid var(--color-light-grey);
-    background-color: var(--color-white);
+    background-color: var(--color-light-grey);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 7px 0px;
     padding: 1em 2em;
     min-width: 240px;
@@ -30,7 +30,6 @@
   }
 
   button:hover {
-    background-color: var(--color-light-grey);
     border: 1px solid var(--color-primary);
   }
   button:focus,

@@ -4,17 +4,11 @@
   import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
-  import type { User } from "../types";
-
-  const SEARCH_WINDOW = 200;
 
   let creating = false;
   let newPlaylistName: string;
-  let searchQuery: string;
-  let prevUserInputEvent: number;
 
   let playlists = getPlaylists();
-  let searchResult: User[] = [];
 
   function getPlaylists() {
     return axios.get("/users/me/playlists");

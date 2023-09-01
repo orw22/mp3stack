@@ -237,7 +237,6 @@
       {following ? "Unfollow" : "Follow"}
     </button>
   {/if}
-  <button on:click={() => navigate("/")}>Back</button>
 </Layout>
 
 <style>

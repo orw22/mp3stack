@@ -42,7 +42,7 @@
   }
 </script>
 
-<div id="wrapper">
+<div id="login-wrapper">
   <div class="side">
     <h2>Log in</h2>
     <LoginForm onSubmit={onLogin} />
@@ -55,7 +55,7 @@
 </div>
 
 <style>
-  #wrapper {
+  #login-wrapper {
     display: flex;
     flex-direction: row;
     width: min(1280px, 80vw);

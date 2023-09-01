@@ -1,6 +1,5 @@
 <script lang="ts">
   import axios from "axios";
-  import { navigate } from "svelte-navigator";
   import toasts from "../../toasts";
   import Icon from "../components/Icon.svelte";
   import IconButton from "../components/IconButton.svelte";
@@ -124,6 +123,4 @@
   {:catch error}
     <p>{error.response.data.message}</p>
   {/await}
-
-  <button on:click={() => navigate("/")}>Back</button>
 </Layout>

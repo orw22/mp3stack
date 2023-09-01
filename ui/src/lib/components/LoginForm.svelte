@@ -29,10 +29,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1em;
   }
 
   input {
-    margin-bottom: 0.8em;
     min-width: 280px;
   }
 </style>

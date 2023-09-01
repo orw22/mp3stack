@@ -31,9 +31,9 @@
 <div role="row" tabindex={index}>
   <span>{track.name}</span>
   <span>
-    <IconButton onClick={() => onClick(track)}
-      ><Icon name="play" size={20} /></IconButton
-    >
+    <IconButton onClick={() => onClick(track)}>
+      <Icon name="play" size={20} />
+    </IconButton>
     {#if !isQueue}
       <button on:click={() => onAddToQueue(track)}>Add to queue</button>
     {/if}

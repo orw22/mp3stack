@@ -41,6 +41,7 @@
     z-index: 10;
     display: flex;
     flex-direction: column;
+    gap: 1em;
     align-items: center;
   }
 
@@ -52,6 +53,6 @@
   }
 
   h6 {
-    margin: 1em 0;
+    margin: 1em 0 0;
   }
 </style>

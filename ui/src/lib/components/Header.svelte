@@ -42,7 +42,7 @@
   }
 
   nav {
-    display: flex;
+    display: inherit;
     justify-content: space-between;
     width: 80vw;
     padding: 0 2em;

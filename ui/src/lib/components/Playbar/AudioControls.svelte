@@ -144,6 +144,8 @@
   </label>
 </div>
 
+<div />
+
 <style>
   div {
     display: flex;
@@ -169,13 +171,7 @@
   :global(#controls-wrapper button) {
     margin: 0 0.3em;
   }
-  #current-time-wrapper {
-    margin-top: 0.5em;
-  }
   #current-time-wrapper span {
     margin: 0 0.5em;
-  }
-  #volume-wrapper {
-    margin-bottom: 1em;
   }
 </style>

@@ -7,6 +7,7 @@
   <div class="card-inner">
     <slot name="title" />
     <slot name="subtitle" />
+    <slot name="description" />
   </div>
 </button>
 

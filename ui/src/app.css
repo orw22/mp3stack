@@ -127,6 +127,11 @@ input[type="password"]:disabled {
   background-color: var(--color-light-grey);
 }
 
+input[type="file"] {
+  font-family: inherit;
+  font-size: 1em;
+}
+
 /* range input */
 input[type="range"] {
   -webkit-appearance: none;

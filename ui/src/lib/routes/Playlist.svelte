@@ -177,7 +177,7 @@
   <hr />
 
   {#if adding}
-    <form on:submit={onAddTrack}>
+    <form on:submit={onAddTrack} class="add-track-form">
       <input type="file" bind:files={newTrackFiles} />
       <input type="text" placeholder="Track name" bind:value={newTrackName} />
       <IconButton type="submit"
@@ -240,6 +240,36 @@
 </Layout>
 
 <style>
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  /* file upload button */
+  input[type="file"]::file-selector-button {
+    margin-right: 1em;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: var(--color-light-grey);
+    cursor: pointer;
+    transition: border-color 0.25s, background-color 0.25s;
+  }
+
+  input[type="file"]::file-selector-button:hover {
+    border-color: var(--color-primary);
+  }
+
+  input[type="file"]::file-selector-button:focus,
+  input[type="file"]::file-selector-button:focus-visible {
+    outline: 4px auto var(--color-primary);
+  }
+
   .tracklist {
     display: flex;
     flex-direction: column;

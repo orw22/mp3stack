@@ -32,7 +32,6 @@
     display: flex;
     align-items: center;
     gap: 0.3em;
-    padding: 0.8em 1.2em;
   }
 
   .icon-button.blank {

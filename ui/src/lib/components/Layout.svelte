@@ -27,16 +27,25 @@
   });
 
   $: onHomepage = $location.pathname === "/";
+  $: onProfile = $location.pathname === "/profile";
 </script>
 
 <div class="layout">
-  {#if !onHomepage}
-    <div class="layout-top">
+  <div
+    class="layout-top"
+    style="justify-content: {onHomepage ? 'flex-end' : 'space-between'}"
+  >
+    {#if !onHomepage}
       <IconButton onClick={() => navigate(-1)} blank>
         <Icon name="arrowLeft" size={36} />
       </IconButton>
-    </div>
-  {/if}
+    {/if}
+    {#if !onProfile}
+      <IconButton onClick={() => navigate("/profile")} blank>
+        <Icon name="user" size={36} />
+      </IconButton>
+    {/if}
+  </div>
   <slot />
 </div>
 
@@ -48,6 +57,5 @@
   .layout-top {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
   }
 </style>

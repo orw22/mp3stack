@@ -28,10 +28,6 @@
     navigate(`/playlist/${id}`, { state: { canEdit } });
   }
 
-  function onProfileClick() {
-    navigate("/profile");
-  }
-
   function onOtherUserClick(id: string) {
     navigate(`/user/${id}`);
   }
@@ -110,8 +106,6 @@
       Create new playlist
     </button>
   {/if}
-
-  <button on:click={onProfileClick}>My profile</button>
 
   <div class="search">
     <form on:submit={onSearchUsers}>

@@ -23,7 +23,7 @@
   on:click={onClick}
   {disabled}
   {type}
-  style={blank ? "all: unset; cursor: pointer; margin: 1em;" : ""}
+  style={blank ? "all: unset; cursor: pointer; margin: 0.75em;" : ""}
 >
   <slot />
 </button>

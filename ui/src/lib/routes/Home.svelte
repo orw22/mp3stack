@@ -46,15 +46,15 @@
     <h4>Playlists</h4>
     {#each data.playlists as playlist}
       <Card onClick={() => onPlaylistClick(playlist._id, true)}>
-        <h6 slot="title">{playlist.name}</h6>
+        <h5 slot="title">{playlist.name}</h5>
       </Card>
     {/each}
     {#if data.following.length > 0}
       <h4>Following</h4>
       {#each data.following as playlist}
         <Card onClick={() => onPlaylistClick(playlist._id, false)}>
-          <h6 slot="title">{playlist.name}</h6>
-          <span slot="subtitle">By {playlist.userId}</span>
+          <h5 slot="title">{playlist.name}</h5>
+          <small slot="subtitle">by {playlist.userId}</small>
         </Card>
       {/each}
     {/if}

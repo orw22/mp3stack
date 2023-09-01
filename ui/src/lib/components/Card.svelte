@@ -16,10 +16,9 @@
     border: 2px solid transparent;
     background-color: var(--color-light-grey);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 5px 7px 0px;
-    padding: 1em 2em;
     min-width: 240px;
-    font-weight: 600;
     margin: 0.5em;
+    padding: 1.5em 2em;
   }
 
   .card-inner {
@@ -27,6 +26,11 @@
     margin: 0;
     display: flex;
     flex-direction: column;
+    gap: 1em;
+  }
+
+  :global(.card-inner *) {
+    margin: 0;
   }
 
   button:hover {

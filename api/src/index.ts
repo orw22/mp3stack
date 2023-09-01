@@ -44,8 +44,8 @@ app.use(express.json());
 // routers
 app.use("/tracks", trackRouter);
 app.use("/playlists", playlistRouter);
-app.use("/users", userRouter);
 app.use("/users", authRouter);
+app.use("/users", userRouter);
 app.use("/", tokenRouter);
 
 // error handling

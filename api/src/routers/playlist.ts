@@ -15,12 +15,7 @@ mongoose.connection.on("open", () => {
 // New playlist
 router.post("/", authenticate, async (req, res, next) => {
   await playlistController.createPlaylist(
-    {
-      name: req.body.name,
-      userId: req.userId,
-      private: true,
-      tracks: [],
-    } as IPlaylist,
+    { name: req.body.name, userId: req.userId } as IPlaylist,
     res,
     next
   );

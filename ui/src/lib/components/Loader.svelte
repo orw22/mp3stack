@@ -12,7 +12,7 @@
 </script>
 
 <div class="loader">
-  <Wave size={28} color="#FF3E00" unit="px" duration="0.8s" />
+  <Wave size={28} color="#00c2d2" unit="px" duration="0.8s" />
 </div>
 
 <style>

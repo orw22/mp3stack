@@ -2,6 +2,7 @@ import compression from "compression";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import helmet from "helmet";
 import mongoose from "mongoose";
 
 import errorHandler from "./errorHandler";
@@ -29,6 +30,9 @@ mongoose.connection.on("error", () => {
 
 // cors
 app.use(cors());
+
+// helmet security
+app.use(helmet());
 
 // gzip compression (production only)
 if (process.env.NODE_ENV === "production") app.use(compression());

@@ -100,32 +100,50 @@ export default class PlaylistController {
       .catch(next);
   }
 
-  async changeFollowStatus(
+  async toggleFollowStatus(
     playlistId: string,
     userId: string,
     res: Response,
     next: NextFunction
   ) {
-    await Playlist.findOne({ _id: playlistId })
-      .then(async (playlist: IPlaylist | null) => {
-        if (!playlist || (playlist.private && userId !== playlist.userId))
-          return next(createError(404, "Playlist not found"));
-        const wasFollowing = playlist.followers?.includes(userId);
-
-        await Playlist.updateOne(
-          { _id: playlistId },
-          wasFollowing
-            ? { $pull: { followers: userId } }
-            : { $addToSet: { followers: userId } }
-        )
-          .then(() =>
-            res.status(200).send({
-              message: wasFollowing
-                ? "Unfollowed playlist"
-                : "Followed playlist",
-            })
-          )
-          .catch(next);
+    await Playlist.updateOne(
+      { _id: playlistId },
+      [
+        {
+          $set: {
+            followers: {
+              $cond: {
+                if: {
+                  $and: [
+                    { $not: { $in: [userId, "$followers"] } },
+                    {
+                      $and: [
+                        { $not: "$private" },
+                        { $ne: [userId, "$userId"] },
+                      ],
+                    },
+                  ],
+                },
+                then: { $concatArrays: ["$followers", [userId]] },
+                else: {
+                  $filter: {
+                    input: "$followers",
+                    as: "id",
+                    cond: {
+                      $ne: ["$$id", userId],
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      ],
+      { new: true }
+    )
+      .then((update) => {
+        if (update.modifiedCount > 0) res.status(204).send();
+        else res.status(400).send({ message: "Playlist not updated" });
       })
       .catch(next);
   }

@@ -61,7 +61,7 @@ router.delete("/:playlistId/tracks/:trackId", async (req, res, next) => {
 
 // Follow/unfollow playlist
 router.put("/:playlistId/follow", async (req, res, next) => {
-  await playlistController.changeFollowStatus(
+  await playlistController.toggleFollowStatus(
     req.params.playlistId,
     req.userId,
     res,

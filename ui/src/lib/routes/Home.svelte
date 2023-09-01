@@ -43,6 +43,9 @@
         <h5 slot="title">{playlist.name}</h5>
       </Card>
     {/each}
+    {#if data.playlists.length === 0}
+      <p>You haven't created any playlists yet.</p>
+    {/if}
     {#if data.following.length > 0}
       <h4>Following</h4>
       {#each data.following as playlist}

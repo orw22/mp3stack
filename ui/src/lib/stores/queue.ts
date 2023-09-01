@@ -80,12 +80,12 @@ function createQueue() {
     },
     /**
      * Removes a track from the queue
-     * @param {string} id - The ID of the track to be removed.
+     * @param {number} index - The index of the track to be removed.
      * @function
      */
-    remove: (id: string) =>
+    remove: (index: number) =>
       update((v) => {
-        v = v.filter((t) => t._id !== id);
+        v.splice(index, 1);
         return v;
       }),
     /**

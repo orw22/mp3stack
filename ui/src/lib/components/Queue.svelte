@@ -33,7 +33,7 @@
             {track}
             {index}
             onClick={() => queue.play(track)}
-            onRemove={() => queue.remove(track._id)}
+            onRemove={() => queue.remove(index + 1)}
             isQueue
           />
         {/each}

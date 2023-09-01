@@ -5,6 +5,7 @@ import PlaylistController from "../controllers/PlaylistController";
 import { IPlaylist } from "../types";
 
 const router = Router();
+router.use(authenticate);
 
 let playlistController: PlaylistController;
 
@@ -13,7 +14,7 @@ mongoose.connection.on("open", () => {
 });
 
 // New playlist
-router.post("/", authenticate, async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   await playlistController.createPlaylist(
     { name: req.body.name, userId: req.userId } as IPlaylist,
     res,
@@ -22,7 +23,7 @@ router.post("/", authenticate, async (req, res, next) => {
 });
 
 // Get playlist
-router.get("/:playlistId", authenticate, async (req, res, next) => {
+router.get("/:playlistId", async (req, res, next) => {
   await playlistController.getPlaylist(
     req.params.playlistId,
     req.userId,
@@ -32,7 +33,7 @@ router.get("/:playlistId", authenticate, async (req, res, next) => {
 });
 
 // Update playlist (non-tracks)
-router.put("/:playlistId", authenticate, async (req, res, next) => {
+router.put("/:playlistId", async (req, res, next) => {
   await playlistController.updatePlaylist(
     req.params.playlistId,
     req.userId,
@@ -43,27 +44,23 @@ router.put("/:playlistId", authenticate, async (req, res, next) => {
 });
 
 // Add track
-router.post("/:playlistId/tracks", authenticate, async (req, res, next) => {
+router.post("/:playlistId/tracks", async (req, res, next) => {
   playlistController.addTrackToPlaylist(req, res, next);
 });
 
 // Remove track
-router.delete(
-  "/:playlistId/tracks/:trackId",
-  authenticate,
-  async (req, res, next) => {
-    await playlistController.deleteTrackFromPlaylist(
-      req.params.playlistId,
-      req.params.trackId,
-      req.userId,
-      res,
-      next
-    );
-  }
-);
+router.delete("/:playlistId/tracks/:trackId", async (req, res, next) => {
+  await playlistController.deleteTrackFromPlaylist(
+    req.params.playlistId,
+    req.params.trackId,
+    req.userId,
+    res,
+    next
+  );
+});
 
 // Follow/unfollow playlist
-router.put("/:playlistId/follow", authenticate, async (req, res, next) => {
+router.put("/:playlistId/follow", async (req, res, next) => {
   await playlistController.changeFollowStatus(
     req.params.playlistId,
     req.userId,
@@ -73,7 +70,7 @@ router.put("/:playlistId/follow", authenticate, async (req, res, next) => {
 });
 
 // Delete playlist
-router.delete("/:playlistId", authenticate, async (req, res, next) => {
+router.delete("/:playlistId", async (req, res, next) => {
   await playlistController.deletePlaylist(
     req.params.playlistId,
     req.userId,

@@ -4,6 +4,7 @@ import { authenticate } from "../auth";
 import TrackController from "../controllers/TrackController";
 
 const router = Router();
+router.use(authenticate);
 
 let trackController: TrackController;
 
@@ -11,7 +12,7 @@ mongoose.connection.on("open", () => {
   trackController = new TrackController();
 });
 
-router.get("/:trackId", authenticate, (req, res, next) =>
+router.get("/:trackId", (req, res, next) =>
   trackController.getTrack(req.params.trackId, res, next)
 );
 

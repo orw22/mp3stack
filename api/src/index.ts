@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 
 import errorHandler from "./errorHandler";
 import logger from "./logger";
+import { authRouter } from "./routers/auth";
 import { playlistRouter } from "./routers/playlist";
 import { tokenRouter } from "./routers/token";
 import { trackRouter } from "./routers/track";
@@ -44,6 +45,7 @@ app.use(express.json());
 app.use("/tracks", trackRouter);
 app.use("/playlists", playlistRouter);
 app.use("/users", userRouter);
+app.use("/users", authRouter);
 app.use("/", tokenRouter);
 
 // error handling

@@ -1,18 +1,18 @@
 /**
  * Regex for matching alphabetic characters and spaces.
- * @type {RegExp}
+ * @constant {RegExp}
  */
 export const ALPHA_PATTERN = /^[a-zA-Z ]{0,64}$/;
 
 /**
  * Regex for matching alphanumeric characters and spaces.
- * @type {RegExp}
+ * @constant {RegExp}
  */
 export const ALPHANUMERIC_PATTERN = /^[a-zA-Z0-9 ]{0,64}$/;
 
 /**
  * Regex for matching valid email addresses.
- * @type {RegExp}
+ * @constant {RegExp}
  */
 export const EMAIL_PATTERN = /^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
 
@@ -25,7 +25,7 @@ export const EMAIL_PATTERN = /^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
  * - Length between 10 and 128 characters.
  *
  * @see https://stackoverflow.com/questions/76285652/valid-with-the-regexp-u-flag-but-not-with-the-v-flag for reason behind escape characters.
- * @type {RegExp}
+ * @constant {RegExp}
  */
 export const PASSWORD_PATTERN =
   /^(?=.*[!@#$%^&*\(\)_+\{\}\[\]:;<>,.?~\-]).*(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,128}$/;

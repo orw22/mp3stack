@@ -5,6 +5,7 @@ import express from "express";
 import helmet from "helmet";
 import mongoose from "mongoose";
 
+import cacheControl from "./cacheControl";
 import errorHandler from "./errorHandler";
 import logger from "./logger";
 import { authRouter } from "./routers/auth";
@@ -47,6 +48,9 @@ app.use("/playlists", playlistRouter);
 app.use("/users", authRouter);
 app.use("/users", userRouter);
 app.use("/", tokenRouter);
+
+// response caching
+app.use(cacheControl);
 
 // error handling
 app.use(errorHandler);

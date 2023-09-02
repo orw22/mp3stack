@@ -50,12 +50,14 @@
 
   $: newTrackFiles, updateNewTrackNameFromFilename();
 
-  function getPlaylist() {
-    return axios.get(`/playlists/${id}`);
+  function getPlaylist(refresh: boolean = false) {
+    return axios.get(`/playlists/${id}`, {
+      headers: refresh ? { "Cache-Control": "no-cache" } : {},
+    });
   }
 
   function refreshPlaylist() {
-    playlist = getPlaylist();
+    playlist = getPlaylist(true);
   }
 
   async function fetchTrack(track: Track, action: TrackAction) {

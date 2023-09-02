@@ -17,12 +17,14 @@
     newPassword?.length > 0 && newPassword === newPasswordCheck;
   $: validNameEmail = newName?.length > 0 && newEmail?.length > 0;
 
-  function getProfile() {
-    return axios.get("/users/me");
+  function getProfile(refresh: boolean = false) {
+    return axios.get("/users/me", {
+      headers: refresh ? { "Cache-Control": "no-cache" } : {},
+    });
   }
 
   function refreshProfile() {
-    profile = getProfile();
+    profile = getProfile(true);
   }
 
   async function updateProfile(event: Event, isPasswordReset: boolean = false) {

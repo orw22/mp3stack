@@ -10,12 +10,14 @@
 
   let playlists = getPlaylists();
 
-  function getPlaylists() {
-    return axios.get("/users/me/playlists");
+  function getPlaylists(refresh: boolean = false) {
+    return axios.get("/users/me/playlists", {
+      headers: refresh ? { "Cache-Control": "no-cache" } : {},
+    });
   }
 
   function refreshPlaylists() {
-    playlists = getPlaylists();
+    playlists = getPlaylists(true);
   }
 
   function onPlaylistClick(id: string, canEdit: boolean) {

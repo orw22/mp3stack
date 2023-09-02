@@ -1,6 +1,6 @@
 <script lang="ts">
-  import axios from "axios";
   import { navigate } from "svelte-navigator";
+  import api from "../../api";
   import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
@@ -11,7 +11,7 @@
   let playlists = getPlaylists();
 
   function getPlaylists(refresh: boolean = false) {
-    return axios.get("/users/me/playlists", {
+    return api.get("/users/me/playlists", {
       headers: refresh ? { "Cache-Control": "no-cache" } : {},
     });
   }
@@ -27,7 +27,7 @@
   async function onCreatePlaylist(event: Event) {
     event.preventDefault();
 
-    await axios.post("/playlists", { name: newPlaylistName }).then(() => {
+    await api.post("/playlists", { name: newPlaylistName }).then(() => {
       newPlaylistName = "";
       creating = false;
       refreshPlaylists();

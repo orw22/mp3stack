@@ -1,13 +1,11 @@
 <script lang="ts">
   import { SvelteToast } from "@zerodevx/svelte-toast";
-  import axios from "axios";
   import { onDestroy, onMount } from "svelte";
   import { Route, Router, navigate } from "svelte-navigator";
   import Footer from "./lib/components/Footer.svelte";
   import Header from "./lib/components/Header.svelte";
   import Playbar from "./lib/components/Playbar/Playbar.svelte";
   import Queue from "./lib/components/Queue.svelte";
-  import { API_URL } from "./lib/constants";
   import Home from "./lib/routes/Home.svelte";
   import Login from "./lib/routes/Login.svelte";
   import Playlist from "./lib/routes/Playlist.svelte";
@@ -16,34 +14,8 @@
   import User from "./lib/routes/User.svelte";
   import authToken, { unsubscribeFromAuthToken } from "./lib/stores/authToken";
   import queue from "./lib/stores/queue";
-  import toasts from "./toasts";
 
   let queueOpen = false;
-
-  // set axios base url
-  axios.defaults.baseURL = API_URL;
-
-  // add auth token to all request headers
-  axios.interceptors.request.use((request) => {
-    if ($authToken) {
-      request.headers.Authorization = `Bearer ${$authToken}`;
-    }
-    return request;
-  });
-
-  // API response/error handling
-  axios.interceptors.response.use(
-    (response) => {
-      if (response.data.message) {
-        toasts.success(response.data.message);
-      }
-      return response;
-    },
-    (err) => {
-      toasts.error(err.response.data.message);
-      throw err;
-    }
-  );
 
   onDestroy(() => {
     unsubscribeFromAuthToken();

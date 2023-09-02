@@ -1,6 +1,6 @@
 <script lang="ts">
-  import axios from "axios";
   import { navigate } from "svelte-navigator";
+  import api from "../../api";
   import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
@@ -10,7 +10,7 @@
   let user = getUser();
 
   function getUser() {
-    return axios.get(`/users/${id}`);
+    return api.get(`/users/${id}`);
   }
 </script>
 

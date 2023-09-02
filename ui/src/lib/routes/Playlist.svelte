@@ -1,6 +1,6 @@
 <script lang="ts">
-  import axios from "axios";
   import { navigate } from "svelte-navigator";
+  import api from "../../api";
   import toasts from "../../toasts";
   import Icon from "../components/Icon.svelte";
   import IconButton from "../components/IconButton.svelte";
@@ -51,7 +51,7 @@
   $: newTrackFiles, updateNewTrackNameFromFilename();
 
   function getPlaylist(refresh: boolean = false) {
-    return axios.get(`/playlists/${id}`, {
+    return api.get(`/playlists/${id}`, {
       headers: refresh ? { "Cache-Control": "no-cache" } : {},
     });
   }
@@ -66,7 +66,7 @@
 
     if (existingUrl) func({ ...track, url: existingUrl });
     else
-      await axios
+      await api
         .get(`/tracks/${track._id}`, {
           responseType: "arraybuffer",
           headers: {
@@ -93,7 +93,7 @@
   }
 
   async function onRemoveTrack(trackId: string) {
-    await axios.delete(`/playlists/${id}/tracks/${trackId}`).then(() => {
+    await api.delete(`/playlists/${id}/tracks/${trackId}`).then(() => {
       toasts.success("Track removed");
       refreshPlaylist();
     });
@@ -111,7 +111,7 @@
       return;
     }
 
-    await axios
+    await api
       .post(`/playlists/${id}/tracks`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -125,7 +125,7 @@
   async function onRenamePlaylist(event: Event) {
     event.preventDefault();
 
-    await axios.put(`/playlists/${id}`, { name: newPlaylistName }).then(() => {
+    await api.put(`/playlists/${id}`, { name: newPlaylistName }).then(() => {
       toasts.success("Playlist updated");
       newPlaylistName = "";
       renaming = false;
@@ -134,21 +134,21 @@
   }
 
   async function onChangeVisibility() {
-    await axios.put(`/playlists/${id}`, { private: !isPrivate }).then(() => {
+    await api.put(`/playlists/${id}`, { private: !isPrivate }).then(() => {
       toasts.success("Playlist updated");
       refreshPlaylist();
     });
   }
 
   async function onDeletePlaylist() {
-    await axios.delete(`/playlists/${id}`).then(() => {
+    await api.delete(`/playlists/${id}`).then(() => {
       toasts.success("Playlist deleted");
       navigate("/");
     });
   }
 
   async function onChangeFollow() {
-    await axios.put(`/playlists/${id}/follow`).then(() => {
+    await api.put(`/playlists/${id}/follow`).then(() => {
       toasts.success("Follow status updated");
       refreshPlaylist();
     });

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import axios from "axios";
   import { navigate } from "svelte-navigator";
+  import api from "../../api";
   import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import type { User } from "../types";
@@ -18,7 +18,7 @@
     if (prevUserInputEvent > event.timeStamp - SEARCH_WINDOW) return;
 
     prevUserInputEvent = event.timeStamp;
-    await axios
+    await api
       .get("/users", { params: { name: searchQuery } })
       .then((response) => {
         searchResult = response.data as User[];

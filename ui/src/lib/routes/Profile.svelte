@@ -1,5 +1,5 @@
 <script lang="ts">
-  import axios from "axios";
+  import api from "../../api";
   import toasts from "../../toasts";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
@@ -18,7 +18,7 @@
   $: validNameEmail = newName?.length > 0 && newEmail?.length > 0;
 
   function getProfile(refresh: boolean = false) {
-    return axios.get("/users/me", {
+    return api.get("/users/me", {
       headers: refresh ? { "Cache-Control": "no-cache" } : {},
     });
   }
@@ -32,7 +32,7 @@
     if (!(isPasswordReset ? validPassword : validNameEmail)) {
       return;
     }
-    await axios
+    await api
       .put(
         "/users/me",
         isPasswordReset

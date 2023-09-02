@@ -1,7 +1,8 @@
 <script lang="ts">
-  import axios, { type AxiosResponse } from "axios";
+  import { type AxiosResponse } from "axios";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
+  import api from "../../api";
   import LoginForm from "../components/LoginForm.svelte";
   import authToken from "../stores/authToken";
 
@@ -20,7 +21,7 @@
     event.preventDefault();
     const form = event.target as HTMLFormElement;
 
-    await axios
+    await api
       .post("/users/login", {
         email: (form.elements.email as HTMLInputElement).value,
         password: (form.elements.password as HTMLInputElement).value,
@@ -32,7 +33,7 @@
     event.preventDefault();
     const form = event.target as HTMLFormElement;
 
-    await axios
+    await api
       .post("/users", {
         name: (form.elements.name as HTMLInputElement).value,
         email: (form.elements.email as HTMLInputElement).value,

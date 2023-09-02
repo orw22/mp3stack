@@ -29,16 +29,10 @@
       type="text"
       placeholder="Full name"
       pattern="[a-zA-Z ]+"
-      title="Must be alphabetic"
+      title="Name must be alphabetic"
     />
   {/if}
-  <input
-    name="password"
-    type="password"
-    placeholder="Password"
-    pattern=""
-    title="Weak password"
-  />
+  <input name="password" type="password" placeholder="Password" />
   <button type="submit">{register ? "Register" : "Log in"}</button>
 </form>
 

@@ -184,7 +184,13 @@
   {#if adding}
     <form on:submit={onAddTrack} class="add-track-form">
       <input type="file" bind:files={newTrackFiles} />
-      <input type="text" placeholder="Track name" bind:value={newTrackName} />
+      <input
+        type="text"
+        placeholder="Track name"
+        bind:value={newTrackName}
+        pattern="[a-zA-Z0-9 ]+"
+        title="Track name must be alphanumeric"
+      />
       <IconButton type="submit"
         >Upload <Icon name="upload" size={20} /></IconButton
       >
@@ -204,6 +210,8 @@
         type="text"
         placeholder="Playlist name"
         bind:value={newPlaylistName}
+        pattern="[a-zA-Z0-9 ]+"
+        title="Playlist name must be alphanumeric"
       />
       <button type="submit">Confirm</button>
       <button

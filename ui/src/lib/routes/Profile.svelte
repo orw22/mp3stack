@@ -15,7 +15,6 @@
 
   $: validPassword =
     newPassword?.length > 0 && newPassword === newPasswordCheck;
-  $: validNameEmail = newName?.length > 0 && newEmail?.length > 0;
 
   function getProfile(refresh: boolean = false) {
     return api.get("/users/me", {
@@ -29,7 +28,7 @@
 
   async function updateProfile(event: Event, isPasswordReset: boolean = false) {
     event.preventDefault();
-    if (!(isPasswordReset ? validPassword : validNameEmail)) {
+    if (isPasswordReset && !validPassword) {
       return;
     }
     await api
@@ -88,9 +87,21 @@
 
     {#if editing}
       <form on:submit={(e) => updateProfile(e)}>
-        <input type="text" placeholder="Name" bind:value={newName} />
-        <input type="text" placeholder="Email" bind:value={newEmail} />
-        <button type="submit" disabled={!validNameEmail}>Save</button>
+        <input
+          type="text"
+          placeholder="Name"
+          bind:value={newName}
+          pattern="[a-zA-Z ]+"
+          title="Name must be alphabetic"
+        />
+        <input
+          type="text"
+          placeholder="Email"
+          bind:value={newEmail}
+          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+          title="Must be a valid email address"
+        />
+        <button type="submit">Save</button>
         <button
           on:click={() => {
             editing = false;

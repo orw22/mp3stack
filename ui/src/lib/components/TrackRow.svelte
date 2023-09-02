@@ -8,10 +8,11 @@
   Props:
     - {Track} track
     - {number} index - position of track in the tracklist
-    - {(track: Track) => void} onClick
-    - {(id: string) => void} onRemove
-    - {(track: Track) => void} onAddToQueue
+    - {() => void} onClick
+    - {() => void} onRemove
+    - {() => void} onAddToQueue
     - {boolean} isQueue - indicates whether the component is rendering as part of the Queue
+    - {boolean} canEdit - indicates whether admin actions (remove/delete) can be performed on the track
 -->
 
 <script lang="ts">
@@ -21,9 +22,9 @@
 
   export let track: Track;
   export let index: number;
-  export let onClick: (track: Track) => void;
-  export let onRemove: (id: string) => void;
-  export let onAddToQueue: (track: Track) => void = () => null;
+  export let onClick: () => void;
+  export let onRemove: () => void;
+  export let onAddToQueue: () => void = () => null;
   export let isQueue: boolean = false;
   export let canEdit: boolean = true;
 </script>
@@ -31,14 +32,14 @@
 <div role="row" tabindex={index}>
   <span>{track.name}</span>
   <span>
-    <IconButton onClick={() => onClick(track)}>
+    <IconButton {onClick}>
       <Icon name="play" size={20} />
     </IconButton>
     {#if !isQueue}
-      <button on:click={() => onAddToQueue(track)}>Add to queue</button>
+      <button on:click={onAddToQueue}>Add to queue</button>
     {/if}
     {#if canEdit}
-      <IconButton onClick={() => onRemove(track._id)}>
+      <IconButton onClick={onRemove}>
         {#if isQueue}
           Remove <Icon name="xMark" size={20} />
         {:else}

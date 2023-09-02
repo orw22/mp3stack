@@ -23,6 +23,14 @@
   // set axios base url
   axios.defaults.baseURL = API_URL;
 
+  // add auth token to all request headers
+  axios.interceptors.request.use((request) => {
+    if ($authToken) {
+      request.headers.Authorization = `Bearer ${$authToken}`;
+    }
+    return request;
+  });
+
   // API response/error handling
   axios.interceptors.response.use(
     (response) => {

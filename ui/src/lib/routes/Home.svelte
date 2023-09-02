@@ -10,14 +10,14 @@
 
   let playlists = getPlaylists();
 
-  function getPlaylists(refresh: boolean = false) {
+  function getPlaylists() {
     return api.get("/users/me/playlists", {
-      headers: refresh ? { "Cache-Control": "no-cache" } : {},
+      headers: { "Cache-Control": "no-cache" },
     });
   }
 
   function refreshPlaylists() {
-    playlists = getPlaylists(true);
+    playlists = getPlaylists();
   }
 
   function onPlaylistClick(id: string, canEdit: boolean) {

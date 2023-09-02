@@ -7,6 +7,7 @@ import { IUser, IUserFuncs } from "../types";
 import { Playlist } from "./Playlist";
 
 const SALT_ROUNDS = 10;
+const MAX_NAME_LENGTH = 48;
 
 const userSchema = new mongoose.Schema<IUser>(
   {
@@ -15,9 +16,8 @@ const userSchema = new mongoose.Schema<IUser>(
       required: true,
       validate: {
         validator: (name: string) =>
-          validator.isAlpha(name) && name.length <= 50,
-        message:
-          "Invalid name (must be alphabetic and less than 50 characters)",
+          validator.isAlpha(name) && name.length <= MAX_NAME_LENGTH,
+        message: `Invalid name (must be alphabetic and less than ${MAX_NAME_LENGTH} characters)`,
       },
     },
     email: {

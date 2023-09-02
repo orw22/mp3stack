@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import validator from "validator";
 import { IPlaylist } from "../types";
 
+const MAX_NAME_LENGTH = 64;
+
 const trackSchema = new mongoose.Schema({
   name: { type: String, required: true },
 });
@@ -12,9 +14,8 @@ export const playlistSchema = new mongoose.Schema<IPlaylist>({
     required: true,
     validate: {
       validator: (name: string) =>
-        validator.isAlphanumeric(name) && name.length <= 64,
-      message:
-        "Invalid name (must be alphanumeric and less than 64 characters)",
+        validator.isAlphanumeric(name) && name.length <= MAX_NAME_LENGTH,
+      message: `Invalid name (must be alphanumeric and less than ${MAX_NAME_LENGTH} characters)`,
     },
   },
   userId: {

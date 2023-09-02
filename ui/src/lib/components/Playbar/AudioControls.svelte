@@ -17,7 +17,7 @@
   import Icon from "../Icon.svelte";
   import IconButton from "../IconButton.svelte";
 
-  const TIME_INPUT_WINDOW = 25;
+  const TIME_INPUT_WINDOW = 50;
   const TIME_UPDATE_WINDOW = 100;
 
   let audioEl: HTMLAudioElement;
@@ -49,7 +49,7 @@
       wasPaused[1] = true;
     }
 
-    if (prevTimeInputEvent > event.timeStamp - TIME_INPUT_WINDOW) {
+    if (event.timeStamp < prevTimeInputEvent + TIME_INPUT_WINDOW) {
       // if seeking/dragging slider
       audioEl.pause();
     } else {

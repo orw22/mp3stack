@@ -139,7 +139,7 @@ export default class PlaylistController {
         else
           res.status(400).send({
             message:
-              "Follow/unfollow failed - ensure that the playlist is public and that you are not the owner.",
+              "Follow status toggle failed. Playlist is private or user is owner.",
           });
       })
       .catch(next);

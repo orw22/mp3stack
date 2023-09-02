@@ -7,6 +7,7 @@
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
   import TrackRow from "../components/TrackRow.svelte";
+  import { ALPHANUMERIC_PATTERN } from "../constants/regex";
   import blobUrls from "../stores/blobUrls";
   import queue from "../stores/queue";
   import type { Track } from "../types";
@@ -189,7 +190,7 @@
         placeholder="Track name"
         required
         bind:value={newTrackName}
-        pattern="[a-zA-Z0-9 ]+"
+        pattern={ALPHANUMERIC_PATTERN.source}
         title="Track name must be alphanumeric"
       />
       <IconButton type="submit"
@@ -212,7 +213,7 @@
         placeholder="Playlist name"
         required
         bind:value={newPlaylistName}
-        pattern="[a-zA-Z0-9 ]+"
+        pattern={ALPHANUMERIC_PATTERN.source}
         title="Playlist name must be alphanumeric"
       />
       <button type="submit">Confirm</button>

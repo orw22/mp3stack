@@ -4,6 +4,7 @@
   import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
+  import { ALPHANUMERIC_PATTERN } from "../constants/regex";
 
   let creating = false;
   let newPlaylistName: string;
@@ -69,7 +70,7 @@
         type="text"
         placeholder="Playlist name"
         required
-        pattern="[a-zA-Z0-9 ]+"
+        pattern={ALPHANUMERIC_PATTERN.source}
         title="Playlist name must be alphanumeric"
         bind:value={newPlaylistName}
       />

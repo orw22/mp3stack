@@ -3,6 +3,11 @@
   import toasts from "../../toasts";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
+  import {
+    ALPHA_PATTERN,
+    EMAIL_PATTERN,
+    PASSWORD_PATTERN,
+  } from "../constants/regex";
 
   let profile = getProfile();
 
@@ -92,7 +97,7 @@
           placeholder="Name"
           bind:value={newName}
           required
-          pattern="[a-zA-Z ]+"
+          pattern={ALPHA_PATTERN.source}
           title="Name must be alphabetic"
         />
         <input
@@ -100,7 +105,7 @@
           placeholder="Email"
           required
           bind:value={newEmail}
-          pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+          pattern={EMAIL_PATTERN.source}
           title="Must be a valid email address"
         />
         <button type="submit">Save</button>
@@ -119,7 +124,7 @@
           placeholder="Password"
           required
           bind:value={newPassword}
-          pattern=".{'{'}10,{'}'}"
+          pattern={PASSWORD_PATTERN.source}
           title="Password must be at least 10 characters in length"
         />
         <input

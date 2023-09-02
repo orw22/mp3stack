@@ -11,7 +11,11 @@
 -->
 
 <script lang="ts">
-  import { EMAIL_PATTERN } from "../utils/regex";
+  import {
+    ALPHA_PATTERN,
+    EMAIL_PATTERN,
+    PASSWORD_PATTERN,
+  } from "../constants/regex";
 
   export let onSubmit: (event: Event) => void;
   export let register = false;
@@ -23,7 +27,7 @@
     type="text"
     placeholder="Email"
     required
-    pattern={EMAIL_PATTERN}
+    pattern={EMAIL_PATTERN.source}
     title="Must be a valid email address"
   />
   {#if register}
@@ -32,7 +36,7 @@
       type="text"
       required
       placeholder="Full name"
-      pattern="[a-zA-Z ]+"
+      pattern={ALPHA_PATTERN.source}
       title="Name must be alphabetic"
     />
   {/if}
@@ -41,8 +45,8 @@
     type="password"
     required
     placeholder="Password"
-    pattern=".{'{'}10,{'}'}"
-    title="Password must be at least 10 characters in length"
+    pattern={PASSWORD_PATTERN.source}
+    title="Password must be at least 10 characters in length and contain at least one uppercase letter, one lowercase letter, and one number"
   />
   <button type="submit">{register ? "Register" : "Log in"}</button>
 </form>

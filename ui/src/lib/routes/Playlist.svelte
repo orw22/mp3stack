@@ -187,6 +187,7 @@
       <input
         type="text"
         placeholder="Track name"
+        required
         bind:value={newTrackName}
         pattern="[a-zA-Z0-9 ]+"
         title="Track name must be alphanumeric"
@@ -209,6 +210,7 @@
       <input
         type="text"
         placeholder="Playlist name"
+        required
         bind:value={newPlaylistName}
         pattern="[a-zA-Z0-9 ]+"
         title="Playlist name must be alphanumeric"

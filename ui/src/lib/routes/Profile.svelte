@@ -91,12 +91,14 @@
           type="text"
           placeholder="Name"
           bind:value={newName}
+          required
           pattern="[a-zA-Z ]+"
           title="Name must be alphabetic"
         />
         <input
           type="text"
           placeholder="Email"
+          required
           bind:value={newEmail}
           pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
           title="Must be a valid email address"
@@ -115,12 +117,14 @@
         <input
           type="password"
           placeholder="Password"
+          required
           bind:value={newPassword}
           pattern=".{'{'}10,{'}'}"
           title="Password must be at least 10 characters in length"
         />
         <input
           type="password"
+          required
           placeholder="Re-enter password"
           bind:value={newPasswordCheck}
         />

@@ -11,6 +11,8 @@
 -->
 
 <script lang="ts">
+  import { EMAIL_PATTERN } from "../utils/regex";
+
   export let onSubmit: (event: Event) => void;
   export let register = false;
 </script>
@@ -20,13 +22,15 @@
     name="email"
     type="text"
     placeholder="Email"
-    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+    required
+    pattern={EMAIL_PATTERN}
     title="Must be a valid email address"
   />
   {#if register}
     <input
       name="name"
       type="text"
+      required
       placeholder="Full name"
       pattern="[a-zA-Z ]+"
       title="Name must be alphabetic"
@@ -35,6 +39,7 @@
   <input
     name="password"
     type="password"
+    required
     placeholder="Password"
     pattern=".{'{'}10,{'}'}"
     title="Password must be at least 10 characters in length"

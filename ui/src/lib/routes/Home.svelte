@@ -68,6 +68,7 @@
       <input
         type="text"
         placeholder="Playlist name"
+        required
         pattern="[a-zA-Z0-9 ]+"
         title="Playlist name must be alphanumeric"
         bind:value={newPlaylistName}

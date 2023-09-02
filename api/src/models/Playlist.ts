@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import validator from "validator";
 import { IPlaylist } from "../types";
 
 const trackSchema = new mongoose.Schema({
@@ -6,7 +7,14 @@ const trackSchema = new mongoose.Schema({
 });
 
 export const playlistSchema = new mongoose.Schema<IPlaylist>({
-  name: { type: String, required: true },
+  name: {
+    type: String,
+    required: true,
+    validate: {
+      validator: (name: string) => validator.isAlpha(name),
+      message: "Invalid name (must be alphabetic)",
+    },
+  },
   userId: {
     type: String,
     required: true,

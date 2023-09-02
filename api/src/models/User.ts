@@ -10,7 +10,14 @@ const SALT_ROUNDS = 10;
 
 const userSchema = new mongoose.Schema<IUser>(
   {
-    name: { type: String, required: true },
+    name: {
+      type: String,
+      required: true,
+      validate: {
+        validator: (name: string) => validator.isAlpha(name),
+        message: "Invalid name (must be alphabetic)",
+      },
+    },
     email: {
       type: String,
       required: true,

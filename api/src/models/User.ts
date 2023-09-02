@@ -14,8 +14,10 @@ const userSchema = new mongoose.Schema<IUser>(
       type: String,
       required: true,
       validate: {
-        validator: (name: string) => validator.isAlpha(name),
-        message: "Invalid name (must be alphabetic)",
+        validator: (name: string) =>
+          validator.isAlpha(name) && name.length <= 50,
+        message:
+          "Invalid name (must be alphabetic and less than 50 characters)",
       },
     },
     email: {

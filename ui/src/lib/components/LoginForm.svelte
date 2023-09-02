@@ -16,11 +16,29 @@
 </script>
 
 <form on:submit={onSubmit}>
-  <input name="email" type="text" placeholder="Email" />
+  <input
+    name="email"
+    type="text"
+    placeholder="Email"
+    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+    title="Must be a valid email address"
+  />
   {#if register}
-    <input name="name" type="text" placeholder="Full name" />
+    <input
+      name="name"
+      type="text"
+      placeholder="Full name"
+      pattern="[a-zA-Z ]+"
+      title="Must be alphabetic"
+    />
   {/if}
-  <input name="password" type="password" placeholder="Password" />
+  <input
+    name="password"
+    type="password"
+    placeholder="Password"
+    pattern=""
+    title="Weak password"
+  />
   <button type="submit">{register ? "Register" : "Log in"}</button>
 </form>
 

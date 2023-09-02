@@ -32,7 +32,13 @@
       title="Name must be alphabetic"
     />
   {/if}
-  <input name="password" type="password" placeholder="Password" />
+  <input
+    name="password"
+    type="password"
+    placeholder="Password"
+    pattern=".{'{'}10,{'}'}"
+    title="Password must be at least 10 characters in length"
+  />
   <button type="submit">{register ? "Register" : "Log in"}</button>
 </form>
 

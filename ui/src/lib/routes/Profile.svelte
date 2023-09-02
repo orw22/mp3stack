@@ -116,6 +116,8 @@
           type="password"
           placeholder="Password"
           bind:value={newPassword}
+          pattern=".{'{'}10,{'}'}"
+          title="Password must be at least 10 characters in length"
         />
         <input
           type="password"

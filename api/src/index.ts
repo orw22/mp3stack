@@ -42,15 +42,15 @@ if (process.env.NODE_ENV === "production") app.use(compression());
 // parse request bodies as JSON
 app.use(express.json());
 
+// browser caching (Cache-Control header)
+app.use(cacheControl);
+
 // routers
 app.use("/tracks", trackRouter);
 app.use("/playlists", playlistRouter);
 app.use("/users", authRouter);
 app.use("/users", userRouter);
 app.use("/", tokenRouter);
-
-// response caching
-app.use(cacheControl);
 
 // error handling
 app.use(errorHandler);

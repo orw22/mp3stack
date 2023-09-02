@@ -112,15 +112,14 @@ export default class PlaylistController {
           followers: {
             $cond: {
               if: {
-                $and: [
-                  { $not: { $in: [userId, "$followers"] } },
+                $or: [
+                  { $in: [userId, "$followers"] },
                   {
-                    $and: [{ $not: "$private" }, { $ne: [userId, "$userId"] }],
+                    $or: ["$private", { $eq: [userId, "$userId"] }],
                   },
                 ],
               },
-              then: { $concatArrays: ["$followers", [userId]] },
-              else: {
+              then: {
                 $filter: {
                   input: "$followers",
                   as: "id",
@@ -129,6 +128,7 @@ export default class PlaylistController {
                   },
                 },
               },
+              else: { $concatArrays: ["$followers", [userId]] },
             },
           },
         },
@@ -139,7 +139,7 @@ export default class PlaylistController {
         else
           res.status(400).send({
             message:
-              "Follow status toggle failed. Playlist is private or user is owner.",
+              "Follow status change failed. Playlist is private or user is owner.",
           });
       })
       .catch(next);

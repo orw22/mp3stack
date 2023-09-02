@@ -33,7 +33,8 @@ const userSchema = new mongoose.Schema<IUser>(
       type: String,
       required: true,
       validate: {
-        validator: (password: string) => validator.isStrongPassword(password),
+        validator: (password: string) =>
+          validator.isStrongPassword(password, { minLength: 10 }),
         message: "Password too weak. Please enter a strong password",
       },
     },

@@ -5,6 +5,8 @@ import multer from "multer";
 import { Readable } from "stream";
 import logger from "../logger";
 
+const MAX_FILE_SIZE = 15000000; // 15MB
+
 export default class TrackController {
   bucket: mongoose.mongo.GridFSBucket;
   storage: multer.StorageEngine;
@@ -17,7 +19,7 @@ export default class TrackController {
     this.storage = multer.memoryStorage();
     this.upload = multer({
       storage: this.storage,
-      limits: { fileSize: 15000000, files: 1 },
+      limits: { fileSize: MAX_FILE_SIZE, files: 1 },
     });
   }
 

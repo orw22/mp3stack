@@ -12,9 +12,9 @@ export const playlistSchema = new mongoose.Schema<IPlaylist>({
     required: true,
     validate: {
       validator: (name: string) =>
-        validator.isAlphanumeric(name) && name.length <= 50,
+        validator.isAlphanumeric(name) && name.length <= 64,
       message:
-        "Invalid name (must be alphanumeric and less than 50 characters)",
+        "Invalid name (must be alphanumeric and less than 64 characters)",
     },
   },
   userId: {

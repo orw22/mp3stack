@@ -49,17 +49,18 @@
       });
   }
 
-  $: profile,
-    (async () => {
-      try {
-        const response = await profile;
-        // set initial editing values
-        newName = response.data.name;
-        newEmail = response.data.email;
-      } catch (error) {
-        return;
-      }
-    })();
+  async function updateEditingValues() {
+    try {
+      const response = await profile;
+      // set initial editing values
+      newName = response.data.name;
+      newEmail = response.data.email;
+    } catch (error) {
+      return;
+    }
+  }
+
+  $: profile, updateEditingValues();
 </script>
 
 <Layout>

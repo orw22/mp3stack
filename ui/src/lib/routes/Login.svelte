@@ -44,12 +44,12 @@
 </script>
 
 <div id="login-wrapper">
-  <div class="side">
+  <div>
     <h2>Log in</h2>
     <LoginForm onSubmit={onLogin} />
   </div>
 
-  <div class="side">
+  <div>
     <h2>Register</h2>
     <LoginForm onSubmit={onRegister} register />
   </div>
@@ -61,8 +61,7 @@
     flex-direction: row;
     width: min(1280px, 80vw);
   }
-
-  .side {
-    width: 50%;
+  #login-wrapper div {
+    flex-grow: 1;
   }
 </style>

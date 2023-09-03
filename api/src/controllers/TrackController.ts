@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import createError from "http-errors";
 import mongoose from "mongoose";
 import multer from "multer";
-import { parseStream } from "music-metadata";
+import { IAudioMetadata, parseStream } from "music-metadata";
 import { Readable } from "stream";
 import { GRIDFS_BUCKET_NAME } from "../constants";
 import logger from "../logger";
@@ -108,7 +108,12 @@ export default class TrackController {
       trackStream.push(req.file?.buffer);
       trackStream.push(null);
 
-      const metadata = await parseStream(trackStream, "audio/mpeg");
+      let metadata: IAudioMetadata;
+      try {
+        metadata = await parseStream(trackStream, "audio/mpeg");
+      } catch (error) {
+        return next(createError(500, "Something went wrong"));
+      }
 
       let uploadStream = this.bucket.openUploadStream(req.body.name);
       trackStream.pipe(uploadStream);

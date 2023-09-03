@@ -34,13 +34,22 @@ export default class PlaylistController {
     playlistId: string,
     trackId: mongoose.mongo.ObjectId,
     trackName: string,
+    trackDuration: number | undefined,
     userId: string,
     res: Response,
     next: NextFunction
   ): Promise<void> {
     await Playlist.updateOne(
       { _id: playlistId, userId: userId },
-      { $push: { tracks: { _id: trackId.toString(), name: trackName } } }
+      {
+        $push: {
+          tracks: {
+            _id: trackId.toString(),
+            name: trackName,
+            duration: trackDuration,
+          },
+        },
+      }
     )
       .then(() => {
         res.status(201).send({

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import createError from "http-errors";
 import mongoose from "mongoose";
 import multer from "multer";
+import { parseStream } from "music-metadata";
 import { Readable } from "stream";
 import { GRIDFS_BUCKET_NAME } from "../constants";
 import logger from "../logger";
@@ -88,12 +89,13 @@ export default class TrackController {
       playlistId: string,
       trackId: mongoose.mongo.ObjectId,
       trackName: string,
+      trackDuration: number | undefined,
       userId: string,
       res: Response,
       next: NextFunction
     ) => Promise<void>
   ) {
-    this.upload.single("track")(req, res, (error) => {
+    this.upload.single("track")(req, res, async (error) => {
       logger.info(JSON.stringify(req.body));
       if (error) {
         logger.error(error.message);
@@ -105,6 +107,8 @@ export default class TrackController {
       const trackStream = new Readable();
       trackStream.push(req.file?.buffer);
       trackStream.push(null);
+
+      const metadata = await parseStream(trackStream, "audio/mpeg");
 
       let uploadStream = this.bucket.openUploadStream(req.body.name);
       trackStream.pipe(uploadStream);
@@ -118,6 +122,7 @@ export default class TrackController {
           req.params.playlistId,
           uploadStream.id,
           req.body.name,
+          metadata.format.duration,
           req.userId,
           res,
           next

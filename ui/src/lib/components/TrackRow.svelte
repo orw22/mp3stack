@@ -68,6 +68,6 @@
   }
 
   .duration {
-    color: var(--color-medium-grey);
+    color: var(--color-dark-grey);
   }
 </style>

@@ -1,3 +1,15 @@
+<!--
+  @component
+  Card
+  
+  - Renders a clickable card with a title, subtitle, and description
+  - Uses slots to allow for custom content
+
+  Props: 
+    - {() => void} onClick - callback function to be called when the card is clicked
+    - {boolean} disabled - whether the card is disabled or not
+-->
+
 <script lang="ts">
   export let onClick: () => void;
   export let disabled = false;

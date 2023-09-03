@@ -7,11 +7,21 @@ import logger from "../logger";
 
 const MAX_FILE_SIZE = 15000000; // 15MB
 
+/**
+ * @class TrackController
+ *
+ * This class provides methods for retrieving and streaming track audio content,
+ * uploading tracks to the GridFS tracks bucket, and other related operations.
+ *
+ */
 export default class TrackController {
   bucket: mongoose.mongo.GridFSBucket;
   storage: multer.StorageEngine;
   upload: multer.Multer;
 
+  /**
+   * Initializes the MongoDB GridFS bucket and multer for file uploads.
+   */
   constructor() {
     this.bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
       bucketName: "tracks",
@@ -23,6 +33,17 @@ export default class TrackController {
     });
   }
 
+  /**
+   * @function getTracks
+   * Retrieve and stream a track's audio content to the client.
+   *
+   * This function takes a track ID and streams the audio content of the track
+   * to the HTTP response.
+   *
+   * @param {string} trackId - The ID of the track to retrieve.
+   * @param {Response} res - The response object for sending the audio data.
+   * @param {NextFunction} next - The next function
+   */
   getTrack(trackId: string, res: Response, next: NextFunction) {
     let trackObjId;
     try {
@@ -53,6 +74,16 @@ export default class TrackController {
     });
   }
 
+  /**
+   * @function addTrack
+   * Add an MP3 file to the MongoDB GridFS tracks bucket and call a callback function
+   * on finishing the upload (updatePlaylistCallback).
+   *
+   * @param {Request} req - The request object.
+   * @param {Response} res - The response object.
+   * @param {NextFunction} next - The next function.
+   * @param {Function} callback - A callback function to execute after successful upload.
+   */
   addTrack(
     req: Request,
     res: Response,
@@ -99,8 +130,8 @@ export default class TrackController {
     });
   }
 
-  // admin
-  async clearBucket() {
-    await this.bucket.drop();
-  }
+  // // admin
+  // async clearBucket() {
+  //   await this.bucket.drop();
+  // }
 }

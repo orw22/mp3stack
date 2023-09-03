@@ -1,5 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 
+/**
+ * Middleware for setting Cache-Control headers on HTTP responses
+ *
+ * This middleware sets the appropriate Cache-Control header based on the HTTP request method.
+ * For GET requests, it enables caching for 1 day, while for other request types, it sets
+ * Cache-Control to prevent caching (no-store).
+ *
+ * @param {Request} req - The request object.
+ * @param {Response} res - The response object.
+ * @param {NextFunction} next - The next function to pass control to the next middleware.
+ */
 const cacheControl = (
   req: Request,
   res: Response,

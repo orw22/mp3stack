@@ -45,7 +45,7 @@
     type="password"
     required
     placeholder="Password"
-    pattern={PASSWORD_PATTERN.source}
+    pattern={register ? PASSWORD_PATTERN.source : null}
     title="Password must be at least 10 characters in length and contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 symbol"
   />
   <button type="submit">{register ? "Register" : "Log in"}</button>

@@ -16,7 +16,7 @@ router.get("/:trackId", (req, res, next) =>
   trackController.getTrack(req.params.trackId, res, next)
 );
 
-// admin (temp)
+// admin (temporary)
 // router.delete("/all", async (_, res) => {
 //   await trackController.clearBucket();
 //   res.status(204).send();

@@ -1,1 +1,1 @@
-export const GRIDFS_BUCKET_NAME = "tracks";
+export const GRIDFS_BUCKET_NAME = "mp3stackTracks";

@@ -131,7 +131,6 @@ export default class TrackController {
     });
   }
 
-  // // admin
   // async clearBucket() {
   //   await this.bucket.drop();
   // }

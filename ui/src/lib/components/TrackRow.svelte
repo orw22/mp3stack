@@ -17,6 +17,7 @@
 
 <script lang="ts">
   import type { Track } from "../types";
+  import { secondsToMMSS } from "../utils/time";
   import Icon from "./Icon.svelte";
   import IconButton from "./IconButton.svelte";
 
@@ -32,6 +33,7 @@
 <div role="row" tabindex={index}>
   <span>{track.name}</span>
   <span>
+    <span>{secondsToMMSS(track.duration ?? 0)}</span>
     <IconButton {onClick}>
       <Icon name="play" size={20} />
     </IconButton>

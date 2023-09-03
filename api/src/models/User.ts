@@ -3,6 +3,7 @@ import createError from "http-errors";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import validator from "validator";
+import { GRIDFS_BUCKET_NAME } from "../constants";
 import { IUser, IUserFuncs } from "../types";
 import { Playlist } from "./Playlist";
 
@@ -104,7 +105,7 @@ userSchema.post("deleteOne", async function () {
   const userId = this.getFilter()["_id"];
   const playlists = await Playlist.find({ userId }).exec();
   const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-    bucketName: "tracks",
+    bucketName: GRIDFS_BUCKET_NAME,
   });
 
   if (!playlists || playlists.length === 0) {

@@ -3,6 +3,7 @@ import createError from "http-errors";
 import mongoose from "mongoose";
 import multer from "multer";
 import { Readable } from "stream";
+import { GRIDFS_BUCKET_NAME } from "../constants";
 import logger from "../logger";
 
 const MAX_FILE_SIZE = 15000000; // 15MB
@@ -21,7 +22,7 @@ export default class TrackController {
    */
   constructor() {
     this.bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-      bucketName: "tracks",
+      bucketName: GRIDFS_BUCKET_NAME,
     });
     this.storage = multer.memoryStorage();
     this.upload = multer({

@@ -89,7 +89,7 @@ export default class TrackController {
       playlistId: string,
       trackId: mongoose.mongo.ObjectId,
       trackName: string,
-      trackDuration: number | undefined,
+      trackDuration: number,
       userId: string,
       res: Response,
       next: NextFunction
@@ -127,7 +127,7 @@ export default class TrackController {
           req.params.playlistId,
           uploadStream.id,
           req.body.name,
-          metadata.format.duration,
+          metadata.format.duration ?? 0,
           req.userId,
           res,
           next

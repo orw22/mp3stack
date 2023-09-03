@@ -34,7 +34,7 @@ export default class PlaylistController {
     playlistId: string,
     trackId: mongoose.mongo.ObjectId,
     trackName: string,
-    trackDuration: number | undefined,
+    trackDuration: number,
     userId: string,
     res: Response,
     next: NextFunction

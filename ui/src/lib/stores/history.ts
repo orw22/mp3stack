@@ -8,7 +8,7 @@ function createHistory() {
     subscribe,
     /**
      * Pushes a track to history.
-     * @param {TrackWithUrl} track - The track to be added.
+     * @param track - The track to be added.
      * @function
      */
     push: (track: TrackWithUrl) =>

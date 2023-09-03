@@ -7,8 +7,8 @@ function createBlobUrls() {
     subscribe,
     /**
      * Sets a blob URL
-     * @param {string} id - The track ID
-     * @param {string} url - The URL for the track's blob
+     * @param id - The track ID
+     * @param url - The URL for the track's blob
      * @function
      */
     setUrl: (id: string, url: string) =>

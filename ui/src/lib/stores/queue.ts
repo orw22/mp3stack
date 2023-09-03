@@ -21,7 +21,7 @@ function createQueue() {
      * Play a track
      * Overwrites all items in the queue and resets history
      * If same as current track (v[0]), restart the track
-     * @param {TrackWithUrl} track - The track to be played.
+     * @param track - The track to be played.
      * @function
      */
     play: (track: TrackWithUrl) => {
@@ -36,7 +36,7 @@ function createQueue() {
     },
     /**
      * Adds a track to the queue
-     * @param {TrackWithUrl} track - The track to be added.
+     * @param track - The track to be added.
      * @function
      */
     add: (track: TrackWithUrl) =>
@@ -80,7 +80,7 @@ function createQueue() {
     },
     /**
      * Removes a track from the queue
-     * @param {number} index - The index of the track to be removed.
+     * @param index - The index of the track to be removed.
      * @function
      */
     remove: (index: number) =>

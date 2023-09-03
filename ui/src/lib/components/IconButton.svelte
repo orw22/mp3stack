@@ -9,6 +9,7 @@
     - {() => void} onClick
     - {boolean} disabled
     - {"button" | "submit" | "reset"} type
+    = {boolean} blank - if true, the button will be blank (no background, no border, no padding, no margin)
 -->
 
 <script lang="ts">

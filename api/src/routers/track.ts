@@ -17,9 +17,9 @@ router.get("/:trackId", (req, res, next) =>
 );
 
 // admin (temp)
-router.delete("/all", async (_, res) => {
-  await trackController.clearBucket();
-  res.status(204).send();
-});
+// router.delete("/all", async (_, res) => {
+//   await trackController.clearBucket();
+//   res.status(204).send();
+// });
 
 export { router as trackRouter };

@@ -7,9 +7,9 @@ import { NextFunction, Request, Response } from "express";
  * For GET requests, it enables caching for 1 day, while for other request types, it sets
  * Cache-Control to prevent caching (no-store).
  *
- * @param {Request} req - The request object.
- * @param {Response} res - The response object.
- * @param {NextFunction} next - The next function to pass control to the next middleware.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next function to pass control to the next middleware.
  */
 const cacheControl = (
   req: Request,

@@ -5,13 +5,31 @@ import { Playlist } from "../models/Playlist";
 import { IPlaylist } from "../types";
 import TrackController from "./TrackController";
 
+/**
+ * @class PlaylistController
+ * @description Controller for playlist routes
+ */
 export default class PlaylistController {
   trackController: TrackController;
 
+  /**
+   * Initialise the TrackController
+   */
   constructor() {
     this.trackController = new TrackController();
   }
 
+  /**
+   * @private
+   * Callback function to update playlist after track saved to GridFS bucket and object ID received
+   *
+   * @param playlistId
+   * @param trackId
+   * @param trackName
+   * @param userId
+   * @param res
+   * @param next
+   */
   private async updatePlaylistCallback(
     playlistId: string,
     trackId: mongoose.mongo.ObjectId,
@@ -32,6 +50,13 @@ export default class PlaylistController {
       .catch(next);
   }
 
+  /**
+   * Creates a new playlist
+   *
+   * @param playlist
+   * @param res
+   * @param next
+   */
   async createPlaylist(playlist: IPlaylist, res: Response, next: NextFunction) {
     await Playlist.create(playlist)
       .then((playlist: IPlaylist) => {
@@ -40,6 +65,17 @@ export default class PlaylistController {
       .catch(next);
   }
 
+  /**
+   * Fetches a playlist by ID
+   *
+   * Also takes in userId to check if the playlist can be returned or not
+   * (i.e. private playlists are visible to the owner only)
+   *
+   * @param playlistId
+   * @param userId
+   * @param res
+   * @param next
+   */
   async getPlaylist(
     playlistId: string,
     userId: string,
@@ -59,11 +95,30 @@ export default class PlaylistController {
       .catch(next);
   }
 
+  /**
+   * Adds a track to the GridFS bucket and updates the playlist with track name and ID
+   * via callback function
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   */
   addTrackToPlaylist(req: Request, res: Response, next: NextFunction) {
     // TODO: Do not upload track if playlist userId not matching req.userId
     this.trackController.addTrack(req, res, next, this.updatePlaylistCallback);
   }
 
+  /**
+   * Removes a track from the playlist with $pull operation
+   *
+   * (post method deletes the track from the GridFS bucket - @see Playlist.ts)
+   *
+   * @param playlistId
+   * @param trackId
+   * @param userId
+   * @param res
+   * @param next
+   */
   async deleteTrackFromPlaylist(
     playlistId: string,
     trackId: string,
@@ -81,6 +136,18 @@ export default class PlaylistController {
       .catch(next);
   }
 
+  /**
+   * Update playlist by ID
+   *
+   * Used when changing playlist name and privacy status
+   * If the playlist is made private, removes all followers
+   *
+   * @param playlistId
+   * @param userId
+   * @param playlist
+   * @param res
+   * @param next
+   */
   async updatePlaylist(
     playlistId: string,
     userId: string,
@@ -100,6 +167,17 @@ export default class PlaylistController {
       .catch(next);
   }
 
+  /**
+   * Toggle follow status
+   *
+   * If not following, playlist is public and not owned by user, add user to followers
+   * Otherwise remove user from followers
+   *
+   * @param playlistId
+   * @param userId
+   * @param res
+   * @param next
+   */
   async toggleFollowStatus(
     playlistId: string,
     userId: string,
@@ -145,6 +223,16 @@ export default class PlaylistController {
       .catch(next);
   }
 
+  /**
+   * Delete playlist by ID
+   *
+   * Post method deletes all tracks in the playlist from GridFS bucket - @see Playlist.ts
+   *
+   * @param playlistId
+   * @param userId
+   * @param res
+   * @param next
+   */
   async deletePlaylist(
     playlistId: string,
     userId: string,

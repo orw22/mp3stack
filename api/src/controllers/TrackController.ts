@@ -9,10 +9,7 @@ const MAX_FILE_SIZE = 15000000; // 15MB
 
 /**
  * @class TrackController
- *
- * This class provides methods for retrieving and streaming track audio content,
- * uploading tracks to the GridFS tracks bucket, and other related operations.
- *
+ * @description Controller for track routes
  */
 export default class TrackController {
   bucket: mongoose.mongo.GridFSBucket;
@@ -34,15 +31,14 @@ export default class TrackController {
   }
 
   /**
-   * @function getTracks
    * Retrieve and stream a track's audio content to the client.
    *
    * This function takes a track ID and streams the audio content of the track
    * to the HTTP response.
    *
-   * @param {string} trackId - The ID of the track to retrieve.
-   * @param {Response} res - The response object for sending the audio data.
-   * @param {NextFunction} next - The next function
+   * @param trackId - The ID of the track to retrieve.
+   * @param res - The response object for sending the audio data.
+   * @param next - The next function
    */
   getTrack(trackId: string, res: Response, next: NextFunction) {
     let trackObjId;
@@ -75,14 +71,13 @@ export default class TrackController {
   }
 
   /**
-   * @function addTrack
    * Add an MP3 file to the MongoDB GridFS tracks bucket and call a callback function
-   * on finishing the upload (updatePlaylistCallback).
+   * on finishing the upload.
    *
-   * @param {Request} req - The request object.
-   * @param {Response} res - The response object.
-   * @param {NextFunction} next - The next function.
-   * @param {Function} callback - A callback function to execute after successful upload.
+   * @param req - The request object.
+   * @param res - The response object.
+   * @param next - The next function.
+   * @param callback - A callback function to execute after successful upload.
    */
   addTrack(
     req: Request,

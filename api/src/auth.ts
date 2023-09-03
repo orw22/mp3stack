@@ -10,9 +10,9 @@ import jwt from "jsonwebtoken";
  * if the token is valid. If the token is invalid or missing, it calls the next
  * function with an HttpError.
  *
- * @param {Request} req - The request object.
- * @param {Response} res - The response object.
- * @param {NextFunction} next - The next function to pass control to the next middleware.
+ * @param req - The request object.
+ * @param res - The response object.
+ * @param next - The next function to pass control to the next middleware.
  */
 export function authenticate(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.slice(7);

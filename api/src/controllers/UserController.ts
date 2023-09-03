@@ -4,7 +4,20 @@ import { Playlist } from "../models/Playlist";
 import { User } from "../models/User";
 import { IUser, Login } from "../types";
 
+/**
+ * @class UserController
+ * @description Provides controller methods for user authentication, registration, profile retrieval,
+ * user search, and other user-related actions.
+ */
 export default class UserController {
+  /**
+   * Logs in a user. Uses verifyPassword function to check if the password is correct.
+   * If the password is correct, a JWT is generated and sent to the client.
+   *
+   * @param login
+   * @param res
+   * @param next
+   */
   async login(login: Login, res: Response, next: NextFunction) {
     const user = await User.findOne({ email: login.email }).catch(next);
     if (!user) return next(createError(404, "User not found"));
@@ -18,6 +31,13 @@ export default class UserController {
     });
   }
 
+  /**
+   * Creates a new user and sends a token back to the client if creation succeeds.
+   *
+   * @param user
+   * @param res
+   * @param next
+   */
   async register(user: IUser, res: Response, next: NextFunction) {
     await User.create(user)
       .then((user) => {
@@ -26,6 +46,15 @@ export default class UserController {
       .catch(next);
   }
 
+  /**
+   * Finds users by name (not case-sensitive)
+   * If name is null or empty string, an empty array is sent back to the client.
+   *
+   * @param name
+   * @param userId
+   * @param res
+   * @param next
+   */
   async findByName(
     name: string,
     userId: string,
@@ -48,6 +77,15 @@ export default class UserController {
       .catch(next);
   }
 
+  /**
+   * Fetches a single user by ID
+   *
+   * If user is not found, a 404 error is sent back to the client.
+   *
+   * @param userId
+   * @param res
+   * @param next
+   */
   async getUser(userId: string, res: Response, next: NextFunction) {
     await User.findById(userId, {
       password: 0,
@@ -60,6 +98,16 @@ export default class UserController {
       .catch(next);
   }
 
+  /**
+   * Gets other user along with their playlists
+   *
+   * Used when searching for users and viewing their profiles
+   * (hence email and password not included in response)
+   *
+   * @param userId
+   * @param res
+   * @param next
+   */
   async getOtherUserAndPlaylists(
     userId: string,
     res: Response,
@@ -84,8 +132,14 @@ export default class UserController {
     }
   }
 
+  /**
+   * Get a user's playlists by user ID
+   *
+   * @param userId
+   * @param res
+   * @param next
+   */
   async getUserPlaylists(userId: string, res: Response, next: NextFunction) {
-    // TODO: Test following
     try {
       const [playlists, following] = await Promise.all([
         Playlist.find({ userId: userId }),
@@ -94,10 +148,18 @@ export default class UserController {
 
       res.status(200).send({ playlists, following });
     } catch (error) {
-      return next(error);
+      next(error);
     }
   }
 
+  /**
+   * Updates user by ID, returns 204 response if successful
+   *
+   * @param userId
+   * @param user
+   * @param res
+   * @param next
+   */
   async updateUser(
     userId: string,
     user: IUser,
@@ -111,6 +173,13 @@ export default class UserController {
       .catch(next);
   }
 
+  /**
+   * Deletes user by ID, returns 204 response if successful
+   *
+   * @param userId
+   * @param res
+   * @param next
+   */
   async deleteUser(userId: string, res: Response, next: NextFunction) {
     await User.deleteOne({ _id: userId })
       .then(() => {

@@ -14,8 +14,8 @@ import logger from "./logger";
  * If an unhandled error is encountered, it logs the error and sends a generic 500 Internal
  * Server Error response.
  *
- * @param {Error} err - The error thrown during request processing
- * @param {Response} res - The response object
+ * @param err - The error thrown during request processing
+ * @param res - The response object
  */
 const errorHandler = (
   err: Error,

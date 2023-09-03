@@ -33,7 +33,7 @@
 <div role="row" tabindex={index}>
   <span>{track.name}</span>
   <span>
-    <span>{secondsToMMSS(track.duration ?? 0)}</span>
+    <span class="duration">{secondsToMMSS(track.duration ?? 0)}</span>
     <IconButton {onClick}>
       <Icon name="play" size={20} />
     </IconButton>
@@ -65,5 +65,9 @@
   div[role="row"] span {
     display: inherit;
     gap: 0.5em;
+  }
+
+  .duration {
+    color: var(--color-medium-grey);
   }
 </style>

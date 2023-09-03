@@ -39,6 +39,7 @@ export interface IUserFuncs {
 export interface ITrack {
   _id: mongoose.mongo.ObjectId;
   name: string;
+  duration?: number;
 }
 
 /**

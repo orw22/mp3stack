@@ -7,6 +7,7 @@ const MAX_NAME_LENGTH = 64;
 
 const trackSchema = new mongoose.Schema({
   name: { type: String, required: true },
+  duration: Number,
 });
 
 export const playlistSchema = new mongoose.Schema<IPlaylist>({

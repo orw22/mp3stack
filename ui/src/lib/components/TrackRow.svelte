@@ -33,7 +33,7 @@
 <div role="row" tabindex={index}>
   <span>{track.name}</span>
   <span>
-    <span class="duration">{secondsToMMSS(track.duration ?? 0)}</span>
+    <span class="duration">{secondsToMMSS(track.duration)}</span>
     <IconButton {onClick}>
       <Icon name="play" size={20} />
     </IconButton>

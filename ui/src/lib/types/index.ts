@@ -5,7 +5,7 @@
 export interface Track {
   _id: string;
   name: string;
-  duration?: number;
+  duration: number;
 }
 
 /**

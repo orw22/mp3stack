@@ -65,9 +65,11 @@
   div[role="row"] span {
     display: inherit;
     gap: 0.5em;
+    align-items: center;
   }
 
   .duration {
     color: var(--color-dark-grey);
+    margin-right: 0.5em;
   }
 </style>

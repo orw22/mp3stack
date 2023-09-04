@@ -15,7 +15,7 @@
     ALPHA_PATTERN,
     EMAIL_PATTERN,
     PASSWORD_PATTERN,
-  } from "../constants/regex";
+  } from "../../constants/regex";
 
   export let onSubmit: (event: Event) => void;
   export let register = false;

@@ -2,9 +2,9 @@
   import { type AxiosResponse } from "axios";
   import { onMount } from "svelte";
   import { navigate } from "svelte-navigator";
-  import api from "../../api";
-  import LoginForm from "../components/LoginForm.svelte";
-  import authToken from "../stores/authToken";
+  import api from "../../../api";
+  import authToken from "../../stores/authToken";
+  import LoginForm from "./LoginForm.svelte";
 
   onMount(() => {
     if ($authToken) {

@@ -7,7 +7,7 @@
   import Playbar from "./lib/components/Playbar/Playbar.svelte";
   import Queue from "./lib/components/Queue.svelte";
   import Home from "./lib/routes/Home.svelte";
-  import Login from "./lib/routes/Login.svelte";
+  import Login from "./lib/routes/Login/Login.svelte";
   import Playlist from "./lib/routes/Playlist/Playlist.svelte";
   import Profile from "./lib/routes/Profile/Profile.svelte";
   import Search from "./lib/routes/Search.svelte";

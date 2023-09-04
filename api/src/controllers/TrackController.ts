@@ -4,9 +4,9 @@ import mongoose from "mongoose";
 import multer from "multer";
 import { IAudioMetadata, parseStream } from "music-metadata";
 import { Readable } from "stream";
-import { GRIDFS_BUCKET_NAME } from "../constants";
 import logger from "../logger";
 import memuraiClient from "../memuraiClient";
+import { trackBucket } from "../trackBucket";
 
 const MAX_FILE_SIZE = 15000000; // 15MB
 
@@ -15,7 +15,6 @@ const MAX_FILE_SIZE = 15000000; // 15MB
  * @description Controller for track routes
  */
 export default class TrackController {
-  bucket: mongoose.mongo.GridFSBucket;
   storage: multer.StorageEngine;
   upload: multer.Multer;
 
@@ -23,9 +22,6 @@ export default class TrackController {
    * Initializes the MongoDB GridFS bucket and multer for file uploads.
    */
   constructor() {
-    this.bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-      bucketName: GRIDFS_BUCKET_NAME,
-    });
     this.storage = multer.memoryStorage();
     this.upload = multer({
       storage: this.storage,
@@ -64,7 +60,7 @@ export default class TrackController {
       // TODO
       return;
     } else {
-      let downloadStream = this.bucket.openDownloadStream(trackObjId);
+      let downloadStream = trackBucket.openDownloadStream(trackObjId);
 
       downloadStream.on("data", (chunk) => {
         res.write(chunk);
@@ -122,7 +118,7 @@ export default class TrackController {
         return next(createError(500, "Something went wrong"));
       }
 
-      let uploadStream = this.bucket.openUploadStream(req.body.name);
+      let uploadStream = trackBucket.openUploadStream(req.body.name);
       trackStream.pipe(uploadStream);
 
       uploadStream.on("error", () => {

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import { GRIDFS_BUCKET_NAME } from "../constants";
+import { trackBucket } from "../trackBucket";
 import { IPlaylist, ITrack } from "../types";
 
 const MAX_NAME_LENGTH = 64;
@@ -36,22 +36,18 @@ export const playlistSchema = new mongoose.Schema<IPlaylist>({
 // post remove track, delete from GridFS bucket
 playlistSchema.post("updateOne", async function () {
   const data = this.getUpdate() as { $pull?: { tracks: { _id: string } } };
-  const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-    bucketName: GRIDFS_BUCKET_NAME,
-  });
   if (data?.$pull && data.$pull.tracks)
-    await bucket.delete(new mongoose.mongo.ObjectId(data.$pull.tracks._id));
+    await trackBucket.delete(
+      new mongoose.mongo.ObjectId(data.$pull.tracks._id)
+    );
 });
 
 // pre delete playlist, delete all tracks from GridFS bucket
 playlistSchema.pre("deleteOne", async function (next) {
   const _id = this.getFilter()["_id"];
-  const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
-    bucketName: GRIDFS_BUCKET_NAME,
-  });
   const playlist = await Playlist.findOne({ _id }).exec().catch(next);
   playlist?.tracks?.forEach(
-    async (track) => await bucket.delete(track._id).catch(next)
+    async (track) => await trackBucket.delete(track._id).catch(next)
   );
 
   return next();

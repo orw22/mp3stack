@@ -4,11 +4,8 @@
   import ActionBar from "../components/ActionBar.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
-  import {
-    ALPHA_PATTERN,
-    EMAIL_PATTERN,
-    PASSWORD_PATTERN,
-  } from "../constants/regex";
+  import ResetPasswordForm from "../components/ResetPasswordForm.svelte";
+  import UpdateProfileForm from "../components/UpdateProfileForm.svelte";
 
   let profile = getProfile();
 
@@ -92,45 +89,20 @@
     </ActionBar>
 
     {#if editing}
-      <form on:submit={(e) => updateProfile(e)}>
-        <input
-          type="text"
-          placeholder="Name"
-          bind:value={newName}
-          required
-          pattern={ALPHA_PATTERN.source}
-          title="Name must be alphabetic"
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          required
-          bind:value={newEmail}
-          pattern={EMAIL_PATTERN.source}
-          title="Must be a valid email address"
-        />
-        <button type="submit">Save</button>
-        <button on:click={() => setEditing(false)}>Cancel</button>
-      </form>
+      <UpdateProfileForm
+        onSubmit={(e) => updateProfile(e)}
+        bind:nameValue={newName}
+        bind:emailValue={newEmail}
+        onCancel={() => setEditing(false)}
+      />
     {:else if resettingPassword}
-      <form on:submit={(e) => updateProfile(e, true)}>
-        <input
-          type="password"
-          placeholder="Password"
-          required
-          bind:value={newPassword}
-          pattern={PASSWORD_PATTERN.source}
-          title="Password must be at least 10 characters in length"
-        />
-        <input
-          type="password"
-          required
-          placeholder="Re-enter password"
-          bind:value={newPasswordCheck}
-        />
-        <button type="submit" disabled={!validPassword}>Submit</button>
-        <button on:click={() => setResettingPassword(false)}>Cancel</button>
-      </form>
+      <ResetPasswordForm
+        onSubmit={(e) => updateProfile(e, true)}
+        bind:value={newPassword}
+        bind:checkValue={newPasswordCheck}
+        onCancel={() => setResettingPassword(false)}
+        submitButtonDisabled={!validPassword}
+      />
     {/if}
   {:catch error}
     <p>{error.response.data.message}</p>

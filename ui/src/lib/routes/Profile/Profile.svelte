@@ -1,11 +1,11 @@
 <script lang="ts">
-  import api from "../../api";
-  import toasts from "../../toasts";
-  import ActionBar from "../components/ActionBar.svelte";
-  import Layout from "../components/Layout.svelte";
-  import Loader from "../components/Loader.svelte";
-  import ResetPasswordForm from "../components/ResetPasswordForm.svelte";
-  import UpdateProfileForm from "../components/UpdateProfileForm.svelte";
+  import api from "../../../api";
+  import toasts from "../../../toasts";
+  import ActionBar from "../../components/ActionBar.svelte";
+  import Layout from "../../components/Layout.svelte";
+  import Loader from "../../components/Loader.svelte";
+  import ResetPasswordForm from "./ResetPasswordForm.svelte";
+  import UpdateProfileForm from "./UpdateProfileForm.svelte";
 
   let profile = getProfile();
 

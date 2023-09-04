@@ -1,17 +1,17 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
-  import api from "../../api";
-  import toasts from "../../toasts";
-  import ActionBar from "../components/ActionBar.svelte";
-  import AddTrackForm from "../components/AddTrackForm.svelte";
-  import Layout from "../components/Layout.svelte";
-  import Loader from "../components/Loader.svelte";
-  import NameForm from "../components/NameForm.svelte";
-  import TrackRow from "../components/TrackRow.svelte";
-  import blobUrls from "../stores/blobUrls";
-  import queue from "../stores/queue";
-  import type { Track } from "../types";
-  import { TrackAction } from "../types/enums";
+  import api from "../../../api";
+  import toasts from "../../../toasts";
+  import ActionBar from "../../components/ActionBar.svelte";
+  import Layout from "../../components/Layout.svelte";
+  import Loader from "../../components/Loader.svelte";
+  import NameForm from "../../components/NameForm.svelte";
+  import TrackRow from "../../components/TrackRow.svelte";
+  import blobUrls from "../../stores/blobUrls";
+  import queue from "../../stores/queue";
+  import type { Track } from "../../types";
+  import { TrackAction } from "../../types/enums";
+  import AddTrackForm from "./AddTrackForm.svelte";
 
   export let id: string;
 

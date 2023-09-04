@@ -8,8 +8,8 @@
   import Queue from "./lib/components/Queue.svelte";
   import Home from "./lib/routes/Home.svelte";
   import Login from "./lib/routes/Login.svelte";
-  import Playlist from "./lib/routes/Playlist.svelte";
-  import Profile from "./lib/routes/Profile.svelte";
+  import Playlist from "./lib/routes/Playlist/Playlist.svelte";
+  import Profile from "./lib/routes/Profile/Profile.svelte";
   import Search from "./lib/routes/Search.svelte";
   import User from "./lib/routes/User.svelte";
   import authToken, { unsubscribeFromAuthToken } from "./lib/stores/authToken";

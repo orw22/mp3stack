@@ -14,7 +14,7 @@
 -->
 
 <script lang="ts">
-  import { PASSWORD_PATTERN } from "../constants/regex";
+  import { PASSWORD_PATTERN } from "../../constants/regex";
 
   export let onSubmit: (event: Event) => void;
   export let value: string;

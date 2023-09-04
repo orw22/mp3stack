@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { ALPHANUMERIC_PATTERN } from "../constants/regex";
-  import Icon from "./Icon.svelte";
-  import IconButton from "./IconButton.svelte";
+  import Icon from "../../components/Icon.svelte";
+  import IconButton from "../../components/IconButton.svelte";
+  import { ALPHANUMERIC_PATTERN } from "../../constants/regex";
 
   export let onSubmit: (event: Event) => void;
   export let files: FileList;

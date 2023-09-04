@@ -5,7 +5,7 @@
   import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
-  import { ALPHANUMERIC_PATTERN } from "../constants/regex";
+  import NameForm from "../components/NameForm.svelte";
 
   let creating = false;
   let newPlaylistName: string;
@@ -68,21 +68,15 @@
   {/await}
 
   <ActionBar>
-    <button on:click={() => setCreating(true)}> Create new playlist </button>
+    <button on:click={() => setCreating(true)}>Create new playlist</button>
   </ActionBar>
 
   {#if creating}
-    <form on:submit={onCreatePlaylist}>
-      <input
-        type="text"
-        placeholder="Playlist name"
-        required
-        pattern={ALPHANUMERIC_PATTERN.source}
-        title="Playlist name must be alphanumeric"
-        bind:value={newPlaylistName}
-      />
-      <button type="submit">Create</button>
-      <button on:click={() => setCreating(false)}>Cancel</button>
-    </form>
+    <NameForm
+      onSubmit={onCreatePlaylist}
+      value={newPlaylistName}
+      submitButtonLabel="Create"
+      onCancel={() => setCreating(false)}
+    />
   {/if}
 </Layout>

@@ -7,6 +7,7 @@
   import IconButton from "../components/IconButton.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
+  import NameForm from "../components/NameForm.svelte";
   import TrackRow from "../components/TrackRow.svelte";
   import { ALPHANUMERIC_PATTERN } from "../constants/regex";
   import blobUrls from "../stores/blobUrls";
@@ -237,18 +238,12 @@
   {/if}
 
   {#if renaming}
-    <form on:submit={onRenamePlaylist}>
-      <input
-        type="text"
-        placeholder="Playlist name"
-        required
-        bind:value={newPlaylistName}
-        pattern={ALPHANUMERIC_PATTERN.source}
-        title="Playlist name must be alphanumeric"
-      />
-      <button type="submit">Confirm</button>
-      <button on:click={() => setRenaming(false)}> Cancel </button>
-    </form>
+    <NameForm
+      onSubmit={onRenamePlaylist}
+      value={newPlaylistName}
+      submitButtonLabel="Confirm"
+      onCancel={() => setRenaming(false)}
+    />
   {/if}
 </Layout>
 

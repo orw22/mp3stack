@@ -26,6 +26,7 @@
   let progressTime = 0;
   let duration = 0;
   let volume = 1;
+  let trackPlayed = false;
 
   let prevTimeInputEvent: number;
   let prevUpdated: number;
@@ -75,6 +76,8 @@
 
   $: currentTimePercentage = (progressTime / duration) * 100;
   $: volumePercentage = volume * 100;
+
+  $: if (currentTrack) trackPlayed = true;
 </script>
 
 <audio
@@ -117,7 +120,9 @@
     min={0}
     step={0.1}
     max={duration}
-    style:background={`linear-gradient(to right, #00b0b9 0%, #00b0b9 ${currentTimePercentage}%, #f5f5f5 ${currentTimePercentage}%, #f5f5f5 100%)`}
+    style:background={trackPlayed
+      ? `linear-gradient(to right, #00b0b9 0%, #00b0b9 ${currentTimePercentage}%, #f5f5f5 ${currentTimePercentage}%, #f5f5f5 100%)`
+      : "#f5f5f5"}
   />
   <span>{secondsToMMSS(duration)}</span>
 </div>
@@ -154,7 +159,6 @@
 
   #current-time {
     width: min(480px, 80%);
-    background: "#f5f5f5";
   }
   #current-time::-webkit-slider-thumb {
     visibility: hidden;

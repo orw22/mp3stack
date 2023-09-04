@@ -30,7 +30,13 @@
   export let canEdit: boolean = true;
 </script>
 
-<div role="row" tabindex={index}>
+<div
+  role="row"
+  tabindex={index}
+  style="border-top: {index === 0
+    ? '1px solid var(--color-medium-grey)'
+    : 'none'}"
+>
   <span>{track.name}</span>
   <span>
     <span class="duration">{secondsToMMSS(track.duration)}</span>

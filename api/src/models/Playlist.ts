@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import { GRIDFS_BUCKET_NAME } from "../constants";
-import { IPlaylist } from "../types";
+import { IPlaylist, ITrack } from "../types";
 
 const MAX_NAME_LENGTH = 64;
 
-const trackSchema = new mongoose.Schema({
+const trackSchema = new mongoose.Schema<ITrack>({
   name: { type: String, required: true },
   duration: { type: Number, required: true },
 });

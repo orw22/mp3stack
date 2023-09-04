@@ -36,8 +36,7 @@ export interface IUserFuncs {
  * Represents a track
  * @interface
  */
-export interface ITrack {
-  _id: mongoose.mongo.ObjectId;
+export interface ITrack extends mongoose.Document {
   name: string;
   duration: number;
 }

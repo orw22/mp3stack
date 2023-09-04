@@ -49,5 +49,6 @@
   .icon-button.blank:focus-visible {
     border: none;
     background: none;
+    outline: none;
   }
 </style>

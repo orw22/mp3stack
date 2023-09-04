@@ -4,11 +4,11 @@ import dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
 import mongoose from "mongoose";
-import { createClient } from "redis";
 
 import cacheControl from "./cacheControl";
 import errorHandler from "./errorHandler";
 import logger from "./logger";
+import memuraiClient from "./memuraiClient";
 import { authRouter } from "./routers/auth";
 import { playlistRouter } from "./routers/playlist";
 import { tokenRouter } from "./routers/token";
@@ -30,19 +30,6 @@ mongoose.connection.on("open", () => {
 mongoose.connection.on("error", () => {
   logger.error("Failed to connect to mp3stack database");
 });
-
-// connect to memurai
-const memClient = createClient({
-  url: process.env.MEMURAI_URL ?? "",
-});
-memClient.on("error", (error) =>
-  logger.error("Memurai connection error", error)
-);
-memClient.on("connect", () => logger.info("Connected to memurai cache"));
-
-(async () => {
-  await memClient.connect();
-})();
 
 // cors
 app.use(cors());
@@ -77,8 +64,8 @@ app.listen(PORT, () => {
 // graceful shutdown
 async function shutdown() {
   logger.info("Shutting down...");
-  await memClient.flushAll();
-  await memClient.disconnect();
+  await memuraiClient.flushAll();
+  await memuraiClient.disconnect();
   mongoose.disconnect();
   process.exit(0);
 }

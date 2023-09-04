@@ -14,7 +14,7 @@ import { playlistRouter } from "./routers/playlist";
 import { tokenRouter } from "./routers/token";
 import { trackRouter } from "./routers/track";
 import { userRouter } from "./routers/user";
-import { initTrackBucket } from "./trackBucket";
+import { initialiseTrackBucket } from "./trackBucket";
 
 // load config vars
 dotenv.config();
@@ -27,7 +27,7 @@ const PORT = process.env.PORT ?? 3000;
 mongoose.connect(process.env.MONGODB_URI ?? "");
 mongoose.connection.on("open", () => {
   logger.info("Connected to mp3stack database");
-  initTrackBucket();
+  initialiseTrackBucket();
 });
 mongoose.connection.on("error", () => {
   logger.error("Failed to connect to mp3stack database");

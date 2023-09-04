@@ -55,21 +55,42 @@ export default class TrackController {
     res.set("Content-Type", "audio/mpeg");
     res.set("Accept-Ranges", "bytes");
 
-    if (await memuraiClient.get(trackId)) {
-      // if track in cache
-      // TODO
-      return;
-    } else {
-      let downloadStream = trackBucket.openDownloadStream(trackObjId);
+    const cachedTrack = await memuraiClient.get(trackId);
+
+    if (cachedTrack) {
+      console.log("Fetching from cache");
+      const trackBuffer = Buffer.from(cachedTrack, "base64");
+      const downloadStream = new Readable();
+
+      // Stream the track data to the response
+      downloadStream.push(trackBuffer);
+      downloadStream.push(null); // End the stream
 
       downloadStream.on("data", (chunk) => {
         res.write(chunk);
       });
-      downloadStream.on("error", (error) => {
-        // TODO: Process error and send correct response
-        return next(createError(404, "Track not found"));
-      });
+
       downloadStream.on("end", () => {
+        res.end();
+      });
+    } else {
+      console.log("Fetching from DB and saving to cache");
+      let downloadStream = trackBucket.openDownloadStream(trackObjId);
+      let base64Str = "";
+
+      downloadStream.on("data", (chunk) => {
+        res.write(chunk);
+        base64Str += chunk.toString("base64");
+      });
+      downloadStream.on("error", (error) => {
+        logger.error(error.message);
+        return next(createError(500, "Error streaming track"));
+      });
+      downloadStream.on("end", async () => {
+        // add track base64 string to cache
+        await memuraiClient
+          .set(trackId, base64Str)
+          .catch((error) => logger.error("Error saving track to cache", error));
         res.end();
       });
     }

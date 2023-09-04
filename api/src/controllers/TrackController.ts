@@ -88,7 +88,7 @@ export default class TrackController {
         res.end();
         // add track base64 string to cache (expires in 24 hours)
         await memuraiClient
-          .set(trackId, base64Str, { EX: 86400 })
+          .set(trackId, base64Str, { EX: 86400, NX: true })
           .catch((error) => logger.error("Error saving track to cache", error));
       });
     }

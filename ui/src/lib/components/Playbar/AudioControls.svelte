@@ -117,9 +117,7 @@
     min={0}
     step={0.1}
     max={duration}
-    style:background={progressTime > 0
-      ? `linear-gradient(to right, #00b0b9 0%, #00b0b9 ${currentTimePercentage}%, #f5f5f5 ${currentTimePercentage}%, #f5f5f5 100%)`
-      : "#f5f5f5"}
+    style:background={`linear-gradient(to right, #00b0b9 0%, #00b0b9 ${currentTimePercentage}%, #f5f5f5 ${currentTimePercentage}%, #f5f5f5 100%)`}
   />
   <span>{secondsToMMSS(duration)}</span>
 </div>
@@ -156,6 +154,7 @@
 
   #current-time {
     width: min(480px, 80%);
+    background: "#f5f5f5";
   }
   #current-time::-webkit-slider-thumb {
     visibility: hidden;

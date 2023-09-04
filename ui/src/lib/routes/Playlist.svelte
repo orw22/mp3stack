@@ -240,7 +240,7 @@
   {#if renaming}
     <NameForm
       onSubmit={onRenamePlaylist}
-      value={newPlaylistName}
+      bind:value={newPlaylistName}
       submitButtonLabel="Confirm"
       onCancel={() => setRenaming(false)}
     />

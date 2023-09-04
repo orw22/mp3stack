@@ -74,7 +74,7 @@
   {#if creating}
     <NameForm
       onSubmit={onCreatePlaylist}
-      value={newPlaylistName}
+      bind:value={newPlaylistName}
       submitButtonLabel="Create"
       onCancel={() => setCreating(false)}
     />

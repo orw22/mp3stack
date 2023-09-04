@@ -35,6 +35,7 @@ export interface IUserFuncs {
 /**
  * Represents a track
  * @interface
+ * @extends mongoose.Document
  */
 export interface ITrack extends mongoose.Document {
   name: string;

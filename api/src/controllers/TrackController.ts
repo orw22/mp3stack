@@ -61,9 +61,9 @@ export default class TrackController {
       const trackBuffer = Buffer.from(cachedTrack, "base64");
       const downloadStream = new Readable();
 
-      // Stream the track data to the response
+      // stream the track data to the response
       downloadStream.push(trackBuffer);
-      downloadStream.push(null); // End the stream
+      downloadStream.push(null); // end stream
 
       downloadStream.on("data", (chunk) => {
         res.write(chunk);

@@ -3,6 +3,7 @@
   import api from "../../api";
   import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
+  import SearchBar from "../components/SearchBar.svelte";
   import type { User } from "../types";
 
   const SEARCH_WINDOW = 200;
@@ -31,17 +32,12 @@
 </script>
 
 <Layout>
-  <div class="search">
-    <form on:submit={onSearchUsers}>
-      <input
-        type="text"
-        bind:value={searchQuery}
-        on:input={onSearchUsers}
-        placeholder="Search users"
-      />
-      <button type="submit" disabled={!searchQuery}>Search</button>
-    </form>
-  </div>
+  <SearchBar
+    onSubmit={onSearchUsers}
+    onInput={onSearchUsers}
+    bind:value={searchQuery}
+    searchButtonDisabled={!searchQuery}
+  />
 
   <div>
     {#each searchResult as user}
@@ -54,13 +50,3 @@
     {/if}
   </div>
 </Layout>
-
-<style>
-  .search {
-    margin: 1em 0;
-  }
-
-  input {
-    width: 400px;
-  }
-</style>

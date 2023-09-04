@@ -3,13 +3,11 @@
   import api from "../../api";
   import toasts from "../../toasts";
   import ActionBar from "../components/ActionBar.svelte";
-  import Icon from "../components/Icon.svelte";
-  import IconButton from "../components/IconButton.svelte";
+  import AddTrackForm from "../components/AddTrackForm.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
   import NameForm from "../components/NameForm.svelte";
   import TrackRow from "../components/TrackRow.svelte";
-  import { ALPHANUMERIC_PATTERN } from "../constants/regex";
   import blobUrls from "../stores/blobUrls";
   import queue from "../stores/queue";
   import type { Track } from "../types";
@@ -220,21 +218,12 @@
   </ActionBar>
 
   {#if adding}
-    <form on:submit={onAddTrack} class="add-track-form">
-      <input type="file" bind:files={newTrackFiles} />
-      <input
-        type="text"
-        placeholder="Track name"
-        required
-        bind:value={newTrackName}
-        pattern={ALPHANUMERIC_PATTERN.source}
-        title="Track name must be alphanumeric"
-      />
-      <IconButton type="submit"
-        >Upload <Icon name="upload" size={20} /></IconButton
-      >
-      <button on:click={() => setAdding(false)}>Cancel</button>
-    </form>
+    <AddTrackForm
+      onSubmit={onAddTrack}
+      bind:files={newTrackFiles}
+      bind:nameValue={newTrackName}
+      onCancel={() => setAdding(false)}
+    />
   {/if}
 
   {#if renaming}
@@ -248,35 +237,13 @@
 </Layout>
 
 <style>
-  form {
+  /* form {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5em;
     margin-bottom: 1em;
-  }
-
-  /* file upload button */
-  input[type="file"]::file-selector-button {
-    margin-right: 1em;
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: var(--color-light-grey);
-    cursor: pointer;
-    transition: border-color 0.25s, background-color 0.25s;
-  }
-
-  input[type="file"]::file-selector-button:hover {
-    border-color: var(--color-primary);
-  }
-
-  input[type="file"]::file-selector-button:focus,
-  input[type="file"]::file-selector-button:focus-visible {
-    outline: 4px auto var(--color-primary);
-  }
+  } */
 
   .tracklist {
     display: flex;

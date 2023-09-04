@@ -6,6 +6,7 @@ import { IAudioMetadata, parseStream } from "music-metadata";
 import { Readable } from "stream";
 import { GRIDFS_BUCKET_NAME } from "../constants";
 import logger from "../logger";
+import memuraiClient from "../memuraiClient";
 
 const MAX_FILE_SIZE = 15000000; // 15MB
 
@@ -42,7 +43,7 @@ export default class TrackController {
    * @param res - The response object for sending the audio data.
    * @param next - The next function
    */
-  getTrack(trackId: string, res: Response, next: NextFunction) {
+  async getTrack(trackId: string, res: Response, next: NextFunction) {
     let trackObjId;
     try {
       trackObjId = new mongoose.mongo.ObjectId(trackId);
@@ -58,18 +59,24 @@ export default class TrackController {
     res.set("Content-Type", "audio/mpeg");
     res.set("Accept-Ranges", "bytes");
 
-    let downloadStream = this.bucket.openDownloadStream(trackObjId);
+    if (await memuraiClient.get(trackId)) {
+      // if track in cache
+      // TODO
+      return;
+    } else {
+      let downloadStream = this.bucket.openDownloadStream(trackObjId);
 
-    downloadStream.on("data", (chunk) => {
-      res.write(chunk);
-    });
-    downloadStream.on("error", (error) => {
-      // TODO: Process error and send correct response
-      return next(createError(404, "Track not found"));
-    });
-    downloadStream.on("end", () => {
-      res.end();
-    });
+      downloadStream.on("data", (chunk) => {
+        res.write(chunk);
+      });
+      downloadStream.on("error", (error) => {
+        // TODO: Process error and send correct response
+        return next(createError(404, "Track not found"));
+      });
+      downloadStream.on("end", () => {
+        res.end();
+      });
+    }
   }
 
   /**

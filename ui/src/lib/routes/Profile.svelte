@@ -14,10 +14,19 @@
 
   let editing = false;
   let resettingPassword = false;
+
   let newName: string;
   let newEmail: string;
   let newPassword: string;
   let newPasswordCheck: string;
+
+  function setEditing(value: boolean) {
+    editing = value;
+  }
+
+  function setResettingPassword(value: boolean) {
+    resettingPassword = value;
+  }
 
   $: validPassword =
     newPassword?.length > 0 && newPassword === newPasswordCheck;
@@ -76,18 +85,8 @@
     <p>Name: {data.name}<br />Email: {data.email}</p>
 
     <ActionBar>
-      <button
-        on:click={() => {
-          editing = true;
-        }}
-      >
-        Edit
-      </button>
-      <button
-        on:click={() => {
-          resettingPassword = true;
-        }}
-      >
+      <button on:click={() => setEditing(true)}>Edit</button>
+      <button on:click={() => setResettingPassword(true)}>
         Reset password
       </button>
     </ActionBar>
@@ -111,13 +110,7 @@
           title="Must be a valid email address"
         />
         <button type="submit">Save</button>
-        <button
-          on:click={() => {
-            editing = false;
-          }}
-        >
-          Cancel
-        </button>
+        <button on:click={() => setEditing(false)}>Cancel</button>
       </form>
     {:else if resettingPassword}
       <form on:submit={(e) => updateProfile(e, true)}>
@@ -136,13 +129,7 @@
           bind:value={newPasswordCheck}
         />
         <button type="submit" disabled={!validPassword}>Submit</button>
-        <button
-          on:click={() => {
-            resettingPassword = false;
-          }}
-        >
-          Cancel
-        </button>
+        <button on:click={() => setResettingPassword(false)}>Cancel</button>
       </form>
     {/if}
   {:catch error}

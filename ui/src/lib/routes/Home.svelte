@@ -22,6 +22,10 @@
     playlists = getPlaylists();
   }
 
+  function setCreating(value: boolean) {
+    creating = value;
+  }
+
   function onPlaylistClick(id: string, canEdit: boolean) {
     navigate(`/playlist/${id}`, { state: { canEdit } });
   }
@@ -64,13 +68,7 @@
   {/await}
 
   <ActionBar>
-    <button
-      on:click={() => {
-        creating = true;
-      }}
-    >
-      Create new playlist
-    </button>
+    <button on:click={() => setCreating(true)}> Create new playlist </button>
   </ActionBar>
 
   {#if creating}
@@ -84,13 +82,7 @@
         bind:value={newPlaylistName}
       />
       <button type="submit">Create</button>
-      <button
-        on:click={() => {
-          creating = false;
-        }}
-      >
-        Cancel
-      </button>
+      <button on:click={() => setCreating(false)}>Cancel</button>
     </form>
   {/if}
 </Layout>

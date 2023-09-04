@@ -31,6 +31,14 @@
 
   let playlist = getPlaylist();
 
+  function setAdding(value: boolean) {
+    adding = value;
+  }
+
+  function setRenaming(value: boolean) {
+    renaming = value;
+  }
+
   $: playlist,
     (async () => {
       try {
@@ -118,7 +126,7 @@
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(() => {
-        adding = false;
+        setAdding(false);
         newTrackName = "";
         refreshPlaylist();
       });
@@ -130,7 +138,7 @@
     await api.put(`/playlists/${id}`, { name: newPlaylistName }).then(() => {
       toasts.success("Playlist updated");
       newPlaylistName = "";
-      renaming = false;
+      setRenaming(false);
       refreshPlaylist();
     });
   }
@@ -185,16 +193,16 @@
     {#if canEdit}
       <button
         on:click={() => {
-          adding = true;
-          renaming = false;
+          setAdding(true);
+          setRenaming(false);
         }}
       >
         Add track
       </button>
       <button
         on:click={() => {
-          renaming = true;
-          adding = false;
+          setRenaming(true);
+          setAdding(false);
         }}
       >
         Rename playlist
@@ -224,13 +232,7 @@
       <IconButton type="submit"
         >Upload <Icon name="upload" size={20} /></IconButton
       >
-      <button
-        on:click={() => {
-          adding = false;
-        }}
-      >
-        Cancel
-      </button>
+      <button on:click={() => setAdding(false)}>Cancel</button>
     </form>
   {/if}
 
@@ -245,13 +247,7 @@
         title="Playlist name must be alphanumeric"
       />
       <button type="submit">Confirm</button>
-      <button
-        on:click={() => {
-          renaming = false;
-        }}
-      >
-        Cancel
-      </button>
+      <button on:click={() => setRenaming(false)}> Cancel </button>
     </form>
   {/if}
 </Layout>

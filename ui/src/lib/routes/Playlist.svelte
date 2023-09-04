@@ -2,6 +2,7 @@
   import { navigate } from "svelte-navigator";
   import api from "../../api";
   import toasts from "../../toasts";
+  import ActionBar from "../components/ActionBar.svelte";
   import Icon from "../components/Icon.svelte";
   import IconButton from "../components/IconButton.svelte";
   import Layout from "../components/Layout.svelte";
@@ -180,7 +181,34 @@
     <p>{error.response.data.message}</p>
   {/await}
 
-  <hr />
+  <ActionBar>
+    {#if canEdit}
+      <button
+        on:click={() => {
+          adding = true;
+          renaming = false;
+        }}
+      >
+        Add track
+      </button>
+      <button
+        on:click={() => {
+          renaming = true;
+          adding = false;
+        }}
+      >
+        Rename playlist
+      </button>
+      <button on:click={onChangeVisibility}>
+        Make {isPrivate ? "public" : "private"}
+      </button>
+      <button on:click={onDeletePlaylist}>Delete playlist</button>
+    {:else}
+      <button on:click={() => onChangeFollow()}>
+        {following ? "Unfollow" : "Follow"}
+      </button>
+    {/if}
+  </ActionBar>
 
   {#if adding}
     <form on:submit={onAddTrack} class="add-track-form">
@@ -225,33 +253,6 @@
         Cancel
       </button>
     </form>
-  {/if}
-
-  {#if canEdit}
-    <button
-      on:click={() => {
-        adding = true;
-        renaming = false;
-      }}
-    >
-      Add track
-    </button>
-    <button
-      on:click={() => {
-        renaming = true;
-        adding = false;
-      }}
-    >
-      Rename playlist
-    </button>
-    <button on:click={onChangeVisibility}>
-      Make {isPrivate ? "public" : "private"}
-    </button>
-    <button on:click={onDeletePlaylist}>Delete playlist</button>
-  {:else}
-    <button on:click={() => onChangeFollow()}>
-      {following ? "Unfollow" : "Follow"}
-    </button>
   {/if}
 </Layout>
 

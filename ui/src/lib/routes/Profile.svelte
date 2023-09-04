@@ -1,6 +1,7 @@
 <script lang="ts">
   import api from "../../api";
   import toasts from "../../toasts";
+  import ActionBar from "../components/ActionBar.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
   import {
@@ -73,7 +74,8 @@
   {:then { data }}
     <h4>Profile</h4>
     <p>Name: {data.name}<br />Email: {data.email}</p>
-    {#if !(editing || resettingPassword)}
+
+    <ActionBar>
       <button
         on:click={() => {
           editing = true;
@@ -88,7 +90,7 @@
       >
         Reset password
       </button>
-    {/if}
+    </ActionBar>
 
     {#if editing}
       <form on:submit={(e) => updateProfile(e)}>

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { navigate } from "svelte-navigator";
   import api from "../../api";
+  import ActionBar from "../components/ActionBar.svelte";
   import Card from "../components/Card.svelte";
   import Layout from "../components/Layout.svelte";
   import Loader from "../components/Loader.svelte";
@@ -62,7 +63,15 @@
     <p>{error.response.data.message}</p>
   {/await}
 
-  <hr />
+  <ActionBar>
+    <button
+      on:click={() => {
+        creating = true;
+      }}
+    >
+      Create new playlist
+    </button>
+  </ActionBar>
 
   {#if creating}
     <form on:submit={onCreatePlaylist}>
@@ -83,13 +92,5 @@
         Cancel
       </button>
     </form>
-  {:else}
-    <button
-      on:click={() => {
-        creating = true;
-      }}
-    >
-      Create new playlist
-    </button>
   {/if}
 </Layout>

@@ -58,7 +58,6 @@ export default class TrackController {
     const cachedTrack = await memuraiClient.get(trackId);
 
     if (cachedTrack) {
-      console.log("Fetching from cache");
       const trackBuffer = Buffer.from(cachedTrack, "base64");
       const downloadStream = new Readable();
 
@@ -74,7 +73,6 @@ export default class TrackController {
         res.end();
       });
     } else {
-      console.log("Fetching from DB and saving to cache");
       let downloadStream = trackBucket.openDownloadStream(trackObjId);
       let base64Str = "";
 

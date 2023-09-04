@@ -85,11 +85,11 @@ export default class TrackController {
         return next(createError(500, "Error streaming track"));
       });
       downloadStream.on("end", async () => {
+        res.end();
         // add track base64 string to cache (expires in 24 hours)
         await memuraiClient
           .set(trackId, base64Str, { EX: 86400 })
           .catch((error) => logger.error("Error saving track to cache", error));
-        res.end();
       });
     }
   }

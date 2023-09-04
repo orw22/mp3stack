@@ -16,7 +16,6 @@ const cacheControl = (
   res: Response,
   next: NextFunction
 ): void => {
-  console.log(req.url);
   if (req.method === "GET" && !req.url.startsWith("/tracks")) {
     // Set Cache-Control to enable caching for 1 day
     res.set("Cache-Control", "private, max-age=86400, must-revalidate");

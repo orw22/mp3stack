@@ -78,6 +78,8 @@ app.listen(PORT, () => {
 async function shutdown() {
   logger.info("Shutting down...");
   await memClient.flushAll();
+  await memClient.disconnect();
+  mongoose.disconnect();
   process.exit(0);
 }
 

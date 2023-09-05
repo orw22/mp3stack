@@ -33,7 +33,8 @@ export default class TrackController {
    * Retrieve and stream a track's audio content to the client.
    *
    * This function takes a track ID and streams the audio content of the track
-   * to the HTTP response.
+   * to the HTTP response. If the track is not cached, it is saved to the cache
+   * in base64 format.
    *
    * @param trackId - The ID of the track to retrieve.
    * @param res - The response object for sending the audio data.
@@ -95,8 +96,7 @@ export default class TrackController {
   }
 
   /**
-   * Add an MP3 file to the MongoDB GridFS tracks bucket and call a callback function
-   * on finishing the upload.
+   * Add an MP3 file to the track bucket
    *
    * @param req - The request object.
    * @param res - The response object.

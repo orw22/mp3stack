@@ -5,14 +5,7 @@ import mongoose from "mongoose";
 import logger from "./logger";
 
 /**
- * Middleware for handling errors and sending appropriate HTTP responses.
- *
- * This middleware is responsible for catching and processing various types of errors
- * that may occur during the request processing pipeline. It categorizes errors into
- * different cases, such as HttpError, mongoose validation errors, mongoose cast errors,
- * and MongoDB server errors, and sends the appropriate HTTP response with error messages.
- * If an unhandled error is encountered, it logs the error and sends a generic 500 Internal
- * Server Error response.
+ * Error handler middleware
  *
  * @param err - The error thrown during request processing
  * @param res - The response object

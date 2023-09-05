@@ -2,9 +2,6 @@ import winston from "winston";
 
 /**
  * Winston Logger instance
- *
- * Minimum log level is configured based on environment
- *
  * @type {Logger}
  */
 const logger = winston.createLogger({

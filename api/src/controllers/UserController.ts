@@ -11,8 +11,8 @@ import { IUser, Login } from "../types";
  */
 export default class UserController {
   /**
-   * Logs in a user. Uses verifyPassword function to check if the password is correct.
-   * If the password is correct, a JWT is generated and sent to the client.
+   * Log in
+   * If password is verified, a JWT is generated and sent to the client.
    *
    * @param login
    * @param res

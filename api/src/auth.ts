@@ -3,16 +3,14 @@ import createError from "http-errors";
 import jwt from "jsonwebtoken";
 
 /**
- * Middleware for authenticating users
+ * Authentication middleware
  *
  * Checks the authorization header for a JWT token, verifies its validity,
- * and sets the authenticated user's ID in the request object for later usage
- * if the token is valid. If the token is invalid or missing, it calls the next
- * function with an HttpError.
+ * and sets the authenticated user's ID in the request object if token valid.
  *
- * @param req - The request object.
- * @param res - The response object.
- * @param next - The next function to pass control to the next middleware.
+ * @param req
+ * @param res
+ * @param next
  */
 export function authenticate(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.slice(7);

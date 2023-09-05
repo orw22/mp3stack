@@ -29,9 +29,8 @@
     newPassword?.length > 0 && newPassword === newPasswordCheck;
 
   function getProfile(refresh: boolean = false) {
-    return api.get("/users/me", {
-      headers: refresh ? { "Cache-Control": "no-cache" } : {},
-    });
+    const request = refresh ? api.noCacheGet : api.get;
+    return request("/users/me");
   }
 
   function refreshProfile() {

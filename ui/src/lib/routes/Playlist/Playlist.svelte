@@ -60,9 +60,8 @@
   $: newTrackFiles, updateNewTrackNameFromFilename();
 
   function getPlaylist(refresh: boolean = false) {
-    return api.get(`/playlists/${id}`, {
-      headers: refresh ? { "Cache-Control": "no-cache" } : {},
-    });
+    const request = refresh ? api.noCacheGet : api.get;
+    return request(`/playlists/${id}`);
   }
 
   function refreshPlaylist() {

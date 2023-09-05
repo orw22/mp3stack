@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { type AxiosRequestConfig } from "axios";
 import { API_URL } from "./lib/constants";
 import authToken from "./lib/stores/authToken";
 import toasts from "./toasts";
@@ -26,5 +26,16 @@ api.interceptors.response.use(
     throw err;
   }
 );
+
+// custom method for GET requests without use of cache
+api.noCacheGet = (url: string, config?: AxiosRequestConfig) => {
+  return api.get(url, {
+    ...config,
+    headers: {
+      ...config?.headers,
+      "Cache-Control": "no-cache",
+    },
+  });
+};
 
 export default api;

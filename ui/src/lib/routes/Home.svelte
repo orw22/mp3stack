@@ -13,9 +13,7 @@
   let playlists = getPlaylists();
 
   function getPlaylists() {
-    return api.get("/users/me/playlists", {
-      headers: { "Cache-Control": "no-cache" },
-    });
+    return api.noCacheGet("/users/me/playlists");
   }
 
   function refreshPlaylists() {

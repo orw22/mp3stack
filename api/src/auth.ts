@@ -6,13 +6,13 @@ import jwt from "jsonwebtoken";
  * Authentication middleware generator
  *
  * Higher order function that generates auth middleware. If useCookie is true,
- * the middleware will get the token from the Cookie header instead of the
- * Authorization header (required for SSE connections)
+ * the middleware will get the token from the Cookie header instead of the Authorization
+ * header (required for SSE connections)
  *
  * Middleware checks the authorization header for a JWT token, verifies its validity,
- * and sets the authenticated user's ID in the request object if token valid.
+ * and sets the authenticated user's ID in the request object if the token is valid.
  *
- * @param useCookie - Flag indicating whether to get the token from the Cookie header or
+ * @param useCookie - flag indicating whether to get the token from the Cookie header or
  *  the Authorization header
  */
 export function authenticate(useCookie: boolean = false) {

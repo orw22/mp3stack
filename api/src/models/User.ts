@@ -9,6 +9,7 @@ import { Playlist } from "./Playlist";
 
 const SALT_ROUNDS = 10;
 const MAX_NAME_LENGTH = 48;
+const MIN_PASSWORD_LENGTH = 10;
 
 const userSchema = new mongoose.Schema<IUser>(
   {
@@ -35,7 +36,9 @@ const userSchema = new mongoose.Schema<IUser>(
       required: true,
       validate: {
         validator: (password: string) =>
-          validator.isStrongPassword(password, { minLength: 10 }),
+          validator.isStrongPassword(password, {
+            minLength: MIN_PASSWORD_LENGTH,
+          }),
         message: "Password too weak. Please enter a strong password",
       },
     },

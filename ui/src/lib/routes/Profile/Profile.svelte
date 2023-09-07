@@ -22,6 +22,10 @@
   let newPassword: string;
   let newPasswordCheck: string;
 
+  function setUpdated(value: boolean) {
+    updated = value;
+  }
+
   function setEditing(value: boolean) {
     editing = value;
   }
@@ -78,7 +82,7 @@
 
   function onUserUpdate(event: MessageEvent) {
     profile = Promise.resolve({ data: JSON.parse(event.data) });
-    updated = true;
+    setUpdated(true);
   }
 
   eventSource?.addEventListener("userUpdate", onUserUpdate);

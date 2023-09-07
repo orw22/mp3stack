@@ -34,6 +34,10 @@
 
   let playlist: Promise<any> = getPlaylist();
 
+  function setUpdated(value: boolean) {
+    updated = value;
+  }
+
   function setAdding(value: boolean) {
     adding = value;
   }
@@ -158,7 +162,7 @@
 
   function onPlaylistUpdate(event: MessageEvent) {
     playlist = Promise.resolve({ data: JSON.parse(event.data) });
-    updated = true;
+    setUpdated(true);
   }
 
   eventSource?.addEventListener("playlistUpdate", onPlaylistUpdate);

@@ -168,6 +168,10 @@ export default class PlaylistController {
       // if making private, remove followers
       playlist.followers = [];
     }
+    // cannot update userId or tracks via this method
+    playlist.userId = userId;
+    delete playlist.tracks;
+
     await Playlist.updateOne(
       { _id: playlistId, userId: userId },
       { $set: playlist }

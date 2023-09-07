@@ -36,8 +36,9 @@
   function getProfile() {
     return api.get("/users/me", { params: { et: $authToken?.slice(-6) } });
     // cache busting (ensures that user profile responses are cached separately and thus
-    // prevents users from being presented with another user's details on their profile page)
-    // using a query param results in unique cache entries for each auth token (-> each user)
+    // prevents users from seeing another user's details on their profile page)
+    // using a query param results in unique URLs and unique cache entries for each
+    // auth token (=> each user)
     // use case: 2 users logging in on the same device within 1 day of each other
   }
 

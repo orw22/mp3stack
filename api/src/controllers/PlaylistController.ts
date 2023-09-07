@@ -63,7 +63,7 @@ export default class PlaylistController implements Controller {
   /**
    * Creates a new playlist
    *
-   * @param playlist
+   * @param req
    * @param res
    * @param next
    */
@@ -84,8 +84,7 @@ export default class PlaylistController implements Controller {
    * Also takes in userId to check if the playlist can be returned or not
    * (i.e. private playlists are visible to the owner only)
    *
-   * @param playlistId
-   * @param userId
+   * @param req
    * @param res
    * @param next
    */
@@ -150,9 +149,7 @@ export default class PlaylistController implements Controller {
    * Used when changing playlist name and privacy status
    * If the playlist is made private, removes all followers
    *
-   * @param playlistId
-   * @param userId
-   * @param playlist
+   * @param req
    * @param res
    * @param next
    */
@@ -235,8 +232,7 @@ export default class PlaylistController implements Controller {
    *
    * Post method deletes all tracks in the playlist from GridFS bucket - @see Playlist.ts
    *
-   * @param playlistId
-   * @param userId
+   * @param req
    * @param res
    * @param next
    */

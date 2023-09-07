@@ -35,7 +35,7 @@ export default class UserController implements Controller {
   /**
    * Creates a new user and sends a token back to the client if creation succeeds.
    *
-   * @param user
+   * @param req
    * @param res
    * @param next
    */
@@ -83,7 +83,7 @@ export default class UserController implements Controller {
    *
    * If user is not found, a 404 error is sent back to the client.
    *
-   * @param userId
+   * @param req
    * @param res
    * @param next
    */
@@ -156,8 +156,7 @@ export default class UserController implements Controller {
   /**
    * Updates user by ID, returns 204 response if successful
    *
-   * @param userId
-   * @param user
+   * @param req
    * @param res
    * @param next
    */
@@ -172,7 +171,7 @@ export default class UserController implements Controller {
   /**
    * Deletes user by ID, returns 204 response if successful
    *
-   * @param userId
+   * @param req
    * @param res
    * @param next
    */

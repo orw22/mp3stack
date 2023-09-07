@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { authenticate } from "../auth";
 import UserController from "../controllers/UserController";
-import { IUser } from "../types";
 
 const router = Router();
 router.use(authenticate);
@@ -20,7 +19,7 @@ router.get("/", async (req, res, next) => {
 
 // Get user
 router.get("/me", async (req, res, next) => {
-  await userController.getUser(req.userId, res, next);
+  await userController.get(req, res, next);
 });
 
 // Get other user and their public playlists
@@ -35,12 +34,12 @@ router.get("/me/playlists", async (req, res, next) => {
 
 // Update user
 router.put("/me", (req, res, next) => {
-  userController.updateUser(req.userId, req.body as IUser, res, next);
+  userController.update(req, res, next);
 });
 
 // Delete user
 router.delete("/me", async (req, res, next) => {
-  await userController.deleteUser(req.userId, res, next);
+  await userController.delete(req, res, next);
 });
 
 export { router as userRouter };

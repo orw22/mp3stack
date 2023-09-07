@@ -2,7 +2,6 @@ import { Router } from "express";
 import mongoose from "mongoose";
 import { authenticate } from "../auth";
 import PlaylistController from "../controllers/PlaylistController";
-import { IPlaylist } from "../types";
 
 const router = Router();
 router.use(authenticate);
@@ -15,32 +14,17 @@ mongoose.connection.on("open", () => {
 
 // New playlist
 router.post("/", async (req, res, next) => {
-  await playlistController.createPlaylist(
-    { name: req.body.name, userId: req.userId } as IPlaylist,
-    res,
-    next
-  );
+  await playlistController.create(req, res, next);
 });
 
 // Get playlist
 router.get("/:playlistId", async (req, res, next) => {
-  await playlistController.getPlaylist(
-    req.params.playlistId,
-    req.userId,
-    res,
-    next
-  );
+  await playlistController.get(req, res, next);
 });
 
 // Update playlist (non-tracks)
 router.put("/:playlistId", async (req, res, next) => {
-  await playlistController.updatePlaylist(
-    req.params.playlistId,
-    req.userId,
-    req.body as IPlaylist,
-    res,
-    next
-  );
+  await playlistController.update(req, res, next);
 });
 
 // Add track
@@ -71,12 +55,7 @@ router.put("/:playlistId/follow", async (req, res, next) => {
 
 // Delete playlist
 router.delete("/:playlistId", async (req, res, next) => {
-  await playlistController.deletePlaylist(
-    req.params.playlistId,
-    req.userId,
-    res,
-    next
-  );
+  await playlistController.delete(req, res, next);
 });
 
 export { router as playlistRouter };

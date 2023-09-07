@@ -1,15 +1,16 @@
-import { NextFunction, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import createError from "http-errors";
 import { Playlist } from "../models/Playlist";
 import { User } from "../models/User";
 import { IUser, Login } from "../types";
+import Controller from "./Controller";
 
 /**
  * @class UserController
  * @description Provides controller methods for user authentication, registration, profile retrieval,
  * user search, and other user-related actions.
  */
-export default class UserController {
+export default class UserController implements Controller {
   /**
    * Log in
    * If password is verified, a JWT is generated and sent to the client.
@@ -38,8 +39,8 @@ export default class UserController {
    * @param res
    * @param next
    */
-  async register(user: IUser, res: Response, next: NextFunction) {
-    await User.create(user)
+  async create(req: Request, res: Response, next: NextFunction) {
+    await User.create(req.body as IUser)
       .then((user) => {
         res.status(201).send({ token: user.generateToken() });
       })
@@ -86,8 +87,8 @@ export default class UserController {
    * @param res
    * @param next
    */
-  async getUser(userId: string, res: Response, next: NextFunction) {
-    await User.findById(userId, {
+  async get(req: Request, res: Response, next: NextFunction) {
+    await User.findById(req.userId, {
       password: 0,
     })
       .then((user: IUser | null) => {
@@ -160,13 +161,8 @@ export default class UserController {
    * @param res
    * @param next
    */
-  async updateUser(
-    userId: string,
-    user: IUser,
-    res: Response,
-    next: NextFunction
-  ) {
-    await User.updateOne({ _id: userId }, { $set: user })
+  async update(req: Request, res: Response, next: NextFunction) {
+    await User.updateOne({ _id: req.userId }, { $set: req.body as IUser })
       .then(() => {
         res.status(204).send();
       })
@@ -180,8 +176,8 @@ export default class UserController {
    * @param res
    * @param next
    */
-  async deleteUser(userId: string, res: Response, next: NextFunction) {
-    await User.deleteOne({ _id: userId })
+  async delete(req: Request, res: Response, next: NextFunction) {
+    await User.deleteOne({ _id: req.userId })
       .then(() => {
         res.status(204).send();
       })

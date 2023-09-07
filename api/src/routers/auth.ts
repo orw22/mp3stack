@@ -1,6 +1,6 @@
 import { Router } from "express";
 import UserController from "../controllers/UserController";
-import { IUser, Login } from "../types";
+import { Login } from "../types";
 
 const router = Router();
 
@@ -13,7 +13,7 @@ router.post("/login", async (req, res, next) => {
 
 // Register
 router.post("/", async (req, res, next) => {
-  await userController.register(req.body as IUser, res, next);
+  await userController.create(req, res, next);
 });
 
 export { router as authRouter };

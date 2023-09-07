@@ -3,13 +3,14 @@ import createError from "http-errors";
 import mongoose from "mongoose";
 import { Playlist } from "../models/Playlist";
 import { IPlaylist } from "../types";
+import Controller from "./Controller";
 import TrackController from "./TrackController";
 
 /**
  * @class PlaylistController
  * @description Controller for playlist routes
  */
-export default class PlaylistController {
+export default class PlaylistController implements Controller {
   trackController: TrackController;
 
   /**
@@ -66,8 +67,11 @@ export default class PlaylistController {
    * @param res
    * @param next
    */
-  async createPlaylist(playlist: IPlaylist, res: Response, next: NextFunction) {
-    await Playlist.create(playlist)
+  async create(req: Request, res: Response, next: NextFunction) {
+    await Playlist.create({
+      name: req.body.name,
+      userId: req.userId,
+    } as IPlaylist)
       .then((playlist: IPlaylist) => {
         res.status(201).send({ message: "Playlist created", playlist });
       })
@@ -85,20 +89,15 @@ export default class PlaylistController {
    * @param res
    * @param next
    */
-  async getPlaylist(
-    playlistId: string,
-    userId: string,
-    res: Response,
-    next: NextFunction
-  ) {
-    await Playlist.findOne({ _id: playlistId })
+  async get(req: Request, res: Response, next: NextFunction) {
+    await Playlist.findOne({ _id: req.params.playlistId })
       .then((document) => {
         const playlist = document?.toObject();
-        if (!playlist || (playlist.private && userId !== playlist.userId))
+        if (!playlist || (playlist.private && req.userId !== playlist.userId))
           return next(createError(404, "Playlist not found"));
         res.status(200).send({
           ...playlist,
-          following: playlist.followers?.includes(userId),
+          following: playlist.followers?.includes(req.userId),
         });
       })
       .catch(next);
@@ -157,23 +156,18 @@ export default class PlaylistController {
    * @param res
    * @param next
    */
-  async updatePlaylist(
-    playlistId: string,
-    userId: string,
-    playlist: IPlaylist,
-    res: Response,
-    next: NextFunction
-  ) {
+  async update(req: Request, res: Response, next: NextFunction) {
+    const playlist = req.body as IPlaylist;
     if (playlist.private) {
       // if making private, remove followers
       playlist.followers = [];
     }
     // cannot update userId or tracks via this method
-    playlist.userId = userId;
+    playlist.userId = req.userId;
     delete playlist.tracks;
 
     await Playlist.updateOne(
-      { _id: playlistId, userId: userId },
+      { _id: req.params.playlistId, userId: req.userId },
       { $set: playlist }
     )
       .then(() => res.status(204).send())
@@ -246,13 +240,8 @@ export default class PlaylistController {
    * @param res
    * @param next
    */
-  async deletePlaylist(
-    playlistId: string,
-    userId: string,
-    res: Response,
-    next: NextFunction
-  ) {
-    await Playlist.deleteOne({ _id: playlistId, userId: userId })
+  async delete(req: Request, res: Response, next: NextFunction) {
+    await Playlist.deleteOne({ _id: req.params.playlistId, userId: req.userId })
       .then(() => {
         res.status(204).send();
       })

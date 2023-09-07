@@ -1,5 +1,6 @@
 import { Response, Router } from "express";
 import { authenticate } from "../auth";
+import logger from "../logger";
 import { IPlaylist, IUser } from "../types";
 
 const router = Router();
@@ -17,18 +18,19 @@ router.get("/", (req, res) => {
 
   // store live response object in sseSessions
   sseSessions.set(req.userId, res);
+  logger.info(`${req.userId} connected`);
 
   req.on("close", () => {
     // on disconnect, remove client from sseSessions
     sseSessions.delete(req.userId);
+    logger.info(`${req.userId} disconnected`);
   });
 });
 
 function sendSSE(userId: string, eventName: string, data: IUser | IPlaylist) {
   const res = sseSessions.get(userId);
-  if (res) {
-    res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
-  }
+  if (res) res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
+  else logger.error(`SSE: No session found for ${userId}`);
 }
 
 export { sendSSE, router as sseRouter };

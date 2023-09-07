@@ -89,7 +89,11 @@ userSchema.pre("updateOne", function (next) {
   const data = this.getUpdate() as { $set: { password: string } };
   if (!data?.$set.password) {
     return next();
-  } else if (!validator.isStrongPassword(data.$set.password)) {
+  } else if (
+    !validator.isStrongPassword(data.$set.password, {
+      minLength: MIN_PASSWORD_LENGTH,
+    })
+  ) {
     return next(
       createError(400, "Password too weak. Please enter a stronger password")
     );

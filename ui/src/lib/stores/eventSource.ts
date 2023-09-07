@@ -4,16 +4,6 @@ import authToken from "./authToken";
 
 /**
  * Creates a writable store for managing an EventSource instance
- *
- * @returns {{
- *   subscribe: Function,
- *   set: Function,
- *   initialise: Function,
- *   setOnError: Function,
- *   addEventListener: Function,
- *   removeEventListener: Function,
- *   close: Function
- * }}
  */
 function createEventSourceStore() {
   const { subscribe, set, update } = writable<EventSource | null>(null);

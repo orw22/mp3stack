@@ -20,6 +20,8 @@
   let isPrivate: boolean;
   let following: boolean;
 
+  let updated = false;
+
   let adding = false;
   let renaming = false;
 
@@ -156,11 +158,12 @@
 
   function onPlaylistUpdate(event: MessageEvent) {
     playlist = Promise.resolve({ data: JSON.parse(event.data) });
+    updated = true;
   }
 
   es?.addEventListener("playlistUpdate", onPlaylistUpdate);
   onDestroy(() => {
-    api.noCacheGet(`/playlists/${id}`); // update HTTP cache in background
+    if (updated) api.noCacheGet(`/playlists/${id}`); // update HTTP cache in background
     es?.removeEventListener("playlistUpdate", onPlaylistUpdate);
   });
 </script>

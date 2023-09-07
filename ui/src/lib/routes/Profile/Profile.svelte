@@ -14,6 +14,8 @@
   let editing = false;
   let resettingPassword = false;
 
+  let updated = false;
+
   let newName: string;
   let newEmail: string;
   let newPassword: string;
@@ -70,11 +72,12 @@
 
   function onUserUpdate(event: MessageEvent) {
     profile = Promise.resolve({ data: JSON.parse(event.data) });
+    updated = true;
   }
 
   es?.addEventListener("userUpdate", onUserUpdate);
   onDestroy(() => {
-    api.noCacheGet("/users/me"); // update HTTP cache in background
+    if (updated) api.noCacheGet("/users/me"); // update HTTP cache in background
     es?.removeEventListener("userUpdate", onUserUpdate);
   });
 </script>

@@ -74,6 +74,7 @@
 
   es?.addEventListener("userUpdate", onUserUpdate);
   onDestroy(() => {
+    api.noCacheGet("/users/me"); // update HTTP cache in background
     es?.removeEventListener("userUpdate", onUserUpdate);
   });
 </script>

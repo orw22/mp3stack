@@ -160,6 +160,7 @@
 
   es?.addEventListener("playlistUpdate", onPlaylistUpdate);
   onDestroy(() => {
+    api.noCacheGet(`/playlists/${id}`); // update HTTP cache in background
     es?.removeEventListener("playlistUpdate", onPlaylistUpdate);
   });
 </script>

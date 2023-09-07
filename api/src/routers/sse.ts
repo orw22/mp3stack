@@ -27,7 +27,6 @@ router.get("/", (req, res) => {
 function sendSSE(userId: string, eventName: string, data: IUser | IPlaylist) {
   const res = sseSessions.get(userId);
   if (res) {
-    console.log(JSON.stringify(data));
     res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
   }
 }

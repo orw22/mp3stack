@@ -20,7 +20,7 @@ const unsubscribeFromAuthToken = authToken.subscribe((value) => {
   if (value) {
     document.cookie = `${AUTH_COOKIE_KEY}=${value}; path=/; max-age=10800`;
   } else {
-    document.cookie = `${AUTH_COOKIE_KEY}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    document.cookie = `${AUTH_COOKIE_KEY}=; path=/; max-age=0`;
   }
 });
 

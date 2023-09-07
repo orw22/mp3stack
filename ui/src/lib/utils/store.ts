@@ -9,7 +9,7 @@ import queue from "../stores/queue";
  * @function
  */
 export function resetStores() {
-  document.cookie = `${AUTH_COOKIE_KEY}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  document.cookie = `${AUTH_COOKIE_KEY}=; path=/; max-age=0`;
   authToken.set(undefined);
   queue.reset();
   history.reset();

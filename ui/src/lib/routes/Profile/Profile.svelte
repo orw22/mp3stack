@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
   import api from "../../../api";
+  import es from "../../../es";
   import toasts from "../../../toasts";
   import ActionBar from "../../components/ActionBar.svelte";
   import Layout from "../../components/Layout.svelte";
@@ -7,7 +9,7 @@
   import ResetPasswordForm from "./ResetPasswordForm.svelte";
   import UpdateProfileForm from "./UpdateProfileForm.svelte";
 
-  let profile = getProfile();
+  let profile: Promise<any> = getProfile();
 
   let editing = false;
   let resettingPassword = false;
@@ -28,13 +30,8 @@
   $: validPassword =
     newPassword?.length > 0 && newPassword === newPasswordCheck;
 
-  function getProfile(refresh: boolean = false) {
-    const request = refresh ? api.noCacheGet : api.get;
-    return request("/users/me");
-  }
-
-  function refreshProfile() {
-    profile = getProfile(true);
+  function getProfile() {
+    return api.get("/users/me");
   }
 
   async function updateProfile(event: Event, isPasswordReset: boolean = false) {
@@ -55,7 +52,6 @@
         toasts.success(
           isPasswordReset ? "Password changed" : "Profile updated"
         );
-        refreshProfile();
       });
   }
 
@@ -71,6 +67,15 @@
   }
 
   $: profile, updateEditingValues();
+
+  function onUserUpdate(event: MessageEvent) {
+    profile = Promise.resolve({ data: JSON.parse(event.data) });
+  }
+
+  es?.addEventListener("userUpdate", onUserUpdate);
+  onDestroy(() => {
+    es?.removeEventListener("userUpdate", onUserUpdate);
+  });
 </script>
 
 <Layout>

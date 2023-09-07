@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
   import { navigate } from "svelte-navigator";
   import api from "../../../api";
+  import es from "../../../es";
   import toasts from "../../../toasts";
   import ActionBar from "../../components/ActionBar.svelte";
   import Layout from "../../components/Layout.svelte";
@@ -28,7 +30,7 @@
 
   const canEdit = history.state.canEdit;
 
-  let playlist = getPlaylist();
+  let playlist: Promise<any> = getPlaylist();
 
   function setAdding(value: boolean) {
     adding = value;
@@ -59,13 +61,8 @@
 
   $: newTrackFiles, updateNewTrackNameFromFilename();
 
-  function getPlaylist(refresh: boolean = false) {
-    const request = refresh ? api.noCacheGet : api.get;
-    return request(`/playlists/${id}`);
-  }
-
-  function refreshPlaylist() {
-    playlist = getPlaylist(true);
+  function getPlaylist() {
+    return api.get(`/playlists/${id}`);
   }
 
   async function fetchTrack(track: Track, action: TrackAction) {
@@ -103,7 +100,6 @@
   async function onRemoveTrack(trackId: string) {
     await api.delete(`/playlists/${id}/tracks/${trackId}`).then(() => {
       toasts.success("Track removed");
-      refreshPlaylist();
     });
   }
 
@@ -126,7 +122,6 @@
       .then(() => {
         setAdding(false);
         newTrackName = "";
-        refreshPlaylist();
       });
   }
 
@@ -137,14 +132,12 @@
       toasts.success("Playlist updated");
       newPlaylistName = "";
       setRenaming(false);
-      refreshPlaylist();
     });
   }
 
   async function onChangeVisibility() {
     await api.put(`/playlists/${id}`, { private: !isPrivate }).then(() => {
       toasts.success("Playlist updated");
-      refreshPlaylist();
     });
   }
 
@@ -158,9 +151,17 @@
   async function onChangeFollow() {
     await api.put(`/playlists/${id}/follow`).then(() => {
       toasts.success("Follow status updated");
-      refreshPlaylist();
     });
   }
+
+  function onPlaylistUpdate(event: MessageEvent) {
+    playlist = Promise.resolve({ data: JSON.parse(event.data) });
+  }
+
+  es?.addEventListener("playlistUpdate", onPlaylistUpdate);
+  onDestroy(() => {
+    es?.removeEventListener("playlistUpdate", onPlaylistUpdate);
+  });
 </script>
 
 <Layout>

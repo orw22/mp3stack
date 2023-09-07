@@ -58,6 +58,14 @@ app.use(express.json());
 // browser caching (Cache-Control header)
 app.use(cacheControl);
 
+// connection header default close
+app.use((req, res, next) => {
+  if (!req.url.startsWith("/sse")) {
+    res.setHeader("Connection", "close");
+  }
+  next();
+});
+
 // routers
 app.use("/tracks", trackRouter);
 app.use("/playlists", playlistRouter);

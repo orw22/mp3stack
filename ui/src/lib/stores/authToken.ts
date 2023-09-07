@@ -3,7 +3,6 @@ import { AUTH_COOKIE_KEY } from "../constants";
 
 /**
  * Authentication JWT store
- * @name authToken
  * @type {Writable<string | undefined>}
  */
 const authToken = writable<string | undefined>(

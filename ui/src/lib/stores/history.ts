@@ -37,7 +37,6 @@ function createHistory() {
  * History store
  * Holds array of previousy played tracks
  * LIFO
- * @name history
  * @type {Writable<TrackWithUrl[]>}
  */
 const history = createHistory();

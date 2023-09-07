@@ -28,7 +28,6 @@ function createBlobUrls() {
  * Blob URL store
  * Maintains references to tracks fetched from API and stored in memory
  * Maps track IDs to corresponding blob URLs
- * @name blobUrls
  * @type {Writable<Map<string, string>>}
  */
 const blobUrls = createBlobUrls();

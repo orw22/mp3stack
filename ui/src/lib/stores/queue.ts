@@ -108,7 +108,6 @@ function createQueue() {
  * Queue store
  * Used for managing what tracks will play next
  * FIFO
- * @name queue
  * @type {Writable<TrackWithUrl[]>}
  */
 const queue = createQueue();

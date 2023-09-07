@@ -2,7 +2,6 @@
   import { onDestroy } from "svelte";
   import { navigate } from "svelte-navigator";
   import api from "../../../api";
-  import es from "../../../es";
   import toasts from "../../../toasts";
   import ActionBar from "../../components/ActionBar.svelte";
   import Layout from "../../components/Layout.svelte";
@@ -10,6 +9,7 @@
   import NameForm from "../../components/NameForm.svelte";
   import TrackRow from "../../components/TrackRow.svelte";
   import blobUrls from "../../stores/blobUrls";
+  import eventSource from "../../stores/eventSource";
   import queue from "../../stores/queue";
   import type { Track } from "../../types";
   import { TrackAction } from "../../types/enums";
@@ -161,10 +161,10 @@
     updated = true;
   }
 
-  es?.addEventListener("playlistUpdate", onPlaylistUpdate);
+  eventSource?.addEventListener("playlistUpdate", onPlaylistUpdate);
   onDestroy(() => {
     if (updated) api.noCacheGet(`/playlists/${id}`); // update HTTP cache in background
-    es?.removeEventListener("playlistUpdate", onPlaylistUpdate);
+    eventSource?.removeEventListener("playlistUpdate", onPlaylistUpdate);
   });
 </script>
 

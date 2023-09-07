@@ -2,7 +2,6 @@
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { Route, Router, navigate } from "svelte-navigator";
-  import { esUnsubscribeFromAuthToken } from "./es";
   import Footer from "./lib/components/Footer.svelte";
   import Header from "./lib/components/Header.svelte";
   import Playbar from "./lib/components/Playbar/Playbar.svelte";
@@ -14,6 +13,7 @@
   import Search from "./lib/routes/Search.svelte";
   import User from "./lib/routes/User.svelte";
   import authToken, { unsubscribeFromAuthToken } from "./lib/stores/authToken";
+  import { esUnsubscribeFromAuthToken } from "./lib/stores/eventSource";
   import queue from "./lib/stores/queue";
 
   let queueOpen = false;

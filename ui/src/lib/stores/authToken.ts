@@ -13,8 +13,9 @@ const authToken = writable<string | undefined>(getCookie(AUTH_COOKIE_KEY));
  * Subscribes to changes in authToken and updates browser cookie
  */
 const unsubscribeFromAuthToken = authToken.subscribe((value) => {
-  if (value) setCookie(AUTH_COOKIE_KEY, value, { expires: 0.125 });
-  else removeCookie(AUTH_COOKIE_KEY);
+  if (value) {
+    setCookie(AUTH_COOKIE_KEY, value, { expires: 0.125 });
+  } else removeCookie(AUTH_COOKIE_KEY);
 });
 
 export default authToken;

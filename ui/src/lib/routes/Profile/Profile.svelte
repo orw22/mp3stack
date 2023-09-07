@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onDestroy } from "svelte";
   import api from "../../../api";
-  import es from "../../../es";
   import toasts from "../../../toasts";
   import ActionBar from "../../components/ActionBar.svelte";
   import Layout from "../../components/Layout.svelte";
   import Loader from "../../components/Loader.svelte";
+  import eventSource from "../../stores/eventSource";
   import ResetPasswordForm from "./ResetPasswordForm.svelte";
   import UpdateProfileForm from "./UpdateProfileForm.svelte";
 
@@ -75,10 +75,10 @@
     updated = true;
   }
 
-  es?.addEventListener("userUpdate", onUserUpdate);
+  eventSource?.addEventListener("userUpdate", onUserUpdate);
   onDestroy(() => {
     if (updated) api.noCacheGet("/users/me"); // update HTTP cache in background
-    es?.removeEventListener("userUpdate", onUserUpdate);
+    eventSource?.removeEventListener("userUpdate", onUserUpdate);
   });
 </script>
 

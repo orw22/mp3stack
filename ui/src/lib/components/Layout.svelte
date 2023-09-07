@@ -12,6 +12,7 @@
   import { onMount } from "svelte";
   import { navigate, useLocation } from "svelte-navigator";
   import authToken from "../stores/authToken";
+  import eventSource from "../stores/eventSource";
   import { resetStores } from "../utils/store";
   import Icon from "./Icon.svelte";
   import IconButton from "./IconButton.svelte";
@@ -23,6 +24,12 @@
     if (!$authToken) {
       resetStores();
       navigate("/login", { replace: true });
+    } else if (!$eventSource) {
+      // if token and eventSource not initialised
+      eventSource.initialise();
+      eventSource.setOnError((event: Event) => {
+        console.error(event);
+      });
     }
   });
 

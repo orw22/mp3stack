@@ -3,7 +3,7 @@ import { authenticate } from "../auth";
 import UserController from "../controllers/UserController";
 
 const router = Router();
-router.use(authenticate);
+router.use(authenticate());
 
 const userController = new UserController();
 
@@ -33,8 +33,8 @@ router.get("/me/playlists", async (req, res, next) => {
 });
 
 // Update user
-router.put("/me", (req, res, next) => {
-  userController.update(req, res, next);
+router.put("/me", async (req, res, next) => {
+  await userController.update(req, res, next);
 });
 
 // Delete user

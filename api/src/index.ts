@@ -1,4 +1,5 @@
 import compression from "compression";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
@@ -11,6 +12,7 @@ import logger from "./logger";
 import memuraiClient from "./memuraiClient";
 import { authRouter } from "./routers/auth";
 import { playlistRouter } from "./routers/playlist";
+import { sseRouter } from "./routers/sse";
 import { tokenRouter } from "./routers/token";
 import { trackRouter } from "./routers/track";
 import { userRouter } from "./routers/user";
@@ -34,7 +36,15 @@ mongoose.connection.on("error", () => {
 });
 
 // cors
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+
+// cookie parsing
+app.use(cookieParser());
 
 // helmet security
 app.use(helmet());
@@ -53,6 +63,7 @@ app.use("/tracks", trackRouter);
 app.use("/playlists", playlistRouter);
 app.use("/users", authRouter);
 app.use("/users", userRouter);
+app.use("/sse", sseRouter);
 app.use("/", tokenRouter);
 
 // error handling

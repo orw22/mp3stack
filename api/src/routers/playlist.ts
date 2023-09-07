@@ -4,7 +4,7 @@ import { authenticate } from "../auth";
 import PlaylistController from "../controllers/PlaylistController";
 
 const router = Router();
-router.use(authenticate);
+router.use(authenticate());
 
 let playlistController: PlaylistController;
 

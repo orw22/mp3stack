@@ -4,7 +4,7 @@ import { authenticate } from "../auth";
 import TrackController from "../controllers/TrackController";
 
 const router = Router();
-router.use(authenticate);
+router.use(authenticate());
 
 let trackController: TrackController;
 

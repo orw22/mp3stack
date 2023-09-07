@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import logger from "../logger";
+import { sendSSE } from "../routers/sse";
 import { trackBucket } from "../trackBucket";
 import { IPlaylist, ITrack } from "../types";
 
@@ -40,6 +42,16 @@ playlistSchema.post("updateOne", async function () {
     await trackBucket.delete(
       new mongoose.mongo.ObjectId(data.$pull.tracks._id)
     );
+
+  // send SSE with updated playlist
+  await this.model
+    .findById(this.getQuery()._id)
+    .then((playlist) => {
+      if (playlist) sendSSE(this.getQuery().userId, "playlistUpdate", playlist);
+    })
+    .catch((error) => {
+      logger.error("Error sending SSE: ", error.message);
+    });
 });
 
 // pre delete playlist, delete all tracks from GridFS bucket

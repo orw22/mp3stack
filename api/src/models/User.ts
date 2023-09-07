@@ -3,6 +3,8 @@ import createError from "http-errors";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import validator from "validator";
+import logger from "../logger";
+import { sendSSE } from "../routers/sse";
 import { trackBucket } from "../trackBucket";
 import { IUser, IUserFuncs } from "../types";
 import { Playlist } from "./Playlist";
@@ -105,6 +107,18 @@ userSchema.pre("updateOne", function (next) {
     data.$set.password = hash;
     return next();
   });
+});
+
+// send SSE with fresh user data on user update
+userSchema.post("updateOne", async function () {
+  await this.model
+    .findById(this.getQuery()._id, { password: 0 })
+    .then((user) => {
+      if (user) sendSSE(user._id.toString(), "userUpdate", user);
+    })
+    .catch((error) => {
+      logger.error("Error sending SSE: ", error.message);
+    });
 });
 
 // clear storage (playlists and tracks) post user deletion

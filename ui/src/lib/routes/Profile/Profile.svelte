@@ -5,6 +5,7 @@
   import ActionBar from "../../components/ActionBar.svelte";
   import Layout from "../../components/Layout.svelte";
   import Loader from "../../components/Loader.svelte";
+  import authToken from "../../stores/authToken";
   import eventSource from "../../stores/eventSource";
   import ResetPasswordForm from "./ResetPasswordForm.svelte";
   import UpdateProfileForm from "./UpdateProfileForm.svelte";
@@ -33,7 +34,11 @@
     newPassword?.length > 0 && newPassword === newPasswordCheck;
 
   function getProfile() {
-    return api.get("/users/me");
+    return api.get("/users/me", { params: { et: $authToken?.slice(-6) } });
+    // cache busting (ensures that user profile responses are cached separately and thus
+    // prevents users from being presented with another user's details on their profile page)
+    // using a query param results in unique cache entries for each auth token (-> each user)
+    // use case: 2 users logging in on the same device within 1 day of each other
   }
 
   async function updateProfile(event: Event, isPasswordReset: boolean = false) {

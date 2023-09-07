@@ -1,4 +1,3 @@
-import { removeCookie } from "typescript-cookie";
 import { AUTH_COOKIE_KEY } from "../constants";
 import authToken from "../stores/authToken";
 import blobUrls from "../stores/blobUrls";
@@ -10,7 +9,7 @@ import queue from "../stores/queue";
  * @function
  */
 export function resetStores() {
-  removeCookie(AUTH_COOKIE_KEY);
+  document.cookie = `${AUTH_COOKIE_KEY}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   authToken.set(undefined);
   queue.reset();
   history.reset();

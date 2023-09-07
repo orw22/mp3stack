@@ -22,7 +22,6 @@
     "@zerodevx/svelte-toast": "^0.9.5",
     "axios": "^1.4.0",
     "svelte-loading-spinners": "^0.3.4",
-    "svelte-navigator": "^3.2.2",
-    "typescript-cookie": "^1.0.6"
+    "svelte-navigator": "^3.2.2"
   }
 }

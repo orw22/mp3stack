@@ -188,6 +188,9 @@
         />
       {/each}
     </div>
+    {#if data.tracks.length === 0}
+      <p>This playlist is empty.</p>
+    {/if}
   {:catch error}
     <p>{error.response.data.message}</p>
   {/await}

@@ -23,7 +23,7 @@
   export let submitButtonDisabled: boolean;
 </script>
 
-<form on:submit={onSubmit}>
+<form on:submit|preventDefault={onSubmit}>
   <input
     type="password"
     placeholder="Password"

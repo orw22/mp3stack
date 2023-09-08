@@ -14,7 +14,6 @@
   let searchResult: User[] = [];
 
   async function onSearchUsers(event: Event) {
-    event.preventDefault();
     // throttle API calls
     if (prevUserInputEvent > event.timeStamp - SEARCH_WINDOW) return;
 

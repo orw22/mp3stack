@@ -13,11 +13,11 @@
 </script>
 
 <div class="search">
-  <form on:submit={onSubmit}>
+  <form on:submit|preventDefault={onSubmit}>
     <input
       type="text"
       bind:value
-      on:input={onInput}
+      on:input|preventDefault={onInput}
       placeholder="Search users"
     />
     <button type="submit" disabled={searchButtonDisabled}>Search</button>

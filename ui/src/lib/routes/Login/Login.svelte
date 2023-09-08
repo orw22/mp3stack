@@ -18,7 +18,6 @@
   }
 
   async function onLogin(event: Event) {
-    event.preventDefault();
     const form = event.target as HTMLFormElement;
 
     await api
@@ -30,7 +29,6 @@
   }
 
   async function onRegister(event: Event) {
-    event.preventDefault();
     const form = event.target as HTMLFormElement;
 
     await api

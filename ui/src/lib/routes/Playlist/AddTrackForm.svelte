@@ -9,7 +9,7 @@
   export let onCancel: () => void;
 </script>
 
-<form on:submit={onSubmit}>
+<form on:submit|preventDefault={onSubmit}>
   <input type="file" bind:files />
   <input
     type="text"

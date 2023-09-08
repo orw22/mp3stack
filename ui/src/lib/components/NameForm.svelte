@@ -24,7 +24,7 @@
   export let title = "Playlist name must be alphanumeric";
 </script>
 
-<form on:submit={onSubmit}>
+<form on:submit|preventDefault={onSubmit}>
   <input
     type="text"
     {placeholder}

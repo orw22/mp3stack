@@ -110,8 +110,6 @@
   }
 
   async function onAddTrack(event: Event) {
-    event.preventDefault();
-
     const formData = new FormData();
     formData.append("name", newTrackName);
     try {
@@ -132,8 +130,6 @@
   }
 
   async function onRenamePlaylist(event: Event) {
-    event.preventDefault();
-
     await api.put(`/playlists/${id}`, { name: newPlaylistName }).then(() => {
       toasts.success("Playlist updated");
       newPlaylistName = "";

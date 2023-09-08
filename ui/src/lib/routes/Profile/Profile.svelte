@@ -47,7 +47,6 @@
   }
 
   async function updateProfile(event: Event, isPasswordReset: boolean = false) {
-    event.preventDefault();
     if (isPasswordReset && !validPassword) {
       return;
     }
@@ -106,6 +105,7 @@
       </button>
     </ActionBar>
 
+    <!-- TODO: Combine below forms into single component -->
     {#if editing}
       <UpdateProfileForm
         onSubmit={(e) => updateProfile(e)}

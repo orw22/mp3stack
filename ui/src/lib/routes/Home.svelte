@@ -29,8 +29,6 @@
   }
 
   async function onCreatePlaylist(event: Event) {
-    event.preventDefault();
-
     await api.post("/playlists", { name: newPlaylistName }).then(() => {
       newPlaylistName = "";
       creating = false;

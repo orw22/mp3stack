@@ -21,7 +21,7 @@
   export let register = false;
 </script>
 
-<form on:submit={onSubmit}>
+<form on:submit|preventDefault={onSubmit}>
   <input
     name="email"
     type="text"

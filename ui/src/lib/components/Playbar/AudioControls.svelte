@@ -18,7 +18,6 @@
   import IconButton from "../IconButton.svelte";
 
   const TIME_INPUT_WINDOW = 50;
-  const TIME_UPDATE_WINDOW = 100;
 
   let paused: boolean;
   let currentTime = 0;
@@ -28,7 +27,6 @@
   let trackPlayed = false;
 
   let prevTimeInputEvent: number;
-  let prevUpdated: number;
   let wasPaused: [boolean, boolean] = [false, false]; // [value, has been set flag]
 
   export let currentTrack: TrackWithUrl | undefined;
@@ -52,20 +50,12 @@
       wasPaused[1] = true;
     }
 
-    if (event.timeStamp < prevTimeInputEvent + TIME_INPUT_WINDOW) {
-      // if seeking/dragging slider
-      setPaused(true);
-    } else {
-      currentTime = parseFloat((event.target as HTMLInputElement).value);
-      prevUpdated = event.timeStamp;
-    }
+    if (event.timeStamp < prevTimeInputEvent + TIME_INPUT_WINDOW)
+      setPaused(true); // if seeking/dragging slider
     prevTimeInputEvent = event.timeStamp;
   }
 
-  function onTimeChange(event: Event) {
-    if (prevUpdated < event.timeStamp - TIME_UPDATE_WINDOW) {
-      currentTime = parseFloat((event.target as HTMLInputElement).value);
-    }
+  function onTimeChange() {
     if (!wasPaused[0]) setPaused(false);
     wasPaused[1] = false;
   }

@@ -20,7 +20,6 @@
   const TIME_INPUT_WINDOW = 50;
   const TIME_UPDATE_WINDOW = 100;
 
-  let audioEl: HTMLAudioElement;
   let paused: boolean;
   let currentTime = 0;
   let progressTime = 0;
@@ -34,14 +33,13 @@
 
   export let currentTrack: TrackWithUrl | undefined;
 
-  export function restart() {
-    audioEl.currentTime = 0;
-    audioEl.play();
+  function setPaused(value: boolean) {
+    paused = value;
   }
 
-  function onPlayPause() {
-    if (audioEl.paused) audioEl.play();
-    else audioEl.pause();
+  export function restart() {
+    currentTime = 0;
+    setPaused(false);
   }
 
   function onTimeInput(event: Event) {
@@ -52,11 +50,9 @@
 
     if (event.timeStamp < prevTimeInputEvent + TIME_INPUT_WINDOW) {
       // if seeking/dragging slider
-      audioEl.pause();
+      setPaused(true);
     } else {
-      audioEl.currentTime = parseFloat(
-        (event.target as HTMLInputElement).value
-      );
+      currentTime = parseFloat((event.target as HTMLInputElement).value);
       prevUpdated = event.timeStamp;
     }
     prevTimeInputEvent = event.timeStamp;
@@ -64,11 +60,9 @@
 
   function onTimeChange(event: Event) {
     if (prevUpdated < event.timeStamp - TIME_UPDATE_WINDOW) {
-      audioEl.currentTime = parseFloat(
-        (event.target as HTMLInputElement).value
-      );
+      currentTime = parseFloat((event.target as HTMLInputElement).value);
     }
-    if (!wasPaused[0]) audioEl.play();
+    if (!wasPaused[0]) setPaused(false);
     wasPaused[1] = false;
   }
 
@@ -88,7 +82,6 @@
   bind:duration
   bind:currentTime
   bind:volume
-  bind:this={audioEl}
 >
   Your browser does not support the audio element.
 </audio>
@@ -97,7 +90,7 @@
   <IconButton onClick={queue.prev} disabled={$history.length === 0}>
     <Icon name="back" />
   </IconButton>
-  <IconButton onClick={onPlayPause} disabled={!currentTrack}>
+  <IconButton onClick={() => setPaused(!paused)} disabled={!currentTrack}>
     {#if paused}
       <Icon name="play" />
     {:else}
@@ -139,7 +132,7 @@
     #f5f5f5 {volumePercentage}%, #f5f5f5 100%)"
   />
   <label for="volume">
-    {#if audioEl && audioEl.volume === 0}
+    {#if volume === 0}
       <Icon name="speakerMuted" class="volume-icon" />
     {:else}
       <Icon name="speaker" class="volume-icon" />

@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import { AUTH_COOKIE_KEY } from "../constants";
+import { AUTH_COOKIE_KEY, AUTH_COOKIE_MAX_AGE } from "../constants";
 
 /**
  * Authentication JWT store
@@ -17,7 +17,7 @@ const authToken = writable<string | undefined>(
  */
 const unsubscribeFromAuthToken = authToken.subscribe((value) => {
   if (value)
-    document.cookie = `${AUTH_COOKIE_KEY}=${value}; path=/; max-age=10800`;
+    document.cookie = `${AUTH_COOKIE_KEY}=${value}; path=/; max-age=${AUTH_COOKIE_MAX_AGE}`;
   else document.cookie = `${AUTH_COOKIE_KEY}=; path=/; max-age=0`;
 });
 

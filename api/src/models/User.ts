@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema<IUser>(
           { _id: this._id.toString() },
           process.env.JWT_SECRET ?? "",
           {
-            expiresIn: "3h",
+            expiresIn: "1d",
           }
         );
       },

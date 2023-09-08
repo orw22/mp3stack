@@ -25,6 +25,7 @@
   let progressTime = 0;
   let duration = 0;
   let volume = 1;
+  let muted = false;
   let trackPlayed = false;
 
   let prevTimeInputEvent: number;
@@ -35,6 +36,10 @@
 
   function setPaused(value: boolean) {
     paused = value;
+  }
+
+  function setMuted(value: boolean) {
+    muted = value;
   }
 
   export function restart() {
@@ -80,6 +85,7 @@
   on:ended={queue.next}
   bind:paused
   bind:duration
+  bind:muted
   bind:currentTime
   bind:volume
 >
@@ -132,11 +138,13 @@
     #f5f5f5 {volumePercentage}%, #f5f5f5 100%)"
   />
   <label for="volume">
-    {#if volume === 0}
-      <Icon name="speakerMuted" class="volume-icon" />
-    {:else}
-      <Icon name="speaker" class="volume-icon" />
-    {/if}
+    <IconButton blank onClick={() => setMuted(!muted)}>
+      {#if volume === 0 || muted}
+        <Icon name="speakerMuted" class="volume-icon" />
+      {:else}
+        <Icon name="speaker" class="volume-icon" />
+      {/if}
+    </IconButton>
   </label>
 </div>
 

@@ -22,7 +22,6 @@
 
   let paused: boolean;
   let currentTime = 0;
-  let progressTime = 0;
   let duration = 0;
   let volume = 1;
   let muted = false;
@@ -71,9 +70,7 @@
     wasPaused[1] = false;
   }
 
-  $: currentTime, (progressTime = currentTime);
-
-  $: currentTimePercentage = (progressTime / duration) * 100;
+  $: currentTimePercentage = (currentTime / duration) * 100;
   $: volumePercentage = volume * 100;
 
   $: if (currentTrack) trackPlayed = true;
@@ -109,11 +106,11 @@
 </div>
 
 <div id="current-time-wrapper">
-  <span>{secondsToMMSS(progressTime)}</span>
+  <span>{secondsToMMSS(currentTime)}</span>
   <input
     id="current-time"
     type="range"
-    bind:value={progressTime}
+    bind:value={currentTime}
     on:input={onTimeInput}
     on:change={onTimeChange}
     min={0}

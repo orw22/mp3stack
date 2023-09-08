@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
 function sendSSE(userId: string, eventName: string, data: IUser | IPlaylist) {
   const res = sseSessions.get(userId);
   if (res) res.write(`event: ${eventName}\ndata: ${JSON.stringify(data)}\n\n`);
-  else logger.error(`SSE: No session found for ${userId}`);
+  else logger.warn(`SSE: No session found for ${userId}`);
 }
 
 export { sendSSE, router as sseRouter };

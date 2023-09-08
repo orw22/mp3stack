@@ -2,6 +2,9 @@
   import { SvelteToast } from "@zerodevx/svelte-toast";
   import { onDestroy, onMount } from "svelte";
   import { Route, Router, navigate } from "svelte-navigator";
+  import EsProvider, {
+    esUnsubscribeFromAuthToken,
+  } from "./lib/components/EsProvider.svelte";
   import Footer from "./lib/components/Footer.svelte";
   import Header from "./lib/components/Header.svelte";
   import Playbar from "./lib/components/Playbar/Playbar.svelte";
@@ -13,7 +16,6 @@
   import Search from "./lib/routes/Search.svelte";
   import User from "./lib/routes/User.svelte";
   import authToken, { unsubscribeFromAuthToken } from "./lib/stores/authToken";
-  import { esUnsubscribeFromAuthToken } from "./lib/stores/eventSource";
   import queue from "./lib/stores/queue";
 
   let queueOpen = false;
@@ -33,6 +35,7 @@
 </script>
 
 <SvelteToast options={{ duration: 2500, intro: { x: 300 } }} />
+<EsProvider />
 <Router {url}>
   <Header loggedIn={$authToken ? $authToken.length > 0 : false} />
   <main>

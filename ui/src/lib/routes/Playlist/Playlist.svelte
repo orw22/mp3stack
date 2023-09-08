@@ -4,12 +4,12 @@
   import api from "../../../api";
   import toasts from "../../../toasts";
   import ActionBar from "../../components/ActionBar.svelte";
+  import { es } from "../../components/EsProvider.svelte";
   import Layout from "../../components/Layout.svelte";
   import Loader from "../../components/Loader.svelte";
   import NameForm from "../../components/NameForm.svelte";
   import TrackRow from "../../components/TrackRow.svelte";
   import blobUrls from "../../stores/blobUrls";
-  import eventSource from "../../stores/eventSource";
   import queue from "../../stores/queue";
   import type { Track } from "../../types";
   import { TrackAction } from "../../types/enums";
@@ -161,10 +161,10 @@
     setUpdated(true);
   }
 
-  eventSource?.addEventListener("playlistUpdate", onPlaylistUpdate);
+  es?.addEventListener("playlistUpdate", onPlaylistUpdate);
   onDestroy(() => {
     if (updated) api.noCacheGet(`/playlists/${id}`); // update HTTP cache in background
-    eventSource?.removeEventListener("playlistUpdate", onPlaylistUpdate);
+    es?.removeEventListener("playlistUpdate", onPlaylistUpdate);
   });
 </script>
 

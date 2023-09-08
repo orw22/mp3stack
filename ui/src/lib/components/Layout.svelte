@@ -11,10 +11,9 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { navigate, useLocation } from "svelte-navigator";
-  import toasts from "../../toasts";
   import authToken from "../stores/authToken";
-  import eventSource from "../stores/eventSource";
   import { resetStores } from "../utils/store";
+  import { es, initialiseEs } from "./EsProvider.svelte";
   import Icon from "./Icon.svelte";
   import IconButton from "./IconButton.svelte";
 
@@ -25,12 +24,9 @@
       // if no token, reset stores and go to login page
       resetStores();
       navigate("/login", { replace: true });
-    } else if (!$eventSource) {
-      // if token present and eventSource not initialised
-      eventSource.initialise();
-      eventSource.setOnError(() => {
-        toasts.error("SSE connection error");
-      });
+    } else if (!es) {
+      // if token present and es not initialised
+      initialiseEs();
     }
   });
 

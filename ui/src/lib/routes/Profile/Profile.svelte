@@ -3,10 +3,10 @@
   import api from "../../../api";
   import toasts from "../../../toasts";
   import ActionBar from "../../components/ActionBar.svelte";
+  import { es } from "../../components/EsProvider.svelte";
   import Layout from "../../components/Layout.svelte";
   import Loader from "../../components/Loader.svelte";
   import authToken from "../../stores/authToken";
-  import eventSource from "../../stores/eventSource";
   import ResetPasswordForm from "./ResetPasswordForm.svelte";
   import UpdateProfileForm from "./UpdateProfileForm.svelte";
 
@@ -84,10 +84,11 @@
     setUpdated(true);
   }
 
-  eventSource?.addEventListener("userUpdate", onUserUpdate);
+  es?.addEventListener("userUpdate", onUserUpdate);
   onDestroy(() => {
-    if (updated) api.noCacheGet("/users/me"); // update HTTP cache in background
-    eventSource?.removeEventListener("userUpdate", onUserUpdate);
+    if (updated)
+      api.noCacheGet("/users/me", { params: { et: $authToken?.slice(-6) } }); // update HTTP cache in background
+    es?.removeEventListener("userUpdate", onUserUpdate);
   });
 </script>
 

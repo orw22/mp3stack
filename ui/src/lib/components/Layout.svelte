@@ -20,13 +20,13 @@
 
   const location = useLocation();
 
-  // if no token, reset stores and redirect to login page
   onMount(() => {
     if (!$authToken) {
+      // if no token, reset stores and go to login page
       resetStores();
       navigate("/login", { replace: true });
     } else if (!$eventSource) {
-      // if token and eventSource not initialised
+      // if token present and eventSource not initialised
       eventSource.initialise();
       eventSource.setOnError(() => {
         toasts.error("SSE connection error");

@@ -11,6 +11,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { navigate, useLocation } from "svelte-navigator";
+  import toasts from "../../toasts";
   import authToken from "../stores/authToken";
   import eventSource from "../stores/eventSource";
   import { resetStores } from "../utils/store";
@@ -27,8 +28,8 @@
     } else if (!$eventSource) {
       // if token and eventSource not initialised
       eventSource.initialise();
-      eventSource.setOnError((event: Event) => {
-        console.error(event);
+      eventSource.setOnError(() => {
+        toasts.error("SSE connection error");
       });
     }
   });

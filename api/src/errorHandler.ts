@@ -16,6 +16,8 @@ const errorHandler = (
   res: Response,
   __: NextFunction
 ): void => {
+  logger.error(err);
+
   if (err instanceof HttpError) {
     res.status(err.status || 500).send({ message: err.message });
   } else if (err instanceof mongoose.Error.ValidationError) {
@@ -31,7 +33,6 @@ const errorHandler = (
     else res.status(500).send({ message: "Something went wrong" });
   } else {
     logger.warn("!! ERROR NOT HANDLED !!");
-    logger.error(err);
     res.status(500).send();
   }
 };

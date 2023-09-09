@@ -15,7 +15,7 @@
 
   async function onSearchUsers(event: Event) {
     // throttle API calls
-    if (prevUserInputEvent > event.timeStamp - SEARCH_WINDOW) return;
+    if (prevUserInputEvent > event.timeStamp - SEARCH_INTERVAL) return;
 
     prevUserInputEvent = event.timeStamp;
     await api

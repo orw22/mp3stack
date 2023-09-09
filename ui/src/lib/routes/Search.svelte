@@ -6,7 +6,7 @@
   import SearchBar from "../components/SearchBar.svelte";
   import type { User } from "../types";
 
-  const SEARCH_WINDOW = 200;
+  const SEARCH_INTERVAL = 200;
 
   let searchQuery: string;
   let prevUserInputEvent: number;

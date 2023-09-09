@@ -17,7 +17,7 @@
   import Icon from "../Icon.svelte";
   import IconButton from "../IconButton.svelte";
 
-  const TIME_INPUT_WINDOW = 50;
+  const CURRENTTIME_INPUT_INTERVAL = 50;
 
   let paused: boolean;
   let currentTime = 0;
@@ -50,7 +50,7 @@
       wasPaused[1] = true;
     }
 
-    if (event.timeStamp < prevTimeInputEvent + TIME_INPUT_WINDOW)
+    if (event.timeStamp < prevTimeInputEvent + CURRENTTIME_INPUT_INTERVAL)
       setPaused(true); // if seeking/dragging slider
     prevTimeInputEvent = event.timeStamp;
   }

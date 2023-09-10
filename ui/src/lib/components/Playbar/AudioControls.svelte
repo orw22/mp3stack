@@ -27,7 +27,7 @@
   let trackPlayed = false;
 
   let prevTimeInputEvent: number;
-  let wasPaused: [boolean, boolean] = [false, false]; // [value, has been set flag]
+  let wasPaused: [boolean, number] = [false, 0]; // [value, has been set flag (0 or 1)]
 
   export let currentTrack: TrackWithUrl | undefined;
 
@@ -47,17 +47,16 @@
   function onTimeInput(event: Event) {
     if (!wasPaused[1]) {
       wasPaused[0] = paused;
-      wasPaused[1] = true;
+      wasPaused[1] = 1;
     }
 
-    if (event.timeStamp < prevTimeInputEvent + CURRENTTIME_INPUT_INTERVAL)
-      setPaused(true); // if seeking/dragging slider
+    if (event.timeStamp < prevTimeInputEvent + CURRENTTIME_INPUT_INTERVAL) setPaused(true); // if seeking/dragging slider
     prevTimeInputEvent = event.timeStamp;
   }
 
   function onTimeChange() {
     if (!wasPaused[0]) setPaused(false);
-    wasPaused[1] = false;
+    wasPaused[1] = 0;
   }
 
   $: currentTimePercentage = (currentTime / duration) * 100;
@@ -121,8 +120,8 @@
     max={1}
     step={0.01}
     bind:value={volume}
-    style:background="linear-gradient(to right, #00b0b9 0%, #00b0b9 {volumePercentage}%,
-    #f5f5f5 {volumePercentage}%, #f5f5f5 100%)"
+    style:background="linear-gradient(to right, #00b0b9 0%, #00b0b9 {volumePercentage}%, #f5f5f5 {volumePercentage}%,
+    #f5f5f5 100%)"
   />
   <label for="volume">
     <IconButton blank onClick={() => setMuted(!muted)}>

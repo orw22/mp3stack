@@ -133,10 +133,7 @@ export default class PlaylistController implements Controller {
     res: Response,
     next: NextFunction
   ) {
-    await Playlist.updateOne(
-      { _id: playlistId, userId: userId },
-      { $pull: { tracks: { _id: trackId.toString() } } }
-    )
+    await Playlist.updateOne({ _id: playlistId, userId: userId }, { $pull: { tracks: { _id: trackId.toString() } } })
       .then(() => {
         res.status(204).send();
       })
@@ -163,10 +160,7 @@ export default class PlaylistController implements Controller {
     playlist.userId = req.userId;
     delete playlist.tracks;
 
-    await Playlist.updateOne(
-      { _id: req.params.playlistId, userId: req.userId },
-      { $set: playlist }
-    )
+    await Playlist.updateOne({ _id: req.params.playlistId, userId: req.userId }, { $set: playlist })
       .then(() => res.status(204).send())
       .catch(next);
   }
@@ -182,12 +176,7 @@ export default class PlaylistController implements Controller {
    * @param res
    * @param next
    */
-  async toggleFollowStatus(
-    playlistId: string,
-    userId: string,
-    res: Response,
-    next: NextFunction
-  ) {
+  async toggleFollowStatus(playlistId: string, userId: string, res: Response, next: NextFunction) {
     await Playlist.updateOne({ _id: playlistId }, [
       {
         $set: {
@@ -220,8 +209,7 @@ export default class PlaylistController implements Controller {
         if (update.modifiedCount > 0) res.status(204).send();
         else
           res.status(400).send({
-            message:
-              "Follow status change failed. Playlist is private or user is owner.",
+            message: "Follow status change failed. Playlist is private or user is owner.",
           });
       })
       .catch(next);

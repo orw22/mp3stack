@@ -10,9 +10,7 @@ const logger = winston.createLogger({
   format: combine(
     timestamp(),
     printf(({ timestamp, level, message, stack }) => {
-      return `${timestamp} [${level}] - ${message} ${
-        stack ? "\n" + stack : ""
-      }`;
+      return `${timestamp} [${level}] - ${message} ${stack ? "\n" + stack : ""}`;
     })
   ),
   transports: [new winston.transports.Console()],

@@ -56,12 +56,7 @@ export default class UserController implements Controller {
    * @param res
    * @param next
    */
-  async findByName(
-    name: string,
-    userId: string,
-    res: Response,
-    next: NextFunction
-  ) {
+  async findByName(name: string, userId: string, res: Response, next: NextFunction) {
     if (!name) {
       return res.status(200).send([]);
     }
@@ -109,11 +104,7 @@ export default class UserController implements Controller {
    * @param res
    * @param next
    */
-  async getOtherUserAndPlaylists(
-    userId: string,
-    res: Response,
-    next: NextFunction
-  ) {
+  async getOtherUserAndPlaylists(userId: string, res: Response, next: NextFunction) {
     try {
       const [user, playlists] = await Promise.all([
         User.findById(userId, {

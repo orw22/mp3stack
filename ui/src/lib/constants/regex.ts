@@ -27,5 +27,4 @@ export const EMAIL_PATTERN = /^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
  * @see https://stackoverflow.com/questions/76285652/valid-with-the-regexp-u-flag-but-not-with-the-v-flag
  * @constant {RegExp}
  */
-export const PASSWORD_PATTERN =
-  /^(?=.*[!@#$%^&*\(\)_+\{\}\[\]:;<>,.?~\-]).*(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,128}$/;
+export const PASSWORD_PATTERN = /^(?=.*[!@#$%^&*\(\)_+\{\}\[\]:;<>,.?~\-]).*(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,128}$/;

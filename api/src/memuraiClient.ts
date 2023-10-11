@@ -8,9 +8,7 @@ dotenv.config();
 const memuraiClient = createClient({
   url: process.env.MEMURAI_URL ?? "",
 });
-memuraiClient.on("error", (error) =>
-  logger.error("Memurai connection error", error)
-);
+memuraiClient.on("error", (error) => logger.error("Memurai connection error", error));
 memuraiClient.on("connect", () => logger.info("Connected to memurai cache"));
 
 (async () => {

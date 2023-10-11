@@ -10,12 +10,7 @@ import logger from "./logger";
  * @param err - The error thrown during request processing
  * @param res - The response object
  */
-const errorHandler = (
-  err: Error,
-  _: Request,
-  res: Response,
-  __: NextFunction
-): void => {
+const errorHandler = (err: Error, _: Request, res: Response, __: NextFunction): void => {
   logger.error(err);
 
   if (err instanceof HttpError) {
@@ -27,8 +22,7 @@ const errorHandler = (
   } else if (err instanceof MongoServerError) {
     if (err.code === 11000)
       res.status(400).send({
-        message:
-          "An account with this email already exists. Please enter another email",
+        message: "An account with this email already exists. Please enter another email",
       });
     else res.status(500).send({ message: "Something went wrong" });
   } else {

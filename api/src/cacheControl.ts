@@ -10,11 +10,7 @@ import { NextFunction, Request, Response } from "express";
  * @param res
  * @param next
  */
-const cacheControl = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
+const cacheControl = (req: Request, res: Response, next: NextFunction): void => {
   if (req.method === "GET" && !req.url.startsWith("/tracks")) {
     // Set Cache-Control to enable caching for 1 day
     res.set("Cache-Control", "private, max-age=86400, must-revalidate");

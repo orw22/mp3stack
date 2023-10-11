@@ -20,10 +20,7 @@ export interface IUserFuncs {
    * @param {string} password - The password to verify.
    * @param {(error: Error, same: boolean) => void} callback - A callback function to handle the result.
    */
-  verifyPassword(
-    password: string,
-    callback: (error: Error, same: boolean) => void
-  ): void;
+  verifyPassword(password: string, callback: (error: Error, same: boolean) => void): void;
 
   /**
    * Generates a JWT for the user.

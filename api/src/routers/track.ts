@@ -12,11 +12,7 @@ mongoose.connection.on("open", () => {
   trackController = new TrackController();
 });
 
-router.get(
-  "/:trackId",
-  async (req, res, next) =>
-    await trackController.getTrack(req.params.trackId, res, next)
-);
+router.get("/:trackId", async (req, res, next) => await trackController.getTrack(req.params.trackId, res, next));
 
 // admin (temporary)
 // router.delete("/all", async (_, res) => {

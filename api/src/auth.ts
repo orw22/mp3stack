@@ -17,9 +17,7 @@ import jwt from "jsonwebtoken";
  */
 export function authenticate(useCookie: boolean = false) {
   return (req: Request, _: Response, next: NextFunction) => {
-    const token = useCookie
-      ? req.cookies.mp3stack_auth
-      : req.headers.authorization?.slice(7);
+    const token = useCookie ? req.cookies.mp3stack_auth : req.headers.authorization?.slice(7);
     if (token) {
       try {
         const payload = jwt.verify(token, process.env.JWT_SECRET ?? "") as {

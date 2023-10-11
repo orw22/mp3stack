@@ -9,12 +9,7 @@ const userController = new UserController();
 
 // Search users
 router.get("/", async (req, res, next) => {
-  await userController.findByName(
-    req.query.name as string,
-    req.userId,
-    res,
-    next
-  );
+  await userController.findByName(req.query.name as string, req.userId, res, next);
 });
 
 // Get user

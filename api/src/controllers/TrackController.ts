@@ -45,12 +45,7 @@ export default class TrackController {
     try {
       trackObjId = new mongoose.mongo.ObjectId(trackId);
     } catch (error) {
-      return next(
-        createError(
-          400,
-          "Invalid track ID. It must be a single string of 12 bytes or 24 hex characters"
-        )
-      );
+      return next(createError(400, "Invalid track ID. It must be a single string of 12 bytes or 24 hex characters"));
     }
 
     res.set("Content-Type", "audio/mpeg");

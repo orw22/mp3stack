@@ -34,23 +34,12 @@ router.post("/:playlistId/tracks", async (req, res, next) => {
 
 // Remove track
 router.delete("/:playlistId/tracks/:trackId", async (req, res, next) => {
-  await playlistController.deleteTrackFromPlaylist(
-    req.params.playlistId,
-    req.params.trackId,
-    req.userId,
-    res,
-    next
-  );
+  await playlistController.deleteTrackFromPlaylist(req.params.playlistId, req.params.trackId, req.userId, res, next);
 });
 
 // Follow/unfollow playlist
 router.put("/:playlistId/follow", async (req, res, next) => {
-  await playlistController.toggleFollowStatus(
-    req.params.playlistId,
-    req.userId,
-    res,
-    next
-  );
+  await playlistController.toggleFollowStatus(req.params.playlistId, req.userId, res, next);
 });
 
 // Delete playlist

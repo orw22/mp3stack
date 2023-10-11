@@ -18,7 +18,7 @@ export const playlistSchema = new mongoose.Schema<IPlaylist>({
     required: true,
     validate: {
       validator: (name: string) =>
-        validator.isAlphanumeric(name) && name.length <= MAX_NAME_LENGTH,
+        validator.isAlphanumeric(name, undefined, { ignore: " " }) && name.length <= MAX_NAME_LENGTH,
       message: `Invalid name (must be alphanumeric and less than ${MAX_NAME_LENGTH} characters)`,
     },
   },
@@ -38,10 +38,7 @@ export const playlistSchema = new mongoose.Schema<IPlaylist>({
 // post remove track, delete from GridFS bucket
 playlistSchema.post("updateOne", async function () {
   const data = this.getUpdate() as { $pull?: { tracks: { _id: string } } };
-  if (data?.$pull && data.$pull.tracks)
-    await trackBucket.delete(
-      new mongoose.mongo.ObjectId(data.$pull.tracks._id)
-    );
+  if (data?.$pull && data.$pull.tracks) await trackBucket.delete(new mongoose.mongo.ObjectId(data.$pull.tracks._id));
 
   // send SSE with updated playlist
   await this.model
@@ -58,9 +55,7 @@ playlistSchema.post("updateOne", async function () {
 playlistSchema.pre("deleteOne", async function (next) {
   const _id = this.getFilter()["_id"];
   const playlist = await Playlist.findOne({ _id }).exec().catch(next);
-  playlist?.tracks?.forEach(
-    async (track) => await trackBucket.delete(track._id).catch(next)
-  );
+  playlist?.tracks?.forEach(async (track) => await trackBucket.delete(track._id).catch(next));
 
   return next();
 });

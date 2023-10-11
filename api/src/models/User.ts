@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema<IUser>(
       required: true,
       validate: {
         validator: (name: string) =>
-          validator.isAlpha(name) && name.length <= MAX_NAME_LENGTH,
+          validator.isAlpha(name, undefined, { ignore: " " }) && name.length <= MAX_NAME_LENGTH,
         message: `Invalid name (must be alphabetic and less than ${MAX_NAME_LENGTH} characters)`,
       },
     },
@@ -47,27 +47,16 @@ const userSchema = new mongoose.Schema<IUser>(
   },
   {
     methods: {
-      verifyPassword: function (
-        password: string,
-        callback: (error: Error, same: boolean) => void
-      ) {
-        bcrypt.compare(
-          password,
-          this.password,
-          (error: Error | undefined, same: boolean) => {
-            if (error) return callback(error, false);
-            callback(null as any, same);
-          }
-        );
+      verifyPassword: function (password: string, callback: (error: Error, same: boolean) => void) {
+        bcrypt.compare(password, this.password, (error: Error | undefined, same: boolean) => {
+          if (error) return callback(error, false);
+          callback(null as any, same);
+        });
       },
       generateToken: function () {
-        return jwt.sign(
-          { _id: this._id.toString() },
-          process.env.JWT_SECRET ?? "",
-          {
-            expiresIn: "1d",
-          }
-        );
+        return jwt.sign({ _id: this._id.toString() }, process.env.JWT_SECRET ?? "", {
+          expiresIn: "1d",
+        });
       },
     },
   }
@@ -96,9 +85,7 @@ userSchema.pre("updateOne", function (next) {
       minLength: MIN_PASSWORD_LENGTH,
     })
   ) {
-    return next(
-      createError(400, "Password too weak. Please enter a stronger password")
-    );
+    return next(createError(400, "Password too weak. Please enter a stronger password"));
   }
 
   return bcrypt.hash(data.$set.password, SALT_ROUNDS, (hashError, hash) => {
@@ -130,9 +117,7 @@ userSchema.post("deleteOne", async function () {
     return;
   } else {
     playlists.forEach((playlist) => {
-      playlist.tracks?.forEach(
-        async (track) => await trackBucket.delete(track._id)
-      );
+      playlist.tracks?.forEach(async (track) => await trackBucket.delete(track._id));
     });
 
     await Playlist.deleteMany({ userId }).exec();
